@@ -23,24 +23,30 @@ namespace CalendrierDesArchives.DAO
         {
             
             fichiers = new List<Fichier>();
-            fichiers = this.listerTousLesfichiers();
 
         }
-        public void ajouterFichier()
+        public void ajouterFichier(string Nom, string Type, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention, int idP)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
+            {
+                connection.Execute($"INSERT INTO Fichier(Nom,Type,DateAjout, DateModification, DateDernierAcces,  DateSuppression,  Chemain,  extention,idP) " +
+                    $"values ('{ Nom}','{ Type}','{ DateAjout}', '{DateModification}', '{ DateDernierAcces}', '{ DateSuppression}','{Chemain}', '{extention}','{idP}')");
+            }
         }
-
-        public void supprimerFichier()
+        void FichierIDAO.supprimerFichier(int id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
+            {
+                connection.Execute($"");
+            }
         }
-
-        public void modifierFichier()
+        void FichierIDAO.modifierFichier(int id, string Nom, string Type, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention, int idP)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
+            {
+                connection.Execute($"");
+            }
         }
-
         public List<Fichier> listerLesfichiersParDate(DateTime date)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
@@ -49,7 +55,6 @@ namespace CalendrierDesArchives.DAO
             }
             
         }
-
         public List<Fichier> listerTousLesfichiers()
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
@@ -57,6 +62,16 @@ namespace CalendrierDesArchives.DAO
                 return connection.Query<Fichier>($"Select * From Fichier")
                     .ToList();
             }
+        }
+        public void renitialiserTout()
+        {
+            fichiers.Clear();
+            fichiers = this.listerTousLesfichiers();
+        }
+        public void renitialiserDate(DateTime date)
+        {
+            fichiers.Clear();
+            fichiers = this.listerLesfichiersParDate(date);
         }
     }
 }

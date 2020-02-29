@@ -42,10 +42,5 @@ namespace CalendrierDesArchives.Model
             this.chemain = chemain;
             this.dateAjout = dateAjout;
         }
-
-        public String afficherMoi()
-        {
-            return "i am " + this.nomFichier;
-        }
     }
 }
