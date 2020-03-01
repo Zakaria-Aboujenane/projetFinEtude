@@ -70,18 +70,25 @@ for(x=day; x>0;x--){
 
 for(i=1;i<=endDate;i++){
     if(i==today.getDate() && dt.getMonth()==today.getMonth() &&dt.getFullYear()==today.getFullYear()){
-        cells+="<div class='today' onclick='ay("+i+")'>" + i + "</div>"; 
+        cells += "<div class='today' onclick='getCurrentDay("+i+")'>" + i + "</div>"; 
     }
     else{
-        cells+="<div onclick='ay("+i+")' >" + i + "</div>"; 
+        cells += "<div runat='server' onclick='getCurrentDay(" + i +")' >" + i + "</div>"; 
     }
 }
 
 document.getElementsByClassName("jour")[0].innerHTML =cells; 
 }
-function ay(x){
-    console.log(" "+x+"-"+(dt.getMonth()+1)+"-"+dt.getFullYear());
+function getCurrentDay(x) {
+    var dateString = "";
+    if (x <= 9 && dt.getMonth()+1 <= 9 )
+        dateString = "0" + (dt.getMonth() + 1) + "/0" +x  + "/" + dt.getFullYear();
+    else 
+        dateString = (dt.getMonth() + 1) + "/" + x + "/" + dt.getFullYear();
+
+    callCS(dateString);
 }
+
 function moveDate(para){
   if(para=='prev'){
       dt.setMonth(dt.getMonth()-1);

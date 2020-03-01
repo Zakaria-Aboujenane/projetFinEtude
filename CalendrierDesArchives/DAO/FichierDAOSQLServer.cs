@@ -47,11 +47,12 @@ namespace CalendrierDesArchives.DAO
                 connection.Execute($"");
             }
         }
-        public List<Fichier> listerLesfichiersParDate(DateTime date)
+        public List<Fichier> listerLesfichiersParDate(String date)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                return connection.Query<Fichier>($"Select * From Fichier Where DateAjout = '{date}' OR DateModification = '{date}' OR DateSuppression = '{date}' ").ToList();
+                
+                return connection.Query<Fichier>($"Select * From Fichier Where datediff(day, DateAjout, '{date}')=0 OR datediff(day, DateModification,'{date}')=0 OR datediff(day, DateSuppression, '{date}')=0 ").ToList();
             }
             
         }
@@ -72,6 +73,11 @@ namespace CalendrierDesArchives.DAO
         {
             fichiers.Clear();
             fichiers = this.listerLesfichiersParDate(date);
+        }
+
+        public List<Fichier> listerLesfichiersParDate(DateTime date)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -79,9 +79,9 @@
     <Content Include="App_Data\CalendrierApp_log.ldf">
       <DependentUpon>CalendrierApp.mdf</DependentUpon>
     </Content>
-    <Content Include="Presentation\Calendrier.html" />
     <Content Include="Presentation\javascript\Calendrier.js" />
     <Content Include="Presentation\style\Calendrier.css" />
+    <Content Include="Presentation\WebForm1.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +90,13 @@
     <Compile Include="DAO\FichierIDAO.cs" />
     <Compile Include="Model\Fichier.cs" />
     <Compile Include="Model\Utilisateur.cs" />
+    <Compile Include="Presentation\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
