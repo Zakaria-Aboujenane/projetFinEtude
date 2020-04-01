@@ -6,6 +6,8 @@
         <title>Calendrier des Archives</title>
           <!-- include calendrier.css-->
         <link rel="stylesheet" href="style/Calendrier.css" type="text/css">
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+        <script src="https://kit.fontawesome.com/6c9ba7741a.js" crossorigin="anonymous"></script>
     </head>
     <body onload="RenderDate()">
         
@@ -48,7 +50,6 @@
                         <span>&#10095</span>
                     </div>
                 </div>
-                <div runat="server" onclick="pass(2)">heeey pooo</div>
 
                <div class="mois">
                   <div class="prev" onclick="moveDate('prev')">
@@ -75,7 +76,19 @@
                </div>
             </div>
         </div>
-        <div class="ListFichers"></div>
+            
+        <div class="ListFichers">
+            <div id="simpleModal" class="modal">
+               
+            <div id="ModalContent" class="modal-content">
+              
+        </div>
+    </div>
+            
+            <asp:GridView ID="GridView1" runat="server">
+            </asp:GridView>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
+        </div>
         </form>
     </body>
     
@@ -95,7 +108,10 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (msg) {
-                    alert(msg.d);
+                    openModel();
+                    alert("hello");
+                    alert("hi"+msg.d);
+                    $("#ModalContent").html(msg.d);
                 },
                 error: function (e) {
                     alert("noo" + e.error);

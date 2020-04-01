@@ -87,6 +87,7 @@ function getCurrentDay(x) {
         dateString = (dt.getMonth() + 1) + "/" + x + "/" + dt.getFullYear();
 
     callCS(dateString);
+
 }
 
 function moveDate(para){
@@ -106,4 +107,38 @@ function moveDate(para){
      dt.setFullYear(dt.getFullYear()+1);
      RenderDate();
  }
+}
+//get modal element
+
+
+//get Close button
+
+
+//listen for open click
+
+//listen for otside click;
+
+
+//listen for outside click
+var closeBtn = document.getElementsByClassName('closeBtn')[0];
+var modal = document.getElementById('simpleModal');
+closeBtn.addEventListener('click', closeModal);
+window.addEventListener('click', outsideClick);
+//function to close modal
+function closeModal() {
+    modal.style.display = 'none ';
+}
+//function to close modal if outside click
+function outsideClick(e) {
+    if (e.target == modal) {
+        modal.style.display = 'none ';
+    }
+}
+function openModel() {
+
+   
+    modal.style.display = 'block';
+   
+   
+
 }

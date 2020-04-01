@@ -5,12 +5,13 @@ using System.Linq;
 using System.Web;
 using Dapper;
 using System.Data;
+using Hangfire;
 
 namespace CalendrierDesArchives.DAO
 {
     public class FichierDAOSQLServer : FichierIDAO
     {
-        
+        //singletion:
         private static List<Fichier> fichiers;
         private static FichierDAOSQLServer instance = null;
         public static FichierDAOSQLServer getInstance()
@@ -25,22 +26,24 @@ namespace CalendrierDesArchives.DAO
             fichiers = new List<Fichier>();
 
         }
-        public void ajouterFichier(string Nom, string Type, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention, int idP)
+        public void ajouterFichier(string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention, int idP,int idType)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
                 connection.Execute($"INSERT INTO Fichier(Nom,Type,DateAjout, DateModification, DateDernierAcces,  DateSuppression,  Chemain,  extention,idP) " +
-                    $"values ('{ Nom}','{ Type}','{ DateAjout}', '{DateModification}', '{ DateDernierAcces}', '{ DateSuppression}','{Chemain}', '{extention}','{idP}')");
+                    $"values ('{ Nom}','{ DateAjout}', '{DateModification}', '{ DateDernierAcces}', '{ DateSuppression}','{Chemain}', '{extention}','{idP}')");
             }
+          
         }
-        void FichierIDAO.supprimerFichier(int id)
+        public void supprimerFichier(int id)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
                 connection.Execute($"");
             }
         }
-        void FichierIDAO.modifierFichier(int id, string Nom, string Type, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention, int idP)
+        //modifier(id,Fichier F)
+        public void modifierFichier(int id, string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention, int idP,int idType)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
@@ -79,5 +82,7 @@ namespace CalendrierDesArchives.DAO
         {
             throw new NotImplementedException();
         }
+
+      
     }
 }
