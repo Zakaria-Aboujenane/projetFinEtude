@@ -1,5 +1,5 @@
 var annonce=document.querySelector('.annonce')
-var btn=document.querySelector('.cercle')
+
 
 var comble=document.querySelector('.comble')
 var comble1=document.querySelector('.comble1');
@@ -27,7 +27,7 @@ var supprimer=function(){
     comble3.style.display="none"
 }
 
-btn.addEventListener('click',affiche)
+
 comble.addEventListener('click',supprimer)
 comble1.addEventListener('click',supprimer)
 comble2.addEventListener('click',supprimer)
@@ -85,7 +85,6 @@ function getCurrentDay(x) {
         dateString = "0" + (dt.getMonth() + 1) + "/0" +x  + "/" + dt.getFullYear();
     else 
         dateString = (dt.getMonth() + 1) + "/" + x + "/" + dt.getFullYear();
-
     callCS(dateString);
 
 }
@@ -120,10 +119,12 @@ function moveDate(para){
 
 
 //listen for outside click
-var closeBtn = document.getElementsByClassName('closeBtn')[0];
-var modal = document.getElementById('simpleModal');
-closeBtn.addEventListener('click', closeModal);
+//var closeBtn = document.getElementsByClassName('closeBtn')[0];
+var modalA = document.getElementById('SimpleModalA');
+var closeB = document.getElementById('closeMe');
+//closeBtn.addEventListener('click', closeModal);
 window.addEventListener('click', outsideClick);
+closeB.addEventListener('click', closeModal);
 //function to close modal
 function closeModal() {
     modal.style.display = 'none ';
@@ -135,10 +136,6 @@ function outsideClick(e) {
     }
 }
 function openModel() {
-
-   
-    modal.style.display = 'block';
-   
-   
-
+    modalA.style.display = 'block';
 }
+

@@ -19,8 +19,9 @@ namespace CalendrierDesArchives.Model
         public String extention { get; set; }
         public int idParent { get; set; }
         public Type type { get; set; }
+        public String Description { get; set; }
         //Constructeur pour la base de donnees :
-        public Fichier(int IdFichier, string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention, int idP,int idType)
+        public Fichier(int IdFichier, string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention, int idP,int idType,string Description)
         {
             type = new Type();
             this.idFichier = IdFichier;
@@ -33,6 +34,7 @@ namespace CalendrierDesArchives.Model
             this.extention = extention;
             this.idParent = idP;
             this.type.idType = idType;
+            this.Description = Description;
         }
 
         public Fichier(int idFichier, int idParent, string nomFichier,string chemain, DateTime dateAjout)

@@ -100,9 +100,16 @@
     <Content Include="App_Data\CalendrierApp_log.ldf">
       <DependentUpon>CalendrierApp.mdf</DependentUpon>
     </Content>
+    <Content Include="Presentation\Calendrier.aspx" />
     <Content Include="Presentation\images\pdf.png" />
     <Content Include="Presentation\javascript\Calendrier.js" />
+    <Content Include="Presentation\javascript\Profil.js" />
     <Content Include="Presentation\style\Calendrier.css" />
+    <Content Include="Presentation\style\footer.css" />
+    <Content Include="Presentation\style\Profil.css" />
+    <Content Include="Presentation\style\sectionHead.css" />
+    <Content Include="Presentation\style\sidebar.css" />
+    <Content Include="Presentation\Types.aspx" />
     <Content Include="Presentation\WebForm1.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -112,11 +119,35 @@
     <Compile Include="DAO\FichierIDAO.cs" />
     <Compile Include="DAO\TypeDAOSQLServer.cs" />
     <Compile Include="DAO\TypeIDAO.cs" />
+    <Compile Include="DAO\UtilisateurIDAO.cs" />
+    <Compile Include="DAO\UtilisateurIDAOSQLServer.cs" />
     <Compile Include="Metiers\ActionsFichier.cs" />
     <Compile Include="Metiers\ActionsType.cs" />
+    <Compile Include="Metiers\ActionsUtilisateur.cs" />
     <Compile Include="Model\Fichier.cs" />
     <Compile Include="Model\Type.cs" />
     <Compile Include="Model\Utilisateur.cs" />
+    <Compile Include="Presentation\Calendrier.aspx.cs">
+      <DependentUpon>Calendrier.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation\Calendrier.aspx.designer.cs">
+      <DependentUpon>Calendrier.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Site1.Master.cs">
+      <DependentUpon>Site1.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation\Site1.Master.designer.cs">
+      <DependentUpon>Site1.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Types.aspx.cs">
+      <DependentUpon>Types.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation\Types.aspx.designer.cs">
+      <DependentUpon>Types.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -129,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Presentation\Site1.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

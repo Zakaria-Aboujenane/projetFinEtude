@@ -11,11 +11,13 @@ namespace CalendrierDesArchives.Model
         public int idType { get; set; }
         public String nomType { get; set; }
         public int duree { get; set; }
-        public Type(int idType, string nomType, int duree)
+        public string action { get; set; }
+        public Type(int idType, string nomType, int duree,string action)
         {
             this.idType = idType;
             this.nomType = nomType;
-            duree = duree;
+            this.duree = duree;
+            this.action = action;
         }
         public Type()
         {

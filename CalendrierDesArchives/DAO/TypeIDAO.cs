@@ -9,14 +9,13 @@ namespace CalendrierDesArchives.DAO
 {
     interface TypeIDAO
     {
-        void ajouterType(String nomType,int Duree);
+        void ajouterType(String nomType, int Duree,string action);
         void supprimerType(int idType);
-        void modifierType(int idType, String nvNom, int nvDuree);
+        void modifierType(int idType, String nvNom, int nvDuree,string nvAction);
         List<Type> listerTypes();
         Type getTypeById(int idType);
         Type getTypeByName(String name);
-
-
+        List<Type> rechercheTypeParNom(String type);
 
     }
 }

@@ -1,0 +1,169 @@
+﻿.ContentAll{
+    min-height:150px;
+}
+.contentSidebar .seection {
+    float: left;
+}
+
+.sideBar {
+    width: 250px;
+    margin: 0;
+    float: left;
+}
+
+.seection.tableau {
+    width: 80%;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.tableau table, tr, th, td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: white;
+    border: 1px solid #080808;
+    border-collapse: collapse;
+    font-size: 18px;
+    font-family: Arial;
+    background: linear-gradient(top, #3c3c3c 0%,#222222 100%);
+    background: -webkit-linear-gradient(top, #3c3c3c 0%,#222222 100%);
+}
+.tableTypes {
+    width: 70%;
+    float: left;
+    /* margin: auto; */
+    margin: 60px 0px 0px 100px;
+}
+.tableau {
+    width: 90%;
+}
+
+.table tr:hover {
+    background: orange;
+}
+
+.btn-delete {
+    font-size: 20px;
+    height: 35px;
+    border-radius: 20px;
+    background: #ff6666;
+    border-color: #ff4d4d;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+    .btn-delete:hover {
+        background: #ff4d4d;
+        border-color: #ff6666;
+    }
+
+.btn-edit {
+    font-size: 20px;
+    height: 35px;
+    border-radius: 20px;
+    background: #666666;
+    border-color: #262626;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.contentFiliere {
+    width: 15%;
+    float: left;
+    margin-top: 50px;
+}
+
+.btn-edit:hover {
+    background: #262626;
+    border-color: #666666;
+}
+
+.sidebar {
+    position: relative;
+    left: -250px;
+    width: 250px;
+    height: auto;
+    background: #262626;
+    transition: all .5px ease;
+}
+
+    .sidebar header {
+        font-size: 22px;
+        color: white;
+        text-align: center;
+        line-height: 70px;
+        background: #666666;
+        user-select: none;
+    }
+
+    .sidebar ul a {
+        display: block;
+        width: 100%;
+        line-height: 65px;
+        font-size: 20px;
+        color: white;
+        padding-left: 40px;
+        box-sizing: border-box;
+        border-top: 1px solid rgba(255,255,255,.1);
+        border-bottom: 1px solid black;
+        transition: .4s;
+    }
+
+    .sidebar ul li:hover a {
+        padding-left: 50px;
+    }
+
+    .sidebar ul a i {
+        margin-right: 16px;
+    }
+
+#check {
+    display: none;
+}
+
+label #btnBars, label #cancelTimes {
+    position: relative;
+    cursor: pointer;
+    background: #262626;
+    border-radius: 3px;
+}
+
+label #btnBars {
+    left: 40px;
+    top: 25px;
+    font-size: 35px;
+    color: white;
+    padding: 6px 12px;
+    transition: all .2s ease;
+}
+
+
+label #cancelTimes {
+    left: -195px;
+    top: 17px;
+    font-size: 30px;
+    color: #666666;
+    padding: 4px 9px;
+    transition: all .1s ease;
+}
+
+#check:checked ~ .sidebar {
+    left: 0;
+}
+
+#check:checked ~ label #btnBars {
+    left: 250px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#check:checked ~ label #cancelTimes {
+    left: 195px;
+}
+
+.actions {
+}

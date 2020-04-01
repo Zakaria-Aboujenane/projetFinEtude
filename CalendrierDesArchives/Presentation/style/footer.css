@@ -1,0 +1,115 @@
+﻿
+footer {
+    position: relative;
+    width:100%;
+    float: left;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.footer-main-div {
+    width: 100%;
+    height: auto;
+    margin: auto;
+    background: #272727;
+    padding: 30px 0px;
+}
+
+.footer-menu-one ul li a {
+    text-decoration: none;
+    outline: none;
+}
+
+.footer-social-icons {
+    width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+    .footer-social-icons ul {
+        margin: 0px;
+        padding: 0px;
+        text-align: center;
+    }
+
+        .footer-social-icons ul li {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            margin: 0px 10px;
+            border-radius: 100%;
+            background: #ff6666;
+        }
+
+            .footer-social-icons ul li a {
+                color: #272727;
+                font-size: 25px;
+            }
+
+                .footer-social-icons ul li a i {
+                    line-height: 50px;
+                }
+
+            .footer-social-icons ul li:hover {
+                background: #ff4d4d;
+            }
+
+                .footer-social-icons ul li:hover a {
+                    color: #fff;
+                }
+
+.footer-menu-one {
+    width: 100%;
+    height: auto;
+    margin: auto;
+    margin-top: 20px;
+}
+
+    .footer-menu-one ul {
+        margin: 0px;
+        padding: 0px;
+        text-align: center;
+    }
+
+        .footer-menu-one ul li {
+            display: inline-block;
+            margin: 0px 15px;
+        }
+
+            .footer-menu-one ul li a {
+                font-family: 'Playfair Display', serif;
+                font-size: 15px;
+                font-weight: 600;
+                color: #fff;
+                text-transform: uppercase;
+            }
+
+                .footer-menu-one ul li a:hover {
+                    color: #ff6666;
+                }
+
+.footer-bottom {
+    width: 100%;
+    height: auto;
+    margin: auto;
+    background: #ff6666;
+    padding: 5px;
+}
+
+.footer-bottom {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+    .footer-bottom p a {
+        color: #fff;
+    }
+
+        .footer-bottom p a:hover {
+            color: #ff6666;
+        }
