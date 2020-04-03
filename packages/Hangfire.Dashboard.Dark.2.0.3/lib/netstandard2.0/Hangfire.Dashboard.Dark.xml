@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Hangfire.Dashboard.Dark</name>
+    </assembly>
+    <members>
+        <member name="T:Hangfire.Dashboard.Dark.GlobalConfigurationExtensions">
+            <summary>
+            Provides extension methods to setup Hangfire.Dashboard.Dark
+            </summary>
+        </member>
+        <member name="M:Hangfire.Dashboard.Dark.GlobalConfigurationExtensions.UseDarkDashboard(Hangfire.IGlobalConfiguration)">
+            <summary>
+            Configures Hangfire to use the dark dashboard theme
+            </summary>
+            <param name="configuration">Global configuration</param>
+        </member>
+        <member name="T:Hangfire.Dashboard.Extensions.CompositeDispatcher">
+            <summary>
+            Dispatcher that combines output from several other dispatchers.
+            Used internally by <see cref="M:Hangfire.Dashboard.Extensions.RouteCollectionExtensions.Append(Hangfire.Dashboard.RouteCollection,System.String,Hangfire.Dashboard.IDashboardDispatcher)"/>.
+            </summary>
+        </member>
+        <member name="T:Hangfire.Dashboard.Extensions.EmbeddedResourceDispatcher">
+            <summary>
+            Alternative to built-in EmbeddedResourceDispatcher, which (for some reasons) is not public.
+            </summary>
+        </member>
+        <member name="T:Hangfire.Dashboard.Extensions.RouteCollectionExtensions">
+            <summary>
+            Provides extension methods for <see cref="T:Hangfire.Dashboard.RouteCollection"/>.
+            </summary>
+        </member>
+        <member name="M:Hangfire.Dashboard.Extensions.RouteCollectionExtensions.GetDispatchers(Hangfire.Dashboard.RouteCollection)">
+            <summary>
+            Returns a private list of registered routes.
+            </summary>
+            <param name="routes">Route collection</param>
+        </member>
+        <member name="M:Hangfire.Dashboard.Extensions.RouteCollectionExtensions.Append(Hangfire.Dashboard.RouteCollection,System.String,Hangfire.Dashboard.IDashboardDispatcher)">
+            <summary>
+            Combines exising dispatcher for <paramref name="pathTemplate"/> with <paramref name="dispatcher"/>.
+            If there's no dispatcher for the specified path, adds a new one.
+            </summary>
+            <param name="routes">Route collection</param>
+            <param name="pathTemplate">Path template</param>
+            <param name="dispatcher">Dispatcher to add or append for specified path</param>
+        </member>
+        <member name="M:Hangfire.Dashboard.Extensions.RouteCollectionExtensions.Replace(Hangfire.Dashboard.RouteCollection,System.String,Hangfire.Dashboard.IDashboardDispatcher)">
+            <summary>
+            Replaces exising dispatcher for <paramref name="pathTemplate"/> with <paramref name="dispatcher"/>.
+            If there's no dispatcher for the specified path, adds a new one.
+            </summary>
+            <param name="routes">Route collection</param>
+            <param name="pathTemplate">Path template</param>
+            <param name="dispatcher">Dispatcher to set for specified path</param>
+        </member>
+        <member name="M:Hangfire.Dashboard.Extensions.RouteCollectionExtensions.Remove(Hangfire.Dashboard.RouteCollection,System.String)">
+            <summary>
+            Removes dispatcher for <paramref name="pathTemplate"/>.
+            </summary>
+            <param name="routes">Route collection</param>
+            <param name="pathTemplate">Path template</param>
+        </member>
+    </members>
+</doc>

@@ -23,11 +23,14 @@ namespace CalendrierDesArchives.DAO
         {
             types = new List<Model.Type>();
         }
-        public void ajouterType(string nomType, int Duree,string action)
+        public int ajouterType(string nomType, int Duree, string action)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                connection.Execute($"INSERT INTO GestionType(Type,duree) values ('{ nomType}','{ Duree}','{action}');");
+                String query = $"INSERT INTO Type(nomType,duree,action) values ('{ nomType}','{ Duree}','{action}');" +
+                    "SELECT CAST(SCOPE_IDENTITY() as int)";
+                int id = connection.Query<int>(query).Single();
+                return id;
             }
         }
 
@@ -36,31 +39,38 @@ namespace CalendrierDesArchives.DAO
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
 
-                return connection.Query<Model.Type>($"Select * From GestionType ").ToList();
+                return connection.Query<Model.Type>($"Select * From Type ").ToList();
             }
         }
 
-        public void modifierType(int idType, string nvNom, int nvDuree,string nvAction)
+        public void modifierType(Model.Type type)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                connection.Execute($"UPDATE GestionType SET Type='{nvNom}',  duree='{nvDuree}',action= '{nvAction}' WHERE idType ='{idType}'");
+                connection.Execute($"UPDATE Type SET nomType='{type.nomType}',  duree='{type.duree}',action= '{type.action}' WHERE idType ='{type.idType}'");
             }
         }
 
-        public void supprimerType(int idType)
+        public void supprimerType(Model.Type type)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                connection.Execute($"DELETE FROM GestionType WHERE idType ='{idType}';");
+                connection.Execute($"DELETE FROM Type WHERE idType ='{type.idType}';");
             }
         }
+        /*  public void supprimerType(int idType)
+          {
+              using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
+              {
+                  connection.Execute($"DELETE FROM GestionType WHERE idType ='{idType}';");
+              }
+          }*/
 
         public Model.Type getTypeById(int idType)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                Model.Type type = (Model.Type)connection.Query<Model.Type>($"Select * From GestionType Where idType='{idType}'");
+                Model.Type type = connection.QuerySingle<Model.Type>($"Select * From Type Where idType='{idType}'");
                 return type;
             }
         }
@@ -69,7 +79,7 @@ namespace CalendrierDesArchives.DAO
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                Model.Type type = (Model.Type)connection.Query<Model.Type>($"Select * From GestionType Where Type='{name}'");
+                Model.Type type = (Model.Type)connection.Query<Model.Type>($"Select * From Type Where nomType='{name}'");
                 return type;
             }
         }
@@ -79,7 +89,7 @@ namespace CalendrierDesArchives.DAO
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
                 String nomGenere = "%" + type + "%";
-                return connection.Query<Model.Type>($"Select type * From GestionType Where type like {nomGenere};")
+                return connection.Query<Model.Type>($"Select * From Type Where nomType like {nomGenere};")
                     .ToList();
             }
         }

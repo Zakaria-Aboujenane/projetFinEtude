@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using CalendrierDesArchives.DAO;
 using Hangfire;
+using Hangfire.Dashboard.Dark;
 using Hangfire.SqlServer;
 using Microsoft.Owin;
 using Owin;
@@ -27,16 +28,17 @@ namespace CalendrierDesArchives
                     UseRecommendedIsolationLevel = true,
                     UsePageLocksOnDequeue = true,
                     DisableGlobalLocks = true
-                });
+                }).UseDarkDashboard();
 
             yield return new BackgroundJobServer();
         }
 
         public void Configuration(IAppBuilder app)
         {
+           
             app.UseHangfireAspNet(GetHangfireServers);
             app.UseHangfireDashboard();
-
+           // app.UseHangfireDashboard();
             // Let's also create a sample background job
            // BackgroundJob.Enqueue(() => Debug.WriteLine("Hello world from Hangfire!"));
 

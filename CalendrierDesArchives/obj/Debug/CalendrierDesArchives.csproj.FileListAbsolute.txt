@@ -76,3 +76,5 @@ C:\Users\Pc\source\repos\CalendrierDesArchives\CalendrierDesArchives\bin\nl\Hang
 C:\Users\Pc\source\repos\CalendrierDesArchives\CalendrierDesArchives\bin\pt-BR\Hangfire.Core.resources.dll
 C:\Users\Pc\source\repos\CalendrierDesArchives\CalendrierDesArchives\bin\zh\Hangfire.Core.resources.dll
 C:\Users\Pc\source\repos\CalendrierDesArchives\CalendrierDesArchives\bin\zh-TW\Hangfire.Core.resources.dll
+C:\Users\Pc\source\repos\CalendrierDesArchives\CalendrierDesArchives\bin\Hangfire.Dashboard.Dark.dll
+C:\Users\Pc\source\repos\CalendrierDesArchives\CalendrierDesArchives\bin\Hangfire.Dashboard.Dark.xml

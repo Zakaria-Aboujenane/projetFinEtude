@@ -17,27 +17,41 @@ namespace CalendrierDesArchives.Metiers
             fichierDAOSQLServer = FichierDAOSQLServer.getInstance();
         }
 
-        public void ajouterF(string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention, int idP, String nomType)
+        public int ajouterF(Fichier f)
         {
             typeDAOSQLServer = TypeDAOSQLServer.getInstance();
-            Model.Type type = typeDAOSQLServer.getTypeByName(nomType);
+            //
+            if(f.type.action == "Destruction")
+            {
+                f.dateSuppression = f.dateAjout.AddDays(f.type.duree);
+            }
             fichierDAOSQLServer = FichierDAOSQLServer.getInstance();
-            fichierDAOSQLServer.ajouterFichier(Nom, DateAjout, DateModification, DateDernierAcces, DateSuppression, Chemain, extention, idP, type.idType);
+            int id = fichierDAOSQLServer.ajouterFichier(f.Nom, f.dateAjout, f.dateModification, f.dateDernierAcces, f.dateSuppression, f.chemain, f.extention, f.idParent, f.type.idType,f.Description);
 
 
+            if (f.type.action == "Destruction")
+            {
+                int idF = id;// id du fichier ajouté
+                int timeToDelete = f.type.duree;//DUA
+               // BackgroundJob.Schedule(() => this.NorificationAff(idF, f.nomFichier, f.type.nomType), TimeSpan.FromDays(timeToDelete - 1)
+               //);
+               //ajout a la table de notifications
+                BackgroundJob.Schedule(() => this.supprimerF(idF), TimeSpan.FromDays(timeToDelete)
+                );
+            }
+          
 
-            int idF = 0;// methode pour avoir id du fichier ajouté
-            int timeToDelete = type.duree;//avoir le avant suppression selon le type du fichier
-            BackgroundJob.Schedule(() => this.NorificationAff(idF, Nom, nomType), TimeSpan.FromDays(timeToDelete - 1)
-           );
-            BackgroundJob.Schedule(() => this.supprimerF(idF), TimeSpan.FromDays(timeToDelete)
-            );
-
+            return id;
         }
         public void supprimerF(int idF)
         {
             fichierDAOSQLServer = FichierDAOSQLServer.getInstance();
             fichierDAOSQLServer.supprimerFichier(idF);
+        }
+        public void modifier(Fichier f)
+        {
+            fichierDAOSQLServer = FichierDAOSQLServer.getInstance();
+            fichierDAOSQLServer.modifierFichier(f);
         }
         public void NorificationAff(int idF, String nomF, String typeF)
         {
@@ -46,6 +60,10 @@ namespace CalendrierDesArchives.Metiers
         public List<Fichier> listerFichiersParDate(String date)
         {
             return fichierDAOSQLServer.listerLesfichiersParDate(date);
+        }
+        public Fichier getFichierById(int idF)
+        {
+            return fichierDAOSQLServer.getFichierById(idF);
         }
 
     }

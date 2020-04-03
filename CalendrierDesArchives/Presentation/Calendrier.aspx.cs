@@ -24,13 +24,35 @@ namespace CalendrierDesArchives.Presentation
             String s = "";
             foreach (var item in listF)
             {
-                s += WebForm1.GenerateArchive(item);
+                s += Calendrier.GenerateArchive(item);
             }
 
             return s;
         }
+
+    [WebMethod]
+    public static string DeleteArchive(String idArch,String date)
+        {
+            int idF = 0;
+            Int32.TryParse(idArch,out idF);
+            new ActionsFichier().supprimerF(idF);
+
+            //
+
+            ActionsFichier actionsFichier = new ActionsFichier();
+            List<Fichier> listF = actionsFichier.listerFichiersParDate(date);
+            String s = "";
+            foreach (var item in listF)
+            {
+                s += Calendrier.GenerateArchive(item);
+            }
+
+            return s;
+        }
+
         public static String GenerateArchive(Fichier f)
         {
+            Model.Type t = new ActionsType().getTypeById(1); 
             return "  <div class=\"archive\">\r\n" +
                 "                    \r\n" +
                 "                    <div class=\"photoAr\">\r\n" +
@@ -40,11 +62,11 @@ namespace CalendrierDesArchives.Presentation
                 "                        <table class=\"tableArchive\">\r\n" +
                 "                            <tr>\r\n" +
                 "                                <td>Archive:</td>\r\n" +
-                "                                <td> " + f.nomFichier + " </td>\r\n" +
+                "                                <td> " + f.Nom + " </td>\r\n" +
                 "                            </tr>\r\n" +
                 "                             <tr>\r\n" +
                 "                                <td>Type :</td>\r\n" +
-                "                                <td>" + f.type.nomType + "</td>\r\n" +
+                "                                <td>" + t.nomType + "</td>\r\n" +
                 "                            </tr>\r\n" +
                 "                            <tr>\r\n" +
                 "                                <td>\r\n" +
@@ -60,8 +82,8 @@ namespace CalendrierDesArchives.Presentation
                 "                    </div>\r\n" +
                 "                    <div class=\"btnsAr\">\r\n" +
                 "                       \r\n" +
-                "                        <a href=\"#\"><i class=\"fas fa-edit\"></i></a>\r\n" +
-                "                        <a href=\"#\"><i class=\"fas fa-trash-alt\"></i></a>\r\n" +
+                "                        <a href=\"./ModifierArchive.aspx?idFichier="+f.idFichier+"\"><i class=\"fas fa-edit\"></i></a>\r\n" +
+                "                        <a onclick='deleteArchive("+f.idFichier+",\""+f.dateAjout+"\")' href=\"#\"><i class=\"fas fa-trash-alt\"></i></a>\r\n" +
                 "                    </div>\r\n" +
                 "                        \r\n" +
                 "                </div>";

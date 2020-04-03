@@ -57,7 +57,7 @@
             <div class="sidebar">
                 <header>My App</header>
                 <ul>
-                    <li><a href="./WebForm1.aspx"><i class="fa fa-user-circle"></i>Calendrier</a></li>
+                    <li><a href="./Calendrier.aspx"><i class="fa fa-user-circle"></i>Calendrier</a></li>
                     <li><a href="./Types.aspx"><i class="fa fa-user-circle"></i>Type</a></li>
 <%--                    <li><a href="#"><i class="fas fa-file-invoice"></i>Tp</a></li>
                     <li><a href="#"><i class="fas fa-book"></i>Filier</a></li>--%>
@@ -99,6 +99,7 @@
     </footer>
 
      <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+   
     <script src="./javascript/Profil.js"></script>
     <script>
         $(function () {

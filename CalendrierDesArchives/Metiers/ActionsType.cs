@@ -16,22 +16,30 @@ namespace CalendrierDesArchives.Metiers
 
         }
 
-        public void ajouterType(String nomType, int duree)
+        public int ajouterType(Model.Type type)
         {
-            //typeDAOSQLServer = TypeDAOSQLServer.getInstance();
-            typeDAOSQLServer.ajouterType(nomType, duree);
+
+            typeDAOSQLServer = TypeDAOSQLServer.getInstance();
+            int id = typeDAOSQLServer.ajouterType(type.nomType, type.duree, type.action);
+            return id;
         }
 
-        public void supprimerType(int idType)
+        /*        public void supprimerType(int idType)
+                {
+                    typeDAOSQLServer = TypeDAOSQLServer.getInstance();
+                    typeDAOSQLServer.supprimerType(idType);
+                }*/
+
+        public void supprimerType(Model.Type type)
         {
-            //typeDAOSQLServer = TypeDAOSQLServer.getInstance();
-            typeDAOSQLServer.supprimerType(idType);
+            typeDAOSQLServer = TypeDAOSQLServer.getInstance();
+            typeDAOSQLServer.supprimerType(type);
         }
 
-        public void modifierType(int idType, String nomType, int duree)
+        public void modifierType(Model.Type type)
         {
-            //typeDAOSQLServer = TypeDAOSQLServer.getInstance();
-            typeDAOSQLServer.modifierType(idType, nomType, duree);
+            typeDAOSQLServer = TypeDAOSQLServer.getInstance();
+            typeDAOSQLServer.modifierType(type);
         }
 
         public List<Model.Type> ListerTypes()

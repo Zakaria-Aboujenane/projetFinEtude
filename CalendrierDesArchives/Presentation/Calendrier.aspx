@@ -12,7 +12,7 @@
                 </form>
                 <div class="addDiv">
                     <div class="button_cont">
-                       <a class="example_d" href="add-website-here" target="_blank" rel="nofollow noopener">
+                       <a class="example_d" href="./AjouterArchive.aspx" target="_blank" rel="nofollow noopener">
                         <i class="fas fa-plus-circle"></i>Ajouter un Archive</a>
                     </div>
                 </div>
@@ -99,6 +99,23 @@
 
         <%-- Affichage par Date : (AJAX) --%>
         <script type="text/javascript">
+            function deleteArchive(id, date) {
+                alert("yoo");
+                $.ajax({
+                    type: "POST",
+                    url: "Calendrier.aspx/DeleteArchive",
+                    data: "{idArch: '" + id + "' ,date: '"+date+"'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+
+                        $("#listArchives").html(msg.d);
+                    },
+                    error: function (e) {
+                        alert("Error : " + e.error);
+                    }
+                });
+            }
             function callCS(dateString) {
                 $.ajax({
                     type: "POST",

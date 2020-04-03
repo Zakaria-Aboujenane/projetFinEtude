@@ -27,12 +27,23 @@ namespace CalendrierDesArchives.DAO
             fichiers = new List<Fichier>();
 
         }
-        public void ajouterFichier(string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention, int idP, int idType, string Description)
+        public int ajouterFichier(string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention, int idP, int idType, string Description)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                connection.Execute($"INSERT INTO Fichier(Nom,Type,DateAjout, DateModification, DateDernierAcces,  DateSuppression,  Chemain,  extention,idP) " +
-                    $"values ('{ Nom}','{ DateAjout}', '{DateModification}', '{ DateDernierAcces}', '{ DateSuppression}','{Chemain}', '{extention}','{idP}','{Description}')");
+                idP = 1;
+                Chemain = "";
+                extention = ".pdf";
+                String dateAjout = DateAjout.ToString();
+                String dateMod = "2020-01-01 00:00:00";
+                String dateDA = "2020 - 01 - 01 00:00:00";
+                String dateSup = DateSuppression.ToString();
+                String query = $"INSERT INTO Fichier(Nom,DateAjout, DateModification, DateDernierAcces,  DateSuppression,  Chemain,  extention,idP,idType,Description) " +
+                   $"values ('{Nom}','{dateAjout}', '{dateMod}', '{dateDA}', '{dateSup}','{Chemain}', '{extention}','{idP}','{idType}','{Description}' );"+
+                   "SELECT CAST(SCOPE_IDENTITY() as int)";
+               //recuperation de l'archive ajoute:
+                int id = connection.Query<int>(query).Single();
+                return id;
             }
 
         }
@@ -43,11 +54,11 @@ namespace CalendrierDesArchives.DAO
                 connection.Execute($"DELETE FROM Fichier WHERE IdFichier='{id}';");
             }
         }
-        public void modifierFichier(int id, Fichier fichier)
+        public void modifierFichier(Fichier f)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                connection.Execute($"UPDATE Fichier SET  WHERE Id = @id");
+                connection.Execute($"UPDATE Fichier SET Nom='{f.Nom}',Chemain='{f.chemain}',idType={f.type.idType}  WHERE IdFichier = {f.idFichier}");
             }
         }
 
@@ -111,6 +122,14 @@ namespace CalendrierDesArchives.DAO
             {
                 return connection.Query<Fichier>($"Select Nom * From Fichier Where idType='{idType}';")
                     .ToList();
+            }
+        }
+
+        public Fichier getFichierById(int idF)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
+            {
+                return connection.QuerySingle<Fichier>($"Select * From Fichier Where idFichier='{idF}';");
             }
         }
     }
