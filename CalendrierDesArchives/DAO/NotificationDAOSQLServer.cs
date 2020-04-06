@@ -52,7 +52,7 @@ namespace CalendrierDesArchives.DAO
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                return connection.Query<Model.Notification>($"Select * From Notification Where IdFichier='{fichier.idFichier}';").ToList();
+                return connection.Query<Model.Notification>($"Select * From Notification Where IdFichier='{fichier.idFichier}' ORDER BY IdNotification DESC").ToList();
             }
         }
 
@@ -60,9 +60,9 @@ namespace CalendrierDesArchives.DAO
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                return connection.Query<Model.Notification>($"Select textNotification,u.Nom,u.Prenom " +
+                return connection.Query<Model.Notification>($"Select n.* " +
                     $"From Notification n, Utilisateur u, GestionNotification g " +
-                    $"Where n.IdNotification=g.IdNotification and u.IdUtilisateur=g.IdUtilisateur and g.IdUtilisateur='{utilisateur.idUtilisateur}';").ToList();
+                    $"Where n.IdNotification=g.IdNotification and u.IdUtilisateur=g.IdUtilisateur and g.IdUtilisateur='{utilisateur.idUtilisateur}' ORDER BY IdNotification DESC;").ToList();
             }
         }
 
@@ -71,7 +71,7 @@ namespace CalendrierDesArchives.DAO
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
 
-                return connection.Query<Model.Notification>($"Select * From  Notification ").ToList();
+                return connection.Query<Model.Notification>($"Select * From  Notification ORDER BY IdNotification DESC ").ToList();
             }
         }
 

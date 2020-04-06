@@ -13,22 +13,37 @@ namespace CalendrierDesArchives.Presentation
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-        
+            if (Session["idUser"] == null && Session["privillege"] != "Admin")
+            {
+                Response.Redirect("./Authentification.aspx");
+            }
         }
 
         protected void AddType_Click(object sender, EventArgs e)
         {
-            String nomType = txtName.Text.ToString();
-            int duree = Convert.ToInt32(txtDuree.Text.ToString());
-            String action = Action.Text.ToString();
 
-            ActionsType actionsType = new ActionsType();
-            Model.Type t = new Model.Type();
-            t.nomType = nomType;
-            t.duree = duree;
-            t.action = action;
-            int idType = actionsType.ajouterType(t);
-            Response.Redirect("./Types.aspx");
+        }
+
+        protected void BTNADDArch_Click(object sender, EventArgs e)
+        {
+            String nomType = typeN.Value;
+            int duree = Convert.ToInt32(DUA.Value);
+            String action = selectAction.SelectedValue;
+            String critereSort = selectCritere.SelectedValue;
+            String description = textArea.InnerHtml;
+            if (nomType != "" || duree != null || action != "" || critereSort != "")
+            {
+                ActionsType actionsType = new ActionsType();
+                Model.Type t = new Model.Type();
+                t.nomType = nomType;
+                t.duree = duree;
+                t.action = action;
+                t.DUAselon = critereSort;
+                t.Description = description;
+                int idType = actionsType.ajouterType(t);
+                Response.Redirect("./Types.aspx");
+            }
+
         }
     }
 }

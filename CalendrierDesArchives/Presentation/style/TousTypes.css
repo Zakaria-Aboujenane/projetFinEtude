@@ -1,0 +1,104 @@
+
+.container {
+    width: 75%;
+    float: right;
+    position: relative;
+}
+
+.containerbtnRetour {
+    width: 100%;
+    float: left;
+}
+.contentTousType{
+    width: 25%;
+    float: left;
+    margin-left: 5%;
+    background-color: #060c21;
+    margin-top: 20px;
+    border-top: 3px solid #00b33c;
+    cursor: pointer;
+   
+}
+
+.contentTousType::before{
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 0px;
+    background:#00b33c;
+    transform: skewX(0deg);
+    transition: .4s linear;
+}
+
+.contentTousType:hover::before{
+    height: 21%;
+}
+
+.dateAjouterTypes{
+    width: 15%;
+    margin-left: 10px;
+    margin-top: 15px;
+    color: #00b33c;
+    font-size: 18px;
+    float: left;
+}
+.dateAjout{
+   border-bottom: 1px solid #00b33c;
+}
+.nomTypes{
+   margin-left: 90px;
+   font-size: 22px;
+   color: #00b33c;
+   margin-top: 10px;
+}
+
+.mindescriptionTypes{
+   color:  #595959;
+   float: left;
+   width: 70%;
+   margin-left: 20px;
+   margin-bottom: 25px;
+   font-size: 20px;
+}
+
+.Routeur{
+    width: 200px;
+    height: 60px;
+    background: none;
+    border: 4px solid;
+    color: #00b33c;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 30%;
+    margin-top: 30px;
+    border-radius: 10px;
+    position: relative;
+}
+.Routeur::before,.Routeur::after{
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 4px;
+    background:#060c21;
+    transform: skewX(50deg);
+    transition: .4s linear;
+}
+.Routeur::before{
+    top: -4px;
+    left: 10%;
+}
+.Routeur::after{
+    bottom: -4px;
+    right: 10%;
+}
+
+
+.Routeur:hover::before{
+    left: 80%;
+}
+
+.Routeur:hover::after{
+    right: 80%;
+}

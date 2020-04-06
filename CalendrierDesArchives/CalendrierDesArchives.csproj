@@ -51,6 +51,9 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.30\lib\net461\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="DropDownListChosen, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DropDownListChosen.1.0.2\lib\DropDownListChosen.dll</HintPath>
+    </Reference>
     <Reference Include="Hangfire.AspNet, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hangfire.AspNet.0.2.0\lib\net45\Hangfire.AspNet.dll</HintPath>
     </Reference>
@@ -103,8 +106,11 @@
     <Content Include="App_Data\CalendrierApp_log.ldf">
       <DependentUpon>CalendrierApp.mdf</DependentUpon>
     </Content>
+    <Content Include="Presentation\AjouterArchiveAdmin.aspx" />
     <Content Include="Presentation\AjouterType.aspx" />
+    <Content Include="Presentation\Authentification.aspx" />
     <Content Include="Presentation\Calendrier.aspx" />
+    <Content Include="Presentation\CalendrierAdmin.aspx" />
     <Content Include="Presentation\chosen\chosen-sprite%402x.png" />
     <Content Include="Presentation\chosen\chosen-sprite.png" />
     <Content Include="Presentation\chosen\chosen.css" />
@@ -127,17 +133,33 @@
     <Content Include="Presentation\chosen\index.proto.html" />
     <Content Include="Presentation\chosen\options.html" />
     <Content Include="Presentation\AjouterArchive.aspx" />
+    <Content Include="Presentation\images\p.svg" />
     <Content Include="Presentation\images\pdf.png" />
+    <Content Include="Presentation\images\phone.png" />
+    <Content Include="Presentation\images\profil.png" />
+    <Content Include="Presentation\javascript\ajouterAchive.js" />
     <Content Include="Presentation\javascript\Calendrier.js" />
+    <Content Include="Presentation\javascript\login.js" />
+    <Content Include="Presentation\javascript\notification.js" />
     <Content Include="Presentation\javascript\Profil.js" />
     <Content Include="Presentation\ModifierArchive.aspx" />
-    <Content Include="Presentation\style\ajoutArchive.css" />
+    <Content Include="Presentation\ModifierArchiveAdmin.aspx" />
+    <Content Include="Presentation\RetentionArchives.aspx" />
+    <Content Include="Presentation\style\ajouterArchive.css" />
     <Content Include="Presentation\style\Calendrier.css" />
     <Content Include="Presentation\style\footer.css" />
+    <Content Include="Presentation\style\Loader.css" />
+    <Content Include="Presentation\style\login.css" />
+    <Content Include="Presentation\style\NotificationBar.css" />
     <Content Include="Presentation\style\Profil.css" />
     <Content Include="Presentation\style\sectionHead.css" />
     <Content Include="Presentation\style\sidebar.css" />
+    <Content Include="Presentation\style\TousTypes.css" />
     <Content Include="Presentation\Types.aspx" />
+    <Content Include="Presentation\AdminM.Master" />
+    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.2.js" />
+    <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -158,12 +180,33 @@
     <Compile Include="Model\Notification.cs" />
     <Compile Include="Model\Type.cs" />
     <Compile Include="Model\Utilisateur.cs" />
+    <Compile Include="Presentation\AdminM.Master.cs">
+      <DependentUpon>AdminM.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation\AdminM.Master.designer.cs">
+      <DependentUpon>AdminM.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\AjouterArchiveAdmin.aspx.cs">
+      <DependentUpon>AjouterArchiveAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation\AjouterArchiveAdmin.aspx.designer.cs">
+      <DependentUpon>AjouterArchiveAdmin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\AjouterType.aspx.cs">
       <DependentUpon>AjouterType.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Presentation\AjouterType.aspx.designer.cs">
       <DependentUpon>AjouterType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Authentification.aspx.cs">
+      <DependentUpon>Authentification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation\Authentification.aspx.designer.cs">
+      <DependentUpon>Authentification.aspx</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Calendrier.aspx.cs">
       <DependentUpon>Calendrier.aspx</DependentUpon>
@@ -179,12 +222,40 @@
     <Compile Include="Presentation\AjouterArchive.aspx.designer.cs">
       <DependentUpon>AjouterArchive.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\CalendrierAdmin.aspx.cs">
+      <DependentUpon>CalendrierAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation\CalendrierAdmin.aspx.designer.cs">
+      <DependentUpon>CalendrierAdmin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\ModifierArchive.aspx.cs">
       <DependentUpon>ModifierArchive.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Presentation\ModifierArchive.aspx.designer.cs">
       <DependentUpon>ModifierArchive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\ModifierArchiveAdmin.aspx.cs">
+      <DependentUpon>ModifierArchiveAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation\ModifierArchiveAdmin.aspx.designer.cs">
+      <DependentUpon>ModifierArchiveAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\NonConn.Master.cs">
+      <DependentUpon>NonConn.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation\NonConn.Master.designer.cs">
+      <DependentUpon>NonConn.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\RetentionArchives.aspx.cs">
+      <DependentUpon>RetentionArchives.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation\RetentionArchives.aspx.designer.cs">
+      <DependentUpon>RetentionArchives.aspx</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>
@@ -208,6 +279,7 @@
     <Content Include="Presentation\Site1.Master" />
     <Content Include="Presentation\chosen\composer.json" />
     <Content Include="Presentation\chosen\LICENSE.md" />
+    <Content Include="Presentation\NonConn.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,4 +1,23 @@
-﻿
+﻿/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: green;
+    }
+/*scroll bar ^    */
 footer {
     position: relative;
     width:100%;
@@ -14,6 +33,7 @@ footer {
     margin: auto;
     background: #272727;
     padding: 30px 0px;
+    
 }
 
 .footer-menu-one ul li a {

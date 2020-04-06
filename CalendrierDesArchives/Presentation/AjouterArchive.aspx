@@ -1,61 +1,103 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Presentation/Site1.Master" AutoEventWireup="true" CodeBehind="AjouterArchive.aspx.cs" Inherits="CalendrierDesArchives.Presentation.FormulairesArchive.AjouterArchive" %>
+﻿<%@ Page Title="" Language="C#" validateRequest="false" MasterPageFile="~/Presentation/Site1.Master" AutoEventWireup="true" CodeBehind="AjouterArchive.aspx.cs" Inherits="CalendrierDesArchives.Presentation.FormulairesArchive.AjouterArchive" %>
+
+<%@ Register Assembly="DropDownListChosen" Namespace="DropDownListChosen" TagPrefix="ucc" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
      <link rel="stylesheet" href="./chosen/chosen.css">
+    <link rel="stylesheet" href="./style/ajouterArchive.css">
+    <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
     <style>
-        input{
-            width: 100 %;
+        .chosen-container-single .chosen-search input[type="text"] {
+            border: 1px solid green;
         }
-        textarea{
-            width: 100 %;
+
+    .h5TitleInput{
+        font-size:20px;
+        color:green;
+    }
+
+        .chosen-container .chosen-results li.highlighted {
+            background-color: green;
+     
+            color: green;
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="content" runat="server">
+    <div class="container">
+       
+        <div class="ajouterArchive-content">
+            <h2 class="h2Title">Ajouter un archive </h2>
+            
+                <div class="containerLeft">
+                    <div class="input-div one ">
+                        <div class="i">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h5>Titre de l'archive </h5>
+                            <input class="input" type="text" runat="server" id="TitreArch">
+                        </div>
+                    </div>
+                    <div class="input-div two">
+                        <div class="i">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div>
+                            <h5>Emplacement physique</h5>
+                            <input class="input" type="text" runat="server" id="EmpPc">
+                        </div>
+                    </div>
 
-    <div class="containerAddAr">
-        <form action="#" runat="server">
-        <table cellspacing="0" cellpadding="0" class="addAr" style="border:none; margin:60px;float:left">
-            <tr>
-                <td>Titre Archive</td>
-                <td> <input id="archiveTitre" type="text" runat="server"/> </td>
-            </tr>
-             <tr>
-                <td>Description de l archive :</td>
-                <td> <textarea id="DescriptionArchive" cols="20" rows="2"  runat="server" ></textarea> </td>
-            </tr>
-             <tr>
-                <td>Type Archive:</td>
-                 <td>
-                     <select  runat="server" style="text-align: left; width:100%;" class="input" id="selectTypeAr" data-placeholder="veuillez choisir un type">
-                         <option value="1">Facture</option>
-                         <option value="2">Banque</option>
-                         <option value="3">CV</option>
-                     </select>
-                 </td>
-            </tr>
-             <tr>
-                <td>Selectionner l'archive :</td>
-                <td> <asp:FileUpload ID="ArchiveUpload" runat="server" /> </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
-                </td>
-                <td>
-                    <asp:Button ID="AddArchBtn" runat="server" Text="Ajouter" OnClick="AddArchBtn_Click" />
-                </td>
-            </tr>
-           
-        </table>
-            </form>
+                    <div class="input-div tree">
+                        <div class="i">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div>
+                            <h5>Index ou mot-clés pour faciliter votre recherche:</h5>
+                            <input class="input" runat="server" type="text" id="index">
+                        </div>
+                    </div>
+                    <h5 class="h5TitleInput">Choisissez un type pour votre archive:</h5>
+                    <div class="input-div tree">
+                        <div class="i">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                       <div>
+                           <asp:DropDownList  class="input" ID="selectTypeAroo"  runat="server">
+
+                           </asp:DropDownList>
+                       </div>
+                    </div>
+                     <div class="input-div tree">
+                        <div class="i">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div>
+                            <asp:FileUpload class="input" ID="ArchiveUpload"  runat="server" />
+                        </div>
+                    </div>
+                <br>
+                <br>
+               
+                    <br>
+                </div>
+                <div class="containerRight">
+                    
+                    <div id="textEditor">
+                       <textarea name="textArea" id="textArea" runat="server" ></textarea>
+                    </div>
+                    <p style="color: red;" id="erreur" runat="server"></p>
+        </div>
+                 
+             
+                <asp:Button class="btn" ID="BTNADDArch" runat="server" Text="Ajouter Archive" OnClick="BTNADDArch_Click" />
     </div>
-     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+      <script type="text/javascript" src="javascript/ajouterAchive.js"></script>
     <script src="./chosen/chosen.jquery.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#selectTypeAr').chosen();
-        });
+        CKEDITOR.replace('<%=textArea.ClientID%>')
+        $('#<%=selectTypeAroo.ClientID%>').chosen();
     </script>
 </asp:Content>

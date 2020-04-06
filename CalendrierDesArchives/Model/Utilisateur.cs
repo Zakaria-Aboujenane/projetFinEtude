@@ -14,16 +14,20 @@ namespace CalendrierDesArchives.Model
         public String motDePasse { get; set; }
         public String privillege { get; set; }
 
-        public Utilisateur(int idUtilisateur,string nom, string prenom, string email, string motDePasse)
+        public Utilisateur(int IdUtilisateur,string Nom, string Prenom, string Email, string MotDePasse,string Privillege)
         {
             this.idUtilisateur = idUtilisateur;
-            this.nom = nom;
-            this.prenom = prenom;
-            this.email = email;
-            this.motDePasse = motDePasse;
+            this.nom = Nom;
+            this.prenom = Prenom;
+            this.email = Email;
+            this.motDePasse = MotDePasse;
+            this.privillege = Privillege;
 
         }
+        public Utilisateur()
+        {
 
+        }
         public override string ToString()
         {
             return "";

@@ -158,3 +158,4 @@ C:\Users\HP\Desktop\projetFE\projetFinEtude\CalendrierDesArchives\obj\Debug\Cale
 C:\Users\HP\Desktop\projetFE\projetFinEtude\CalendrierDesArchives\obj\Debug\CalendrierDesArchives.csproj.CopyComplete
 C:\Users\HP\Desktop\projetFE\projetFinEtude\CalendrierDesArchives\obj\Debug\CalendrierDesArchives.dll
 C:\Users\HP\Desktop\projetFE\projetFinEtude\CalendrierDesArchives\obj\Debug\CalendrierDesArchives.pdb
+C:\Users\Pc\source\repos\CalendrierDesArchives\CalendrierDesArchives\bin\DropDownListChosen.dll

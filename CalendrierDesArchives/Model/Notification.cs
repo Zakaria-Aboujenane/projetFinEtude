@@ -11,11 +11,12 @@ namespace CalendrierDesArchives.Model
         public int idFichier { get; set; }
         public DateTime dateNotification { get; set; }
         public String textNotification { get; set; }
+        public int Vu { get; set; }
         public Notification()
         {
 
         }
-        public Notification(int idNotification,String textNotification , DateTime dateNotification, int idFichier)
+        public Notification(int idNotification,String textNotification , DateTime dateNotification,int Vu, int idFichier)
         {
             this.idNotification = idNotification;
             this.textNotification = textNotification;

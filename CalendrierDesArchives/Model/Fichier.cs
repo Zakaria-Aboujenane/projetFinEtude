@@ -17,19 +17,23 @@ namespace CalendrierDesArchives.Model
         public DateTime dateSuppression { get; set; }
         public string chemain { get; set; }
         public string extention { get; set; }
+        public string index { get; set; }
+        public string emplacementPC { get; set; }
         public int sortFinalComm { get; set; }
         public int commArch { get; set; }
         public int idParent { get; set; }
         public Type type { get; set; }
         public int idType { get; set; }
         public string Description { get; set; }
+        public string HangFireID { get; set; }
         //Constructeur pour la base de donnees :
         public Fichier()
         {
-
+            type = new Type();
         }
-        public Fichier(int IdFichier, string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention,int sortFinalComm,int commArch, int idP,int idType,string Description)
+        public Fichier(int IdFichier, string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention,string index,string emplacementPC,int sortFinalComm,int commArch, int idP,int idType,string Description,string HangFireID)
         {
+            type = new Type();
             this.idFichier = IdFichier;
             this.Nom = Nom;
             this.dateAjout = DateAjout;
@@ -38,11 +42,14 @@ namespace CalendrierDesArchives.Model
             this.dateSuppression = DateSuppression;
             this.chemain = Chemain;
             this.extention = extention;
+            this.index = index;
+            this.emplacementPC = emplacementPC;
             this.idParent = idP;
             this.idType = idType;
             this.Description = Description;
             this.commArch = commArch;
             this.sortFinalComm = sortFinalComm;
+            this.HangFireID = HangFireID;
         }
 
    

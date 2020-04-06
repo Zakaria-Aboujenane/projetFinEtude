@@ -1,12 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Presentation/Site1.Master" AutoEventWireup="true" CodeBehind="Types.aspx.cs" Inherits="CalendrierDesArchives.Presentation.Types" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Presentation/AdminM.Master" AutoEventWireup="true" CodeBehind="Types.aspx.cs" Inherits="CalendrierDesArchives.Presentation.Types" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="content" runat="server">
-    
-     <form id="form1" runat="server">
+     
         <div id="recherche">
             &nbsp;<div class="addDiv">
             <div class="button_cont">
@@ -42,5 +41,4 @@
          </asp:ObjectDataSource>
     </div>
                </div>
-                 </form>
 </asp:Content>

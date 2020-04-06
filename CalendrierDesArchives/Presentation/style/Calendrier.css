@@ -1,6 +1,8 @@
 
+.listArchives{
 
-.active{
+}
+.active {
     right: 0px;
 }
 .comble{
@@ -164,13 +166,17 @@ cursor: pointer;
 
 .modal-content {
     background-color: hsl(286, 28%, 12%);
-    margin: 5% auto;
+    margin: 1% 25%;
     padding: 20px;
     width: 50%;
-    min-height:80%;
+    float: left;
+    height: 75%;
+    /* min-height: 80%; */
     box-shadow: 0 5px 8px rgba(0, 0, 0,0.2), 0 7px 20px 0 rgba(0, 0, 0,0.17);
     animation-name: modalopen;
-    animation-duration: 1s;
+    animation-duration: 2s;
+    overflow-x:hidden;
+    overflow-y:scroll;
     display: block;
 }
 

@@ -15,31 +15,40 @@ namespace CalendrierDesArchives.Presentation.FormulairesArchive
     {
 
         /// <summary>
-        /// Contrôle archiveTitre.
+        /// Contrôle TitreArch.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText archiveTitre;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TitreArch;
 
         /// <summary>
-        /// Contrôle DescriptionArchive.
+        /// Contrôle EmpPc.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea DescriptionArchive;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText EmpPc;
 
         /// <summary>
-        /// Contrôle selectTypeAr.
+        /// Contrôle index.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selectTypeAr;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText index;
+
+        /// <summary>
+        /// Contrôle selectTypeAroo.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList selectTypeAroo;
 
         /// <summary>
         /// Contrôle ArchiveUpload.
@@ -51,21 +60,30 @@ namespace CalendrierDesArchives.Presentation.FormulairesArchive
         protected global::System.Web.UI.WebControls.FileUpload ArchiveUpload;
 
         /// <summary>
-        /// Contrôle Label1.
+        /// Contrôle textArea.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea textArea;
 
         /// <summary>
-        /// Contrôle AddArchBtn.
+        /// Contrôle erreur.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddArchBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl erreur;
+
+        /// <summary>
+        /// Contrôle BTNADDArch.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BTNADDArch;
     }
 }

@@ -46,5 +46,9 @@ namespace CalendrierDesArchives.Metiers
         {
             return utilisateurDAOSQLServer.rechercheUtilisateurParNom(nom);
         }
+        public Utilisateur Authentifier(string email, string motDePasse)
+        {
+            return utilisateurDAOSQLServer.Authentifier(email, motDePasse);
+        }
     }
 }

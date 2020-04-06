@@ -9,6 +9,7 @@
     width: 250px;
     margin: 0;
     float: left;
+    z-index: 10000000;
 }
 
 .seection.tableau {
@@ -87,6 +88,7 @@
     left: -250px;
     width: 250px;
     height: auto;
+    z-index: 12;
     background: #262626;
     transition: all .5px ease;
 }

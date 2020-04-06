@@ -10,6 +10,8 @@
     <link href="./style/footer.css" rel="stylesheet" />
     <link href="./style/sidebar.css" rel="stylesheet" />
     <link href="./style/sectionHead.css" rel="stylesheet" />
+    <link href="./style/NotificationBar.css" rel="stylesheet" />
+     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <title>
         <asp:ContentPlaceHolder ID="title" runat="server">
     </asp:ContentPlaceHolder>
@@ -19,34 +21,52 @@
     <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" 
         rel="stylesheet">
      <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <style>
+        .footer-bottom{
+            margin-right: 0px;
+    padding-right: 0px;
+    /* padding-top: 0px; */
+    padding-left: 0px;
+        }
+    </style>
 </head>
-<body  onload="RenderDate()">
+<body onload="RenderDate()">
+   <form runat="server">
     <nav>
         <ul class="menu">
             <li class="logo"><a href="#">Calendrier Archives</a></li>
             <li class="item"><a href="#">Accueil</a></li>
             <li class="item"><a href="#">Services</a></li>
-            <li class="item button secondary" id="modaleBtn"><a href="#">Notifications</a></li>
+            <li class="item button secondary" id="modaleBtn"><a href="#">User</a></li>
             <li class="toggle"><span class="bars"></span></li>
+            <li class="item">
+               
+                
+            </li>
         </ul>
     </nav>
     <div id="simpleModal" class="modal">
         <div class="profilEtudiant">
             <span class="closeBtnDeconnecte">&times;</span>
             <img class="imageE" src="profile.png">
-            <label class="admi">Admin</label>
+            <label runat="server" class="admi">Admin</label>
             <div class="nomE">
                 <label>nom: </label>
-                <label>Meriem Ahjouji</label>
+                <label  id="nomPrenomPH" runat="server" >Meriem Ahjouji</label>
             </div>
             <div class="email">
-                <label>email:</label>
-                <label>meriem@gmail.com</label>
+                <label  >email:</label>
+                <label  id="emailPH" runat="server" ></label>
             </div>
-            <button class="deconnecter"><a href="#">déconnecter</a></button>
-        </div>
+            <Button ID="Button1" class="deconnecter"  Text="deconnecter"></Button>
+                </div>
+        
     </div>
+      
     <%-- contenu ici: --%>
+    
+      
+        
     <div class="ContentAll">
         <div class="seection sideBar">
             <input type="checkbox" id="check">
@@ -57,15 +77,16 @@
             <div class="sidebar">
                 <header>My App</header>
                 <ul>
-                    <li><a href="./Calendrier.aspx"><i class="fa fa-user-circle"></i>Calendrier</a></li>
-                    <li><a href="./Types.aspx"><i class="fa fa-user-circle"></i>Type</a></li>
-<%--                    <li><a href="#"><i class="fas fa-file-invoice"></i>Tp</a></li>
+                    <li><a href="./Calendrier.aspx"><i class="fa fa-user-circle"></i>Retour vers le calendrier</a></li>
+                    <%--<li><a href="./Types.aspx"><i class="fa fa-user-circle"></i>Type</a></li>--%>
+                    <%--                    <li><a href="#"><i class="fas fa-file-invoice"></i>Tp</a></li>
                     <li><a href="#"><i class="fas fa-book"></i>Filier</a></li>--%>
                 </ul>
             </div>
         </div>
-    <asp:ContentPlaceHolder ID="content" runat="server">
-    </asp:ContentPlaceHolder>
+    
+        <asp:ContentPlaceHolder ID="content" runat="server">
+        </asp:ContentPlaceHolder>
     </div>
     <%-- footer: --%>
     <footer class="footer">
@@ -98,11 +119,48 @@
         </div>
     </footer>
 
-     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-   
+ 
+       
+
     <script src="./javascript/Profil.js"></script>
+    <script src="./javascript/notification.js"></script>
     <script>
+        $(document).ready(function () {
+          
+        });
+        function getNots() {
+            $.ajax({
+                type: "POST",
+                url: "Calendrier.aspx/getNotifications",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#NotifsPlace").html(msg.d);
+                },
+                error: function (e) {
+                    alert("Error : " + e.error);
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "Calendrier.aspx/getNumNots",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg.d == 0) {
+                        $('#numNots').hide();
+                    } else {
+                        $('#numNots').html(msg.d);
+                    }
+                },
+                error: function (e) {
+                    alert("Error : " + e.error);
+                }
+            });
+        }
+       
         $(function () {
+           
             $(".toggle").on("click", function () {
                 if ($(".item").hasClass("active")) {
                     $(".item").removeClass("active");
@@ -111,6 +169,7 @@
                 }
             })
         })
-        </script>
+    </script>
+       </form>
 </body>
 </html>

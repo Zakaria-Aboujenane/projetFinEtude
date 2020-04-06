@@ -61,11 +61,11 @@ namespace CalendrierDesArchives.DAO
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                Model.Utilisateur utilisateur = (Model.Utilisateur)connection.Query<Model.Type>($"Select * From Utilisateur Where IdUtilisateur='{IdUtilisateur}'");
+                
+                    Model.Utilisateur utilisateur =connection.QuerySingle<Model.Utilisateur>($"Select * From Utilisateur Where IdUtilisateur='{IdUtilisateur}'");
                 return utilisateur;
             }
         }
-
         public List<Utilisateur> rechercheUtilisateurParNom(string Nom)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
@@ -82,6 +82,22 @@ namespace CalendrierDesArchives.DAO
             utilisateurs = this.listerTousUtilisateur();
         }
 
+        public Utilisateur Authentifier(string email, string motDePasse)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
+            {
+                try
+                {
+                    Model.Utilisateur utilisateur = connection.QuerySingle<Model.Utilisateur>($"Select * From Utilisateur Where Email='{email}' AND MotDePasse='{motDePasse}'");
+                    return utilisateur;
+                }
+                catch (Exception e)
+                {
 
+                    return null;
+                }
+               
+            }
+        }
     }
 }

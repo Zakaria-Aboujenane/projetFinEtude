@@ -21,25 +21,25 @@ namespace CalendrierDesArchives.Metiers
         {
             typeDAOSQLServer = TypeDAOSQLServer.getInstance();
             //
-            if(f.type.action == "Destruction")
+            if (f.type.action == "Destruction")
             {
                 f.dateSuppression = f.dateAjout.AddDays(f.type.duree);
             }
             fichierDAOSQLServer = FichierDAOSQLServer.getInstance();
-            int id = fichierDAOSQLServer.ajouterFichier(f.Nom, f.dateAjout, f.dateModification, f.dateDernierAcces, f.dateSuppression, f.chemain, f.extention, f.idParent, f.type.idType,f.Description);
+            int id = fichierDAOSQLServer.ajouterFichier(f);
 
+            // ca marche , il reste la creation d'une classe qui gere ca (HangFireUtil)
+            //if (f.type.action == "Destruction")
+            //{
+            //    int idF = id;// id du fichier ajouté
+            //    int timeToDelete = f.type.duree;//DUA
+            //   // BackgroundJob.Schedule(() => this.NorificationAff(idF, f.nomFichier, f.type.nomType), TimeSpan.FromDays(timeToDelete - 1)
+            //   //);
+            //   //ajout a la table de notifications
+            //    BackgroundJob.Schedule(() => this.supprimerF(idF), TimeSpan.FromDays(timeToDelete)
+            //    );
+            //}
 
-            if (f.type.action == "Destruction")
-            {
-                int idF = id;// id du fichier ajouté
-                int timeToDelete = f.type.duree;//DUA
-               // BackgroundJob.Schedule(() => this.NorificationAff(idF, f.nomFichier, f.type.nomType), TimeSpan.FromDays(timeToDelete - 1)
-               //);
-               //ajout a la table de notifications
-                BackgroundJob.Schedule(() => this.supprimerF(idF), TimeSpan.FromDays(timeToDelete)
-                );
-            }
-          
 
             return id;
         }
@@ -65,6 +65,29 @@ namespace CalendrierDesArchives.Metiers
         {
             return fichierDAOSQLServer.getFichierById(idF);
         }
-
+        public List<Fichier> listerParUser(Utilisateur u)
+        {
+            return fichierDAOSQLServer.listerParUser(u);
+        }
+        public int ajouterParUser(Utilisateur u, Fichier f)
+        {
+            return fichierDAOSQLServer.AjouterParUser(u, f);
+        }
+        public Boolean appartenanceUF(Utilisateur u, Fichier f)
+        {
+            return fichierDAOSQLServer.appartenanceUF(u, f);
+        }
+        public List<Fichier> listerFichiersArchive()
+        {
+            return fichierDAOSQLServer.listerFichiersArchive();
+        }
+        public List<Fichier> rechercheGenerale(String searsh)
+        {
+            return fichierDAOSQLServer.rechercheGenerale(searsh);
+        }
+        public List<Fichier> rechercheGSelonUser(String searsh, Utilisateur u)
+        {
+            return fichierDAOSQLServer.rechercheGSelonUser(searsh, u);
+        }
     }
 }

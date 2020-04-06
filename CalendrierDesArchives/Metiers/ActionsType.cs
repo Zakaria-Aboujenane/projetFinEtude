@@ -20,7 +20,7 @@ namespace CalendrierDesArchives.Metiers
         {
 
             typeDAOSQLServer = TypeDAOSQLServer.getInstance();
-            int id = typeDAOSQLServer.ajouterType(type.nomType, type.duree, type.action);
+            int id = typeDAOSQLServer.ajouterType(type);
             return id;
         }
 

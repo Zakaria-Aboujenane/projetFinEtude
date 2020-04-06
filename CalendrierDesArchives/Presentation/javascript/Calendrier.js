@@ -81,10 +81,23 @@ document.getElementsByClassName("jour")[0].innerHTML =cells;
 }
 function getCurrentDay(x) {
     var dateString = "";
-    if (x <= 9 && dt.getMonth()+1 <= 9 )
-        dateString = "0" + (dt.getMonth() + 1) + "/0" +x  + "/" + dt.getFullYear();
-    else 
-        dateString = (dt.getMonth() + 1) + "/" + x + "/" + dt.getFullYear();
+    var day = x;
+    var month = dt.getMonth() + 1;
+    var imonth = dt.getMonth()+1;
+    if (x <= 9) {
+        day = "0" + x;
+        if (imonth <= 9)
+            month = "0" + imonth;
+    }
+    else if (imonth <= 9) {
+        month = "0" + imonth;
+        if (x <= 9)
+            day = "0" + x;
+    } else {
+        day = x;
+        month = imonth;
+    }
+    dateString = dt.getFullYear() + "-" + month + "-" + day;
     callCS(dateString);
 
 }
@@ -127,11 +140,12 @@ window.addEventListener('click', outsideClick);
 closeB.addEventListener('click', closeModal);
 //function to close modal
 function closeModal() {
-    modal.style.display = 'none ';
+   
+    modalA.style.display = 'none ';
 }
 //function to close modal if outside click
 function outsideClick(e) {
-    if (e.target == modal) {
+    if (e.target == modalA) {
         modal.style.display = 'none ';
     }
 }

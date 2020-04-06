@@ -15,6 +15,7 @@ namespace CalendrierDesArchives.DAO
         List<Utilisateur> listerTousUtilisateur();
         Utilisateur rechercheUtilisateurParId(int IdUtilisateur);
         List<Utilisateur> rechercheUtilisateurParNom(String Nom);
+        Utilisateur Authentifier(String email,String motDePasse);
 
     }
 }

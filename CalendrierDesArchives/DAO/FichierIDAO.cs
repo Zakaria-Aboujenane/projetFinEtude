@@ -10,15 +10,20 @@ namespace CalendrierDesArchives.DAO
 {
     interface FichierIDAO
     {
-        int ajouterFichier(string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention, int idP, int idType, string Description);
+        int ajouterFichier(Fichier f);
         void supprimerFichier(int id);
-        void modifierFichier(int id, string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention, int idP, int idType, string Description);
-        List<Fichier> listerLesfichiersParDate(DateTime date);
+        void modifierFichier(Fichier f);
+        List<Fichier> listerFichiersArchive();
+        List<Fichier> listerLesfichiersParDate(String date);
+        List<Fichier> listerLesfichiersParDateUser(DateTime date,Utilisateur u);
         List<Fichier> listerTousLesfichiers();
         List<Fichier> rechercheFichierParNom(String Nom);
         List<Fichier> rechercheFichierParType(int idType);
+        List<Fichier> listerParUser(Utilisateur user);
         Fichier getFichierById(int idF);
-
-
+        int AjouterParUser(Utilisateur u, Fichier f);
+        Boolean appartenanceUF(Utilisateur u, Fichier f);
+        List<Fichier> rechercheGenerale(String searsh);
+        List<Fichier> rechercheGSelonUser(String searsh,Utilisateur u);
     }
 }

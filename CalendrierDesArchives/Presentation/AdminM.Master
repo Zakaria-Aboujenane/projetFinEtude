@@ -1,0 +1,177 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminM.master.cs" Inherits="CalendrierDesArchives.Presentation.AdminM" %>
+
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <%-- Head:(tags) --%>
+    <link href="./style/Profil.css" rel="stylesheet" />
+    <link href="./style/footer.css" rel="stylesheet" />
+    <link href="./style/sidebar.css" rel="stylesheet" />
+    <link href="./style/sectionHead.css" rel="stylesheet" />
+    <link href="./style/NotificationBar.css" rel="stylesheet" />
+     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <title>
+        <asp:ContentPlaceHolder ID="title" runat="server">
+    </asp:ContentPlaceHolder>
+    </title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" 
+        rel="stylesheet">
+     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <style>
+        .footer-bottom{
+            margin-right: 0px;
+    padding-right: 0px;
+    /* padding-top: 0px; */
+    padding-left: 0px;
+        }
+    </style>
+</head>
+<body onload="RenderDate()">
+   <form runat="server">
+    <nav>
+        <ul class="menu">
+            <li class="logo"><a href="#">Calendrier Archives</a></li>
+            <li class="item"><a href="#">Accueil</a></li>
+            <li class="item"><a href="#">Services</a></li>
+            <li class="item button secondary" id="modaleBtn"><a href="#">User</a></li>
+            <li class="toggle"><span class="bars"></span></li>
+            <li class="item">
+               
+                
+            </li>
+        </ul>
+    </nav>
+    <div id="simpleModal" class="modal">
+        <div class="profilEtudiant">
+            <span class="closeBtnDeconnecte">&times;</span>
+            <img class="imageE" src="profile.png">
+            <label runat="server" class="admi">Admin</label>
+            <div class="nomE">
+                <label>nom: </label>
+                <label  id="nomPrenomPH" runat="server" >Meriem Ahjouji</label>
+            </div>
+            <div class="email">
+                <label  >email:</label>
+                <label  id="emailPH" runat="server" ></label>
+            </div>
+            <Button ID="Button1" class="deconnecter"  Text="deconnecter"></Button>
+                </div>
+        
+    </div>
+      
+    <%-- contenu ici: --%>
+    
+      
+        
+    <div class="ContentAll">
+        <div class="seection sideBar">
+            <input type="checkbox" id="check">
+            <label for="check">
+                <i class="fa fa-bars" id="btnBars"></i>
+                <i class="fa fa-times" id="cancelTimes"></i>
+            </label>
+            <div class="sidebar">
+                <header>My App</header>
+                <ul>
+                    <li><a href="./CalendrierAdmin.aspx"><i class="fa fa-user-circle"></i>Calendrier</a></li>
+                    <li><a href="./Types.aspx"><i class="fa fa-user-circle"></i>Type</a></li>
+                    <li><a href="./RetentionArchives.aspx"><i class="fa fa-user-circle"></i>Archives sous retention</a></li>
+                    <%--                    <li><a href="#"><i class="fas fa-file-invoice"></i>Tp</a></li>
+                    <li><a href="#"><i class="fas fa-book"></i>Filier</a></li>--%>
+                </ul>
+            </div>
+        </div>
+    
+        <asp:ContentPlaceHolder ID="content" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    <%-- footer: --%>
+    <footer class="footer">
+        <div class="footer-main-div">
+            <div class="footer-social-icons">
+                <ul>
+                    <li><a href="#" target="blank">
+                        <i class="fab fa-facebook"></i>
+                    </a></li>
+                    <li><a href="#" target="blank">
+                        <i class="fab fa-twitter"></i>
+                    </a></li>
+                    <li><a href="#" target="blank">
+                        <i class="fab fa-google-plus"></i>
+                    </a></li>
+                </ul>
+            </div>
+
+            <div class="footer-menu-one">
+                <ul>
+                    <li><a href="#">Acceuil</a></li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Design by:<a href="#">Learning Tutorial Point</a></p>
+        </div>
+    </footer>
+
+ 
+       
+
+    <script src="./javascript/Profil.js"></script>
+    <script src="./javascript/notification.js"></script>
+    <script>
+        $(document).ready(function () {
+           
+        });
+        function getNots() {
+            $.ajax({
+                type: "POST",
+                url: "CalendrierAdmin.aspx/getNotifications",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#NotifsPlace").html(msg.d);
+                },
+                error: function (e) {
+                    alert("Error : " + e.error);
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "CalendrierAdmin.aspx/getNumNots",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg.d == 0) {
+                        $('#numNots').hide();
+                    } else {
+                        $('#numNots').html(msg.d);
+                    }
+                },
+                error: function (e) {
+                    alert("Error : " + e.error);
+                }
+            });
+        }
+
+        $(function () {
+
+            $(".toggle").on("click", function () {
+                if ($(".item").hasClass("active")) {
+                    $(".item").removeClass("active");
+                } else {
+                    $(".item").addClass("active")
+                }
+            })
+        })
+    </script>
+       </form>
+</body>
+</html>

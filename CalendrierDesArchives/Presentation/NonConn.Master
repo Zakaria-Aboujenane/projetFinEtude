@@ -1,0 +1,94 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="NonConn.master.cs" Inherits="CalendrierDesArchives.Presentation.NonConn" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <%-- Head:(tags) --%>
+    <link href="./style/Profil.css" rel="stylesheet" />
+    <link href="./style/footer.css" rel="stylesheet" />
+    <link href="./style/sectionHead.css" rel="stylesheet" />
+    <title>
+        <asp:ContentPlaceHolder ID="title" runat="server">
+    </asp:ContentPlaceHolder>
+    </title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" 
+        rel="stylesheet">
+     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+</head>
+<body onload="RenderDate()">
+  
+    <nav>
+        <ul class="menu">
+            <li class="logo"><a href="#">Calendrier Archives</a></li>
+            <li class="item"><a href="#">Accueil</a></li>
+            <li class="item"><a href="#">Services</a></li>
+            <li class="item button secondary" id="modaleBtn"><a href="#">User</a></li>
+            <li class="toggle"><span class="bars"></span></li>
+            <li class="item">
+               
+
+            </li>
+        </ul>
+    </nav>
+    <div id="simpleModal" class="modal">
+        <div class="profilEtudiant">
+            
+        </div>
+    </div>
+
+    <%-- contenu ici: --%>
+    
+        <asp:ContentPlaceHolder ID="content" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    <%-- footer: --%>
+    <footer class="footer">
+        <div class="footer-main-div">
+            <div class="footer-social-icons">
+                <ul>
+                    <li><a href="#" target="blank">
+                        <i class="fab fa-facebook"></i>
+                    </a></li>
+                    <li><a href="#" target="blank">
+                        <i class="fab fa-twitter"></i>
+                    </a></li>
+                    <li><a href="#" target="blank">
+                        <i class="fab fa-google-plus"></i>
+                    </a></li>
+                </ul>
+            </div>
+
+            <div class="footer-menu-one">
+                <ul>
+                    <li><a href="#">Acceuil</a></li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Design by:<a href="#">Learning Tutorial Point</a></p>
+        </div>
+    </footer>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+
+    <script>
+        $(function () {
+           
+            $(".toggle").on("click", function () {
+                if ($(".item").hasClass("active")) {
+                    $(".item").removeClass("active");
+                } else {
+                    $(".item").addClass("active")
+                }
+            })
+        })
+    </script>
+</body>
+</html>

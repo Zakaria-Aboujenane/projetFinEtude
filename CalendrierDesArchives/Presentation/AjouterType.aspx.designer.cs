@@ -15,39 +15,66 @@ namespace CalendrierDesArchives.Presentation
     {
 
         /// <summary>
-        /// Contrôle txtName.
+        /// Contrôle typeN.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtName;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText typeN;
 
         /// <summary>
-        /// Contrôle Action.
+        /// Contrôle DUA.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Action;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText DUA;
 
         /// <summary>
-        /// Contrôle txtDuree.
+        /// Contrôle selectAction.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDuree;
+        protected global::System.Web.UI.WebControls.DropDownList selectAction;
 
         /// <summary>
-        /// Contrôle AddType.
+        /// Contrôle selectCritere.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddType;
+        protected global::System.Web.UI.WebControls.DropDownList selectCritere;
+
+        /// <summary>
+        /// Contrôle textArea.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea textArea;
+
+        /// <summary>
+        /// Contrôle erreur.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl erreur;
+
+        /// <summary>
+        /// Contrôle BTNADDArch.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BTNADDArch;
     }
 }

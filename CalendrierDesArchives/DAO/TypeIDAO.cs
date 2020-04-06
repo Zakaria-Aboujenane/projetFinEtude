@@ -9,7 +9,7 @@ namespace CalendrierDesArchives.DAO
 {
     interface TypeIDAO
     {
-        int ajouterType(String nomType, int Duree, string action);
+        int ajouterType(Type t);
         void supprimerType(Model.Type type);
         void modifierType(Model.Type type);
         List<Type> listerTypes();

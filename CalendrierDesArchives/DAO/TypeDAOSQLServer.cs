@@ -23,11 +23,11 @@ namespace CalendrierDesArchives.DAO
         {
             types = new List<Model.Type>();
         }
-        public int ajouterType(string nomType, int Duree, string action)
+        public int ajouterType(Model.Type t)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                String query = $"INSERT INTO Type(nomType,duree,action) values ('{ nomType}','{ Duree}','{action}');" +
+                String query = $"INSERT INTO Type(nomType,duree,action,DUAselon,Description) values ('{ t.nomType}','{ t.duree}','{t.action}','{t.DUAselon}','{t.Description}');" +
                     "SELECT CAST(SCOPE_IDENTITY() as int)";
                 int id = connection.Query<int>(query).Single();
                 return id;
@@ -39,7 +39,7 @@ namespace CalendrierDesArchives.DAO
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
 
-                return connection.Query<Model.Type>($"Select * From Type ").ToList();
+                return connection.Query<Model.Type>($"Select * From Type ORDER BY idType DESC;").ToList();
             }
         }
 
@@ -47,7 +47,7 @@ namespace CalendrierDesArchives.DAO
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                connection.Execute($"UPDATE Type SET nomType='{type.nomType}',  duree='{type.duree}',action= '{type.action}' WHERE idType ='{type.idType}'");
+                connection.Execute($"UPDATE Type SET nomType='{type.nomType}',  duree='{type.duree}',action= '{type.action}',DUAselon='{type.DUAselon}',Description='{type.Description}' WHERE idType ='{type.idType}'");
             }
         }
 
