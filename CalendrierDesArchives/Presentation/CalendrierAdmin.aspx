@@ -61,8 +61,12 @@
                 <a class="example_d" target="_self" href="./AjouterArchiveAdmin.aspx" target="_blank" rel="nofollow noopener">
                     <i class="fas fa-plus-circle"></i>Ajouter un Archive</a>
             </div>
-
-
+        </div>
+         <div class="Date_cont">
+            <select style="text-align: left; width: 100%;" class="input" id="selectTypeRet" data-placeholder="veuillez choisir un type">
+                <option value="1">les archives sous retentions</option>
+                <option value="2">les archives sous DUA</option>
+            </select>
         </div>
 
     </div>
@@ -162,6 +166,7 @@
                 
                 $('#selectDateC').chosen();
                 $('#selectVu').chosen();
+                $('#selectTypeRet').chosen();
             });
             function searchAdmin(search) {
                 var searchString = $('#search').val();
@@ -205,6 +210,7 @@
                
                 $('.wrapper-loading').fadeIn("slow");
                 var dateSelection = $('#selectDateC').val();
+             
                 var type = 1;
                
                 $.ajax({

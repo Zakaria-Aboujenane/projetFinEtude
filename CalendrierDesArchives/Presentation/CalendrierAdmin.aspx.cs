@@ -39,7 +39,8 @@ namespace CalendrierDesArchives.Presentation
 
                         if (dato == date)
                         {
-                            s += CalendrierAdmin.GenerateArchive(f);
+                            if (f.sortFinalComm == 0)
+                                s += CalendrierAdmin.GenerateArchive(f);
                         }
                     }
                 }
@@ -50,7 +51,8 @@ namespace CalendrierDesArchives.Presentation
                         String dato = f.dateDernierAcces.ToString("yyyy/MM/dd");
                         if (dato == date)
                         {
-                            s += CalendrierAdmin.GenerateArchive(f);
+                            if (f.sortFinalComm == 0)
+                                s += CalendrierAdmin.GenerateArchive(f);
                         }
                     }
 
@@ -62,7 +64,8 @@ namespace CalendrierDesArchives.Presentation
                         String dato = f.dateModification.ToString("yyyy/MM/dd");
                         if (dato == date)
                         {
-                            s += CalendrierAdmin.GenerateArchive(f);
+                            if (f.sortFinalComm == 0)
+                                s += CalendrierAdmin.GenerateArchive(f);
                         }
                     }
                 }
@@ -72,7 +75,8 @@ namespace CalendrierDesArchives.Presentation
                     {
                         if (f.dateSuppression.ToString() == date)
                         {
-                            s += CalendrierAdmin.GenerateArchive(f);
+                            if (f.sortFinalComm == 0)
+                                s += CalendrierAdmin.GenerateArchive(f);
                         }
                     }
                 }
@@ -99,7 +103,8 @@ namespace CalendrierDesArchives.Presentation
             List<Fichier> listF = new ActionsFichier().listerFichiersParDate(date);
             foreach (var f in listF)
             {
-                s += GenerateArchive(f);
+                if (f.sortFinalComm == 0)
+                    s += GenerateArchive(f);
             }
 
             return s;
@@ -107,6 +112,8 @@ namespace CalendrierDesArchives.Presentation
         //generateur des archives:
         public static String GenerateArchive(Fichier f)
         {
+            String text = f.chemain;
+            String url = text.Replace("\\", @"/");
             Model.Type t = new ActionsType().getTypeById(f.idType);
             String s = "  <div class=\"archive\">\r\n" +
                 "                    \r\n" +
@@ -125,7 +132,7 @@ namespace CalendrierDesArchives.Presentation
                 "                            </tr>\r\n" +
                 "                            <tr>\r\n" +
                 "                                <td>\r\n" +
-                "                                    <a href=\"#\"><i class=\"far fa-eye\"></i> voir le fichier</a><br />\r\n" +
+                "                                    <a onclick='openArchiveModal("+f.idFichier+ ",\"" + url + "\")' href=\"#\"><i class=\"far fa-eye\"></i> voir le fichier</a><br />\r\n" +
                 "                                </td>\r\n" +
                 "                                <td><a href=\"#\"><i class=\"fa fa-file-download\"><span class=\"separator\"> </span></i>telecharger</a> </td>\r\n" +
                 "                            </tr>\r\n" +
@@ -212,7 +219,8 @@ namespace CalendrierDesArchives.Presentation
             String s = "";
             foreach (var f in fichiers)
             {
-                s+=GenerateArchive(f);
+                if(f.sortFinalComm == 0)
+                    s+=GenerateArchive(f);
             }
             if (s == "")
                 s = "Aucun Fichier trouve";

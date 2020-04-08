@@ -146,16 +146,7 @@ namespace CalendrierDesArchives.DAO
             }
         }
 
-        public List<Fichier> listerLesfichiersParDateUser(DateTime date, Utilisateur u)
-        {
-            //using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
-            //{
-            //    return connection.Query<Fichier>($"Select f.* " +
-            //        $"From Fichier f,GestionFichier gf,Utilisateur u " +
-            //        $"Where datediff(day, f.DateAjout, '{date}')=0 OR datediff(day, f.DateModification,'{date}')=0 OR datediff(day, f.DateSuppression, '{date}')=0 ").ToList();
-            //}
-            return null;
-        }
+   
 
         public bool appartenanceUF(Utilisateur u, Fichier f)
         {
@@ -195,7 +186,7 @@ namespace CalendrierDesArchives.DAO
                 String str = "%" + searsh + "%";
                 searsh = str;
                 return connection.Query<Fichier>($"Select f.* From Fichier f,Type t " +
-                    $"Where sortFinalComm='0' AND f.idType = t.idType AND (f.Nom LIKE '{searsh}' OR f.[index] LIKE '{searsh}' OR t.nomType LIKE '{searsh}') " +
+                    $"Where f.idType = t.idType AND (f.Nom LIKE '{searsh}' OR f.[index] LIKE '{searsh}' OR t.nomType LIKE '{searsh}') " +
                     $"ORDER BY IdFichier DESC")
                     .ToList();
             }
@@ -208,8 +199,8 @@ namespace CalendrierDesArchives.DAO
                 String str = "%" + searsh + "%";
                 searsh = str;
                 return connection.Query<Fichier>($"Select f.* From Fichier f,Type t,GestionFichier g,Utilisateur u " +
-                    $"Where sortFinalComm='0' " +
-                    $"AND f.idType = t.idType AND g.IdFichier = f.IdFichier AND g.IdUtilisateur = u.IdUtilisateur AND u.idUtilisateur = '{u.idUtilisateur}' " +
+                    $"Where " +
+                    $"f.idType = t.idType AND g.IdFichier = f.IdFichier AND g.IdUtilisateur = u.IdUtilisateur AND u.idUtilisateur = '{u.idUtilisateur}' " +
                     $"AND(f.Nom LIKE '{searsh}' OR f.[index] LIKE '{searsh}' OR t.nomType LIKE '{searsh}') " +
                     $"ORDER BY IdFichier DESC")
                     .ToList();

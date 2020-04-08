@@ -1,5 +1,6 @@
 ﻿using CalendrierDesArchives.DAO;
 using CalendrierDesArchives.Model;
+using CalendrierDesArchives.Utils;
 using Hangfire;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,12 @@ namespace CalendrierDesArchives.Metiers
 {
     public class ActionsFichier
     {
+        HangFireUtil hangFireUtil;
         private FichierDAOSQLServer fichierDAOSQLServer;
         private TypeDAOSQLServer typeDAOSQLServer;
         public ActionsFichier()
         {
+            hangFireUtil = new HangFireUtil(this);
             fichierDAOSQLServer = FichierDAOSQLServer.getInstance();
         }
 
@@ -27,7 +30,11 @@ namespace CalendrierDesArchives.Metiers
             }
             fichierDAOSQLServer = FichierDAOSQLServer.getInstance();
             int id = fichierDAOSQLServer.ajouterFichier(f);
-
+            f.idFichier = id;
+            if(f.type.action == "Destruction")
+            {
+                hangFireUtil.DestructionSelonAjout(f);
+            }
             // ca marche , il reste la creation d'une classe qui gere ca (HangFireUtil)
             //if (f.type.action == "Destruction")
             //{
@@ -88,6 +95,12 @@ namespace CalendrierDesArchives.Metiers
         public List<Fichier> rechercheGSelonUser(String searsh, Utilisateur u)
         {
             return fichierDAOSQLServer.rechercheGSelonUser(searsh, u);
+        }
+
+        public void commencerLesortFinal(Fichier f)
+        {
+            f.sortFinalComm = 1;
+            fichierDAOSQLServer.modifierFichier(f);
         }
     }
 }

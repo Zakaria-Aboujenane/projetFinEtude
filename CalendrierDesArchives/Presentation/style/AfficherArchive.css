@@ -1,0 +1,95 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+}
+.buttonAjoutArchive{
+    background: coral;
+    padding: 1em 2em;
+    color: #fff;
+}
+
+.buttonAjoutArchive:hover{
+    background: #333;
+}
+
+.modalAjout{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0,0.5);
+}
+
+.modal-contenu{
+    position: relative;
+    top: 0;
+    /* left: 20px; */
+    z-index: 5;
+    /* border-top-left-radius: 70px; */
+    /* border-bottom-right-radius: 70px; */
+    background-color: rgb(51, 51, 51);
+    color: #fff;
+    font-weight: bold;
+    border: 10px inset #fff;
+    margin: 5% auto;
+    padding: 20px;
+    width: 50%;
+    height: 80%;
+    /* box-shadow: 0 5px 8px rgba(0, 0, 0,0.2), 0 7px 20px 0 rgba(0, 0, 0,0.17); */
+    animation-name: modalopen;
+    animation-duration: 1s;
+    display: block;
+}
+
+.closeBtnAjout{
+   color: #ccc;
+   float: right;
+   font-size: 30px;
+   margin-left: 12px;
+}
+.closeBtnAjout:hover,.closeBtnAjout:focus{
+   color: #333;
+   text-decoration: none;
+   cursor: pointer;
+}
+.titreArchive{
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 20px;
+}
+.titreAr{
+    text-align: center;
+    font-size: 35px;
+    color: #262626;
+    text-transform: uppercase;
+}
+
+.arch{
+    color:  #00b36b;
+}
+
+.pdfViewC{
+    width: 70%;
+    float: left;
+    border-radius: 10px;
+    border: 1px solid #00b36b;
+    box-sizing: border-box;
+}
+
+.infosArchives{
+    width: 100%;
+    float: left;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+@keyframes modalopen{
+    fromn {opacity: 0}
+    to{opacity:1}
+
+}

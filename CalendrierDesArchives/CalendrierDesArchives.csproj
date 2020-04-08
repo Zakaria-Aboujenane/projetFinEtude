@@ -137,6 +137,7 @@
     <Content Include="Presentation\images\pdf.png" />
     <Content Include="Presentation\images\phone.png" />
     <Content Include="Presentation\images\profil.png" />
+    <Content Include="Presentation\javascript\AfficherArchive.js" />
     <Content Include="Presentation\javascript\ajouterAchive.js" />
     <Content Include="Presentation\javascript\Calendrier.js" />
     <Content Include="Presentation\javascript\login.js" />
@@ -145,6 +146,7 @@
     <Content Include="Presentation\ModifierArchive.aspx" />
     <Content Include="Presentation\ModifierArchiveAdmin.aspx" />
     <Content Include="Presentation\RetentionArchives.aspx" />
+    <Content Include="Presentation\style\AfficherArchive.css" />
     <Content Include="Presentation\style\ajouterArchive.css" />
     <Content Include="Presentation\style\Calendrier.css" />
     <Content Include="Presentation\style\footer.css" />
@@ -273,6 +275,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup1.cs" />
+    <Compile Include="Utils\HangFireUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

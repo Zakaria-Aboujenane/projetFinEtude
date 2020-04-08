@@ -31,13 +31,16 @@ namespace CalendrierDesArchives.Presentation
             return s;
         }
         [WebMethod]
-        public static String getArchives()
+        public static String getArchives(String idtype)
         {
+            int type = 0;
+            Int32.TryParse(idtype,out type);
             String s = "";
             List<Fichier> fichiers = new ActionsFichier().listerFichiersArchive();
             s += generatebtnRetour();
             foreach (var f in fichiers)
             {
+                if(f.idType == type)
                 s += CalendrierAdmin.GenerateArchive(f);
             }
             return s;
@@ -67,6 +70,88 @@ namespace CalendrierDesArchives.Presentation
             "        </div>   ";
             return s;
         }
-        
+        [WebMethod]
+        public static string searchArchives(String search)
+        {
+            if(search != "")
+            {
+                List<Fichier> fichiers = new ActionsFichier().rechercheGenerale(search);
+                String s = "";
+                s += generatebtnRetour();
+                foreach (var f in fichiers)
+                {
+                    if (f.sortFinalComm == 1)
+                        s += CalendrierAdmin.GenerateArchive(f);
+                }
+                if (s == "")
+                    s = "Aucun Archive trouve";
+                return s;
+            }
+            else
+            {
+               String  s = "Veuillez entrer un type a rechercher,un nom ou l'index que vous avez creer";
+                return s;
+            }
+            
+        }
+        [WebMethod]
+        public static string getArchiveInfo(String idArch)
+        {
+            int idArchive = 0;
+            Int32.TryParse(idArch, out idArchive);
+            Fichier f = new ActionsFichier().getFichierById(idArchive);
+            if (f.sortFinalComm == 0)
+                return ArchiveInfoGenerateur(f);
+            else if (f.sortFinalComm == 1)
+                return ArchiveInfoGenerateur(f);
+            else
+                return "probleme non gere veuillez verifiez votre connection";
+
+        }
+        public static String ArchiveInfoGenerateur(Fichier f)
+        {
+            int joursRestants = f.dateSuppression.Subtract(f.dateAjout).Days;
+            String s = " <span class=\"closeBtnAjout\">&times;</span>\r\n" +
+        "                <div class=\"titreArchive\">\r\n" +
+        "                    <h1><label>Archive:</label ><label class=\"arch\">"+f.Nom+"</label></h1>\r\n" +
+        "                </div>\r\n" +
+        "                <div class=\"infosArchives\">\r\n" +
+        "                    <label class=\"infos\">Ajoute le:</label><br>\r\n" +
+        "                    <label class=\"infos\">"+f.dateAjout.ToString("dd/MM/yyyy")+"</label><br>\r\n" +
+        "                    <label class=\"infos\">Date du sort final:</label><br>\r\n" +
+        "                    <label class=\"infos\">"+f.dateSuppression.ToString("dd / MM / yyyy")+"</label><br>\r\n" +
+        "                    <label class=\"infos\">Date de derniere modification</label><br>\r\n" +
+        "                    <label class=\"infos\">"+f.dateModification.ToString("dd/MM/yyyy") + "</label><br>\r\n" +
+        "                    <label class=\"infos\">Date de dernier acces a ce fichier:</label><br>\r\n" +
+        "                    <label class=\"infos\">"+ f.dateDernierAcces.ToString("dd/MM/yyyy") + "</label><br>\r\n" +
+        "                    <label class=\"infos\">Il reste"+joursRestants+" jours pour la "+f.type.action+" ce fichier définitivement</label><br>\r\n" +
+         "                    <label class=\"infos\"><a href=" + f.chemain + ">cliquez ici pour voir l archive</a></label><br>\r\n" +
+        "                </div>";
+            return s;
+        }
+        public static String ArchiveRetentioneGenerateur(Fichier f)
+        {
+            String s = " <span class=\"closeBtnAjout\">&times;</span>\r\n" +
+        "                <div class=\"titreArchive\">\r\n" +
+        "                    <h1><label>Archive:</label ><label class=\"arch\">" + f.Nom + "</label></h1>\r\n" +
+        "                </div>\r\n" +
+        "                <div class=\"pdfViewC\" id=\"pdfViewContaint\">\r\n" +
+        "                    hna diri duv haywa hhhhhhhhhhhh\r\n" +
+        "                </div>\r\n" +
+        "                <div class=\"infosArchives\">\r\n" +
+        "                    <label class=\"infos\">Ajoute le:</label><br>\r\n" +
+        "                    <label class=\"infos\">" + f.dateAjout.ToString("dd/MM/yyyy") + "</label><br>\r\n" +
+        "                    <label class=\"infos\">Date du sort final:</label><br>\r\n" +
+        "                    <label class=\"infos\">" + f.dateSuppression.ToString("dd / MM / yyyy") + "</label><br>\r\n" +
+        "                    <label class=\"infos\">Date de derniere modification</label><br>\r\n" +
+        "                    <label class=\"infos\">" + f.dateModification.ToString("dd/MM/yyyy") + "</label><br>\r\n" +
+        "                    <label class=\"infos\">Date de dernier acces a ce fichier:</label><br>\r\n" +
+        "                    <label class=\"infos\">" + f.dateDernierAcces.ToString("dd/MM/yyyy") + "</label><br>\r\n" +
+                  "                    <label class=\"infos\">cet Archive est conserve depuis le" + f.dateSuppression.ToString("dd / MM / yyyy") + " </label><br>\r\n" +
+                  "                    <label class=\"infos\"><a href="+f.chemain+">cliquez ici pour voir l archive</a></label><br>\r\n" +
+                  "                    \r\n" +
+                  "                </div>";
+            return s;
+        }
     }
 }

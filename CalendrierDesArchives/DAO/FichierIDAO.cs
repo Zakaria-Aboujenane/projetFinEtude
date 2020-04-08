@@ -15,7 +15,6 @@ namespace CalendrierDesArchives.DAO
         void modifierFichier(Fichier f);
         List<Fichier> listerFichiersArchive();
         List<Fichier> listerLesfichiersParDate(String date);
-        List<Fichier> listerLesfichiersParDateUser(DateTime date,Utilisateur u);
         List<Fichier> listerTousLesfichiers();
         List<Fichier> rechercheFichierParNom(String Nom);
         List<Fichier> rechercheFichierParType(int idType);

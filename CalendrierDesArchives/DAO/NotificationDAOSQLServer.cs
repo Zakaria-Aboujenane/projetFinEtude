@@ -29,6 +29,7 @@ namespace CalendrierDesArchives.DAO
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
                 String query = $"INSERT INTO Notification(textNotification,DateNotification,IdFichier) values('{notification.textNotification}','{notification.dateNotification}','{notification.idFichier}')";
+                connection.Execute(query);
             }
         }
 
