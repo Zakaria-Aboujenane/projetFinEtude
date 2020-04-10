@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="./chosen/chosen.css">
      <link rel="stylesheet" href="style/sectionHead.css" type="text/css">
     <link href="./style/Loader.css" rel="stylesheet" />
+     <link href="./style/AfficherArchive.css" rel="stylesheet" />
     <style>
         .Date_cont{
             float:right;
@@ -24,7 +25,14 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="content" runat="server">
-     
+      <%-- Code de l'affichage de l'archive: --%>
+    <div id="simpleModalAjouterA" class="modalAjout">
+        <div id="ArchiveContent" class="modal-contenu">
+        </div>
+    </div>
+
+    <%--  --%>
+
        <div class="box">
                     <div class="notifications">
                         <i class="fas fa-bell"></i>
@@ -127,9 +135,6 @@
             <div class="jour">
             </div>
         </div>
-
-
-
     </div>
     <%-- Archive Place: --%>
     <div class="ListFichers">
@@ -151,7 +156,7 @@
 
         <script src="javascript/Calendrier.js"></script>
         <script src="./chosen/chosen.jquery.js"></script>
-
+         <script src="./javascript/AfficherArchive.js" ></script>
 
         <%-- Affichage par Date : (AJAX) --%>
         <script type="text/javascript">
@@ -168,6 +173,24 @@
                 $('#selectVu').chosen();
                 $('#selectTypeRet').chosen();
             });
+            function ouvrirFichier(idfichier) {
+                $('.wrapper-loading').fadeIn("slow");
+                $.ajax({
+                    type: "POST",
+                    url: "CalendrierAdmin.aspx/afficherArchive",
+                    data: "{idArch: '" + idfichier + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        openModel();
+                        $("#listArchives").html(msg.d);
+                        $('.wrapper-loading').fadeOut("slow");
+                    },
+                    error: function (e) {
+                        alert("Error : " + e.error);
+                    }
+                });
+            }
             function searchAdmin(search) {
                 var searchString = $('#search').val();
                 $.ajax({

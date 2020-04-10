@@ -232,7 +232,7 @@ namespace CalendrierDesArchives.Presentation
                 "                                <td>\r\n" +
                 "                                    <a href=\"#\"><i class=\"far fa-eye\"></i> voir le fichier</a><br />\r\n" +
                 "                                </td>\r\n" +
-                "                                <td><a href=\"#\"><i class=\"fa fa-file-download\"><span class=\"separator\"> </span></i>telecharger</a> </td>\r\n" +
+                "                                <td><a href=\"DownloadFile.aspx?idFile="+f.idFichier+"#\"><i class=\"fa fa-file-download\"><span class=\"separator\"> </span></i>telecharger</a> </td>\r\n" +
                 "                            </tr>\r\n" +
                 "                             \r\n" +
                 "                        \r\n" +
@@ -307,6 +307,14 @@ namespace CalendrierDesArchives.Presentation
             }
             
             return nv+"";
+        }
+        [WebMethod]
+        public static String afficherArchive(String idArch)
+        {
+            Utilisateur u = new ActionsUtilisateur().rechercheUtilisateurParId(idUser);
+            Fichier f = new ActionsFichier().getFichierById(Int32.Parse(idArch));
+            String s = GenerateArchive(f,u);
+            return s;
         }
     }
 }

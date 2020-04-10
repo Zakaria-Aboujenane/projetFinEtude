@@ -26,12 +26,14 @@ namespace CalendrierDesArchives.Model
         public int idType { get; set; }
         public string Description { get; set; }
         public string HangFireID { get; set; }
+        public string HangFireNotificationID { get; set; }
+        public  string HangFireRecJobNotID { get; set; }
         //Constructeur pour la base de donnees :
         public Fichier()
         {
             type = new Type();
         }
-        public Fichier(int IdFichier, string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention,string index,string emplacementPC,int sortFinalComm,int commArch, int idP,int idType,string Description,string HangFireID)
+        public Fichier(int IdFichier, string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention,string index,string emplacementPC,int sortFinalComm,int commArch, int idP,int idType,string Description,string HangFireID,string HangFireNotificationID,string HangFireRecJobNotID)
         {
             type = new Type();
             this.idFichier = IdFichier;
@@ -50,6 +52,8 @@ namespace CalendrierDesArchives.Model
             this.commArch = commArch;
             this.sortFinalComm = sortFinalComm;
             this.HangFireID = HangFireID;
+            this.HangFireNotificationID = HangFireNotificationID;
+            this.HangFireRecJobNotID = HangFireRecJobNotID;
         }
 
    

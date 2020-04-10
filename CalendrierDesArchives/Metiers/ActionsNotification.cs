@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using CalendrierDesArchives.DAO;
 using CalendrierDesArchives.Model;
+using Hangfire;
 
 namespace CalendrierDesArchives.Metiers
 {
@@ -67,6 +68,20 @@ namespace CalendrierDesArchives.Metiers
             notif.Vu = 0;
             notif.idNotification = 3;
             ajouterNotification(notif);
+        }
+
+        public void RefaireChaquemin(Fichier f)
+        {
+            String rec = "id"+f.idFichier;
+            f = new ActionsFichier().getFichierById(f.idFichier);
+            f.HangFireRecJobNotID = rec;
+            new ActionsFichier().modifier(f);
+            RecurringJob.AddOrUpdate(rec,() => ajouterNotificationPour(f), Cron.Minutely);
+          
+        }
+        public void supprimerNotDuFichier(Fichier f)
+        {
+            notificationDAOSQLServer.supprimerNotDuFichier(f);
         }
     }
 }

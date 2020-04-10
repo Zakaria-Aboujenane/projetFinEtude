@@ -76,8 +76,21 @@ namespace CalendrierDesArchives.DAO
             }
         }
 
-       
+        public void supprimerNotDuFichier(Fichier f)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
+            {
+                try
+                {
+                    connection.Execute($"DELETE FROM Notification WHERE IdFichier='{f.idFichier}';");
+                }
+                catch (Exception)
+                {
 
-       
+                    throw;
+                }
+               
+            }
+        }
     }
 }

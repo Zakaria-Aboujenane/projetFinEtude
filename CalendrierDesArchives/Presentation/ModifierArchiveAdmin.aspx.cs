@@ -57,8 +57,12 @@ namespace CalendrierDesArchives.Presentation
                 f.index = index.Value;
                 f.emplacementPC = EmpPc.Value;
                 f.idType = Int32.Parse(selectTypeAroo.SelectedValue);
-                f.type.idType = Int32.Parse(selectTypeAroo.SelectedValue);
+                f.type = new ActionsType().getTypeById(f.idType);
                 new ActionsFichier().modifier(f);
+                if(f.type.DUAselon == "DateDerniereMod")
+                {
+                    new ActionsFichier().modifierSelonHangFire(f);
+                }
                 String indexmsg = "Le fichier :" + f.Nom + " a ete bien modifie, index :" + f.index + "";
                 Response.Redirect("./CalendrierAdmin.aspx?indexmsg="+indexmsg);
             }

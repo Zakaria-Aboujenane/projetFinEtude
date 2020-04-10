@@ -7,11 +7,13 @@
     position: relative;
     border: 4px solid #Fff;
     animation: loader 2s infinite ease;
+    z-index: 300;
 }
 .wrapper-loading {
     width: 100%;
     height: 140%;
     position: absolute;
+    z-index:300;
     top: 0;
     left: 0;
     display: flex;
@@ -24,8 +26,8 @@
     display: inline-block;
     width: 100%;
     background-color: green;
-    z-index:10000;
-    background-color:black;
+    z-index: 300;
+    background-color: black;
     animation: loader-inner 2s infinite ease-in;
 }
 

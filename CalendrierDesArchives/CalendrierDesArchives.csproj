@@ -133,6 +133,7 @@
     <Content Include="Presentation\chosen\index.proto.html" />
     <Content Include="Presentation\chosen\options.html" />
     <Content Include="Presentation\AjouterArchive.aspx" />
+    <Content Include="Presentation\DownloadFile.aspx" />
     <Content Include="Presentation\images\p.svg" />
     <Content Include="Presentation\images\pdf.png" />
     <Content Include="Presentation\images\phone.png" />
@@ -230,6 +231,13 @@
     </Compile>
     <Compile Include="Presentation\CalendrierAdmin.aspx.designer.cs">
       <DependentUpon>CalendrierAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\DownloadFile.aspx.cs">
+      <DependentUpon>DownloadFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation\DownloadFile.aspx.designer.cs">
+      <DependentUpon>DownloadFile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Presentation\ModifierArchive.aspx.cs">
       <DependentUpon>ModifierArchive.aspx</DependentUpon>

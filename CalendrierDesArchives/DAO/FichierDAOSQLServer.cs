@@ -33,8 +33,8 @@ namespace CalendrierDesArchives.DAO
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
                 f.idParent = 1;
-                String query = $"INSERT INTO Fichier(Nom,DateAjout, DateModification, DateDernierAcces,  DateSuppression,  Chemain,  extention,[index],emplacementPC,sortFinalComm,commArch,idP,idType,Description,HangFireID) " +
-                   $"values ('{f.Nom}','{f.dateAjout}', '{f.dateModification}', '{f.dateDernierAcces}', '{f.dateSuppression}','{f.chemain}', '{f.extention}','{f.index}','{f.emplacementPC}','{f.sortFinalComm}',{f.commArch},'{f.idParent}','{f.type.idType}','{f.Description}','{f.HangFireID}' );"+
+                String query = $"INSERT INTO Fichier(Nom,DateAjout, DateModification, DateDernierAcces,  DateSuppression,  Chemain,  extention,[index],emplacementPC,sortFinalComm,commArch,idP,idType,Description,HangFireID,HangFireNotificationID,HangFireRecJobNotID) " +
+                   $"values ('{f.Nom}','{f.dateAjout}', '{f.dateModification}', '{f.dateDernierAcces}', '{f.dateSuppression}','{f.chemain}', '{f.extention}','{f.index}','{f.emplacementPC}','{f.sortFinalComm}',{f.commArch},'{f.idParent}','{f.type.idType}','{f.Description}','{f.HangFireID}','{f.HangFireNotificationID}','{f.HangFireRecJobNotID}' );"+
                    "SELECT CAST(SCOPE_IDENTITY() as int)";
                //recuperation de l'archive ajoute:
                  int id = connection.Query<int>(query).Single();
@@ -51,10 +51,15 @@ namespace CalendrierDesArchives.DAO
         }
         public void modifierFichier(Fichier f)
         {
+            
+                if (f.type.idType ==0)
+                    f.type.idType = f.idType;
+           
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
+                
                 connection.Execute($"UPDATE Fichier SET Nom='{f.Nom}',idType={f.type.idType},DateModification='{f.dateModification}',DateDernierAcces='{f.dateDernierAcces}',DateSuppression='{f.dateSuppression}',[index]='{f.index}'," +
-                    $"emplacementPC='{f.emplacementPC}',sortFinalComm='{f.sortFinalComm}',commArch='{f.commArch}',Description='{f.Description}',HangFireID='{f.HangFireID}'  WHERE IdFichier = {f.idFichier}");
+                    $"emplacementPC='{f.emplacementPC}',sortFinalComm='{f.sortFinalComm}',commArch='{f.commArch}',Description='{f.Description}',HangFireID='{f.HangFireID}',HangFireNotificationID='{f.HangFireNotificationID}',HangFireRecJobNotID='{f.HangFireRecJobNotID}'  WHERE IdFichier = {f.idFichier}");
             }
         }
 

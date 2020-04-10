@@ -1,53 +1,62 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Presentation/Site1.Master" AutoEventWireup="true" CodeBehind="Calendrier.aspx.cs" Inherits="CalendrierDesArchives.Presentation.Calendrier" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="style/Calendrier.css" type="text/css">
     <link rel="stylesheet" href="./chosen/chosen.css">
-     <link rel="stylesheet" href="style/sectionHead.css" type="text/css">
+     <link href="./style/AfficherArchive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style/sectionHead.css" type="text/css">
     <link href="./style/Loader.css" rel="stylesheet" />
     <style>
-        .Date_cont{
-            float:right;
-            margin:30px;
+        .Date_cont {
+            float: right;
+            margin: 30px;
         }
-        .Voir_cont{
-            float:right;
-            margin:30px;
+
+        .Voir_cont {
+            float: right;
+            margin: 30px;
         }
-        .moteurRech{
-            width:30%;
-            float:right;
-            
+
+        .moteurRech {
+            width: 30%;
+            float: right;
         }
-        
     </style>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="content" runat="server">
-        
-       <div class="box">
-                    <div class="notifications">
-                        <i class="fas fa-bell"></i>
-                        <span id="numNots" class="num">4</span>
-                        <ul id="NotifsPlace">
-                            <li>
-                                <span class="iconeu"><i style="transform:scale(1,1);" class="fas fa-file-archive"></i></span>
-                                <span class="textNot">Someone Like Your Post</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-    <%-- Head : bar de recherche et add: --%>
-    
-    <div id="recherche">
-         <p style="color:green" runat="server" id="createdMSG"></p>
-        <h2 style="color:green" runat="server" id="msgIndex"></h2>
-        <div class="moteurRech">
-        <div  id="searchBarForm">
-            <input type="text" name="q" id="search">
-            <i onclick="searchUser()" style="transform:scale(1.4,1.4); float:right" class="fas fa-search"></i>
+
+    <%-- Code de l'affichage de l'archive: --%>
+    <div id="simpleModalAjouterA" class="modalAjout">
+        <div id="ArchiveContent" class="modal-contenu">
         </div>
+    </div>
+
+    <%--  --%>
+    <div class="box">
+        <div class="notifications">
+            <i class="fas fa-bell"></i>
+            <span id="numNots" class="num">4</span>
+            <ul id="NotifsPlace">
+                <li>
+                    <span class="iconeu"><i style="transform: scale(1,1);" class="fas fa-file-archive"></i></span>
+                    <span class="textNot">Someone Like Your Post</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <%-- Head : bar de recherche et add: --%>
+
+    <div id="recherche">
+        <p style="color: green" runat="server" id="createdMSG"></p>
+        <h2 style="color: green" runat="server" id="msgIndex"></h2>
+        <div class="moteurRech">
+            <div id="searchBarForm">
+                <input type="text" name="q" id="search">
+                <i onclick="searchUser()" style="transform: scale(1.4,1.4); float: right" class="fas fa-search"></i>
             </div>
+        </div>
         <div class="Date_cont">
             <select style="text-align: left; width: 100%;" class="input" id="selectDateC" data-placeholder="veuillez choisir un type">
                 <option value="1">Date Ajout</option>
@@ -72,7 +81,7 @@
 
     </div>
     <div class="wrapper-loading">
-        <span class="loader"> <span class="loader-inner">Veuillez patientez</span></span>
+        <span class="loader"><span class="loader-inner">Veuillez patientez</span></span>
     </div>
     <%-- Calendrier: --%>
     <div class="comble"></div>
@@ -139,7 +148,7 @@
 
             <div id="ModalContentArchives" class="modal-content">
                 <div class="headModal">
-                    <div id="closeMe"  class="closeBtn"><i class="far fa-times-circle"></i></div>
+                    <div id="closeMe" class="closeBtn"><i class="far fa-times-circle"></i></div>
                 </div>
 
                 <div id="listArchives">
@@ -152,7 +161,7 @@
 
         <script src="javascript/Calendrier.js"></script>
         <script src="./chosen/chosen.jquery.js"></script>
-
+         <script src="./javascript/AfficherArchive.js" ></script>
 
         <%-- Affichage par Date : (AJAX) --%>
         <script type="text/javascript">
@@ -165,7 +174,24 @@
                 $('#selectDateC').chosen();
                 $('#selectVu').chosen();
             });
-        
+            function ouvrirFichier(idfichier) {
+                $('.wrapper-loading').fadeIn("slow");
+                $.ajax({
+                    type: "POST",
+                    url: "Calendrier.aspx/afficherArchive",
+                    data: "{idArch: '" + id + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        openModel();
+                        $("#listArchives").html(msg.d);
+                        $('.wrapper-loading').fadeOut("slow");
+                    },
+                    error: function (e) {
+                        alert("Error : " + e.error);
+                    }
+                });
+            }
             function deleteArchive(id, date) {
                 $('.wrapper-loading').fadeIn("slow");
                 var dateSelection = $('#selectDateC').val();
@@ -185,32 +211,32 @@
                     }
                 });
             }
-                function searchUser() {
-                    var searchString = $('#search').val();
-                    var type = $('#selectVu').val();
-                    $.ajax({
-                        type: "POST",
-                        url: "Calendrier.aspx/searchArchives",
-                        data: "{search: '" + searchString + "',typeS: '"+type+"'}",
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function (msg) {
-                            openModel();
-                            $("#listArchives").html(msg.d);
-                            $('.wrapper-loading').fadeOut("slow");
-                        },
-                        error: function (e) {
-                            alert("Error : " + e.error);
-                            $('.wrapper-loading').fadeOut("slow");
-                        }
-                    });
-                }
+            function searchUser() {
+                var searchString = $('#search').val();
+                var type = $('#selectVu').val();
+                $.ajax({
+                    type: "POST",
+                    url: "Calendrier.aspx/searchArchives",
+                    data: "{search: '" + searchString + "',typeS: '" + type + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        openModel();
+                        $("#listArchives").html(msg.d);
+                        $('.wrapper-loading').fadeOut("slow");
+                    },
+                    error: function (e) {
+                        alert("Error : " + e.error);
+                        $('.wrapper-loading').fadeOut("slow");
+                    }
+                });
+            }
             function callCS(dateString) {
-               
+
                 $('.wrapper-loading').fadeIn("slow");
                 var dateSelection = $('#selectDateC').val();
                 var type = $('#selectVu').val();
-               
+
                 $.ajax({
                     type: "POST",
                     url: "Calendrier.aspx/getArchives",

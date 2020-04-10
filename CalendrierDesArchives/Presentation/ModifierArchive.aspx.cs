@@ -1,5 +1,6 @@
 ﻿using CalendrierDesArchives.Metiers;
 using CalendrierDesArchives.Model;
+using CalendrierDesArchives.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace CalendrierDesArchives.Presentation
 {
     public partial class ModifierArchive : System.Web.UI.Page
     {
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["idUser"] == null && Session["privillege"] != "User")
@@ -57,6 +59,7 @@ namespace CalendrierDesArchives.Presentation
                     int idType = 0;
                     Int32.TryParse(selectTypeAroo.SelectedValue, out idType);
                     Fichier f = new ActionsFichier().getFichierById(idF);
+                    
                     f.Nom = titreAr;
                     f.Description = description;
                     f.dateModification = day;
@@ -65,7 +68,8 @@ namespace CalendrierDesArchives.Presentation
                      f.idType = Int32.Parse(selectTypeAroo.SelectedValue);
                    f.type.idType = Int32.Parse(selectTypeAroo.SelectedValue);
                      new ActionsFichier().modifier(f);
-                    String indexmsg = "le fichier :"+f.Nom+" a ete bien modifier, index :" + f.index + "";
+            
+                String indexmsg = "le fichier :"+f.Nom+" a ete bien modifier, index :" + f.index + "";
                     Response.Redirect("./Calendrier.aspx?indexmsg="+indexmsg);
              }
              else

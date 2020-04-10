@@ -1,5 +1,8 @@
 ﻿using CalendrierDesArchives.Metiers;
 using CalendrierDesArchives.Model;
+using CalendrierDesArchives.Utils;
+using Hangfire;
+using Hangfire.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +18,13 @@ namespace CalendrierDesArchives.Presentation
         int idUser;
         protected void Page_Load(object sender, EventArgs e)
         {
+            using (var connection = JobStorage.Current.GetConnection())
+            {
+                foreach (var recurringJob in connection.GetRecurringJobs())
+                {
+                    RecurringJob.RemoveIfExists(recurringJob.Id);
+                }
+            }
             if (Session["idUser"] == null && Session["privillege"] != "Admin")
             {
                 Response.Redirect("./Authentification.aspx");
@@ -134,7 +144,7 @@ namespace CalendrierDesArchives.Presentation
                 "                                <td>\r\n" +
                 "                                    <a onclick='openArchiveModal("+f.idFichier+ ",\"" + url + "\")' href=\"#\"><i class=\"far fa-eye\"></i> voir le fichier</a><br />\r\n" +
                 "                                </td>\r\n" +
-                "                                <td><a href=\"#\"><i class=\"fa fa-file-download\"><span class=\"separator\"> </span></i>telecharger</a> </td>\r\n" +
+                "                                <td><a href=\"DownloadFile.aspx?idFile=" + f.idFichier + "#\"><i class=\"fa fa-file-download\"><span class=\"separator\"> </span></i>telecharger</a> </td>\r\n" +
                 "                            </tr>\r\n" +
                 "                             \r\n" +
                 "                        \r\n" +
@@ -226,6 +236,14 @@ namespace CalendrierDesArchives.Presentation
                 s = "Aucun Fichier trouve";
             return s;
 
+        }
+        [WebMethod]
+        public static String afficherArchive(String idArch)
+        {
+            ActionsFichier ActsFich = new ActionsFichier();
+            Fichier f = ActsFich.getFichierById(Int32.Parse(idArch));
+            String s = GenerateArchive(f);
+            return s;
         }
     }
 }
