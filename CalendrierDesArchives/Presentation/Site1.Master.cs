@@ -33,5 +33,13 @@ namespace CalendrierDesArchives.Presentation
             Session.Abandon();
             Response.Redirect("./Authentification.aspx");
         }
+
+        protected void Button1_Click1(object sender, EventArgs e)
+        {
+            Session.Abandon();
+            Session.Clear();
+            Response.Cookies.Clear();
+            Response.Redirect("./Authentification.aspx");
+        }
     }
 }

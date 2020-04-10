@@ -25,10 +25,10 @@ namespace CalendrierDesArchives.Metiers
             instance = this;
         }
 
-        public void ajouterNotification(Model.Notification notification)
+        public int ajouterNotification(Model.Notification notification)
         {
             notificationDAOSQLServer = NotificationDAOSQLServer.getInstance();
-            notificationDAOSQLServer.ajouterNotification(notification);
+           return notificationDAOSQLServer.ajouterNotification(notification);
         }
 
         public void supprimerNotification(Model.Notification notification)
@@ -59,15 +59,24 @@ namespace CalendrierDesArchives.Metiers
         }
         public void  ajouterNotificationPour(Fichier f)
         {
+        
             int joursRest = f.dateSuppression.Subtract(f.dateAjout).Days;
             Notification notif = new Notification();
+            f.type = new ActionsType().getTypeById(f.idType);
             notif.dateNotification = f.dateAjout;
             notif.idFichier = f.idFichier;
-            notif.textNotification = "La "+f.type.action+" de ce fichier est apres "+joursRest+
-                " cliquez ici pour voir le fichier";
+            notif.textNotification = "La " + f.type.action + " de ce fichier est après " + joursRest;
             notif.Vu = 0;
-            notif.idNotification = 3;
-            ajouterNotification(notif);
+            int idNotif = ajouterNotification(notif);
+            notif.idNotification = idNotif;
+            List<Utilisateur> users = new ActionsUtilisateur().listerTousUtilisateur();
+            foreach (var u in users)
+            {
+                if (new ActionsFichier().appartenanceUF(u, f))
+                {
+                    new ActionsNotification().ajouterNotifAvecUser(u, notif);
+                }
+            }
         }
 
         public void RefaireChaquemin(Fichier f)
@@ -82,6 +91,10 @@ namespace CalendrierDesArchives.Metiers
         public void supprimerNotDuFichier(Fichier f)
         {
             notificationDAOSQLServer.supprimerNotDuFichier(f);
+        }
+        public void ajouterNotifAvecUser(Utilisateur u, Notification n)
+        {
+            notificationDAOSQLServer.ajouterNotifAvecUser(u, n);
         }
     }
 }

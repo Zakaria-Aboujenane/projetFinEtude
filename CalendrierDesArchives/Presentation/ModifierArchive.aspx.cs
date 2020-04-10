@@ -12,7 +12,7 @@ namespace CalendrierDesArchives.Presentation
 {
     public partial class ModifierArchive : System.Web.UI.Page
     {
-       
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["idUser"] == null && Session["privillege"] != "User")
@@ -43,41 +43,44 @@ namespace CalendrierDesArchives.Presentation
         {
         }
 
-        
+
         protected void BTNADDArch_Click(object sender, EventArgs e)
         {
-            
+
             if (TitreArch.Value != "" || textArea.Value != "" || EmpPc.Value != "" || index.Value != "" || selectTypeAroo.SelectedValue != "")
             {
-                    String stringidF = Request.QueryString["idFichier"];
-                    int idF;
-                    idF = Int32.Parse(stringidF);
-                    
-                    String titreAr = TitreArch.Value;
+                String stringidF = Request.QueryString["idFichier"];
+                int idF;
+                idF = Int32.Parse(stringidF);
+
+                String titreAr = TitreArch.Value;
                 String description = textArea.InnerHtml;
-                    DateTime day = DateTime.Now;
-                    int idType = 0;
-                    Int32.TryParse(selectTypeAroo.SelectedValue, out idType);
-                    Fichier f = new ActionsFichier().getFichierById(idF);
-                    
-                    f.Nom = titreAr;
-                    f.Description = description;
-                    f.dateModification = day;
-                    f.index = index.Value;
-                    f.emplacementPC = EmpPc.Value;
-                     f.idType = Int32.Parse(selectTypeAroo.SelectedValue);
-                   f.type.idType = Int32.Parse(selectTypeAroo.SelectedValue);
-                     new ActionsFichier().modifier(f);
-            
-                String indexmsg = "le fichier :"+f.Nom+" a ete bien modifier, index :" + f.index + "";
-                    Response.Redirect("./Calendrier.aspx?indexmsg="+indexmsg);
-             }
-             else
-             {
-                    erreur.InnerHtml = "veuillez remplir tous les champs";
-             }
-               
+                DateTime day = DateTime.Now;
+                int idType = 0;
+                Int32.TryParse(selectTypeAroo.SelectedValue, out idType);
+                Fichier f = new ActionsFichier().getFichierById(idF);
+
+                f.Nom = titreAr;
+                f.Description = description;
+                f.dateModification = day;
+                f.index = index.Value;
+                f.emplacementPC = EmpPc.Value;
+                f.idType = Int32.Parse(selectTypeAroo.SelectedValue);
+                f.type = new ActionsType().getTypeById(f.idType);
+                new ActionsFichier().modifier(f);
+                if (f.type.DUAselon == "DateDerniereMod")
+                {
+                    new ActionsFichier().modifierSelonHangFire(f);
+                }
+                String indexmsg = "le fichier :" + f.Nom + " a ete bien modifier, index :" + f.index + "";
+                Response.Redirect("./Calendrier.aspx?indexmsg=" + indexmsg);
+            }
+            else
+            {
+                erreur.InnerHtml = "veuillez remplir tous les champs";
+            }
+
 
         }
     }
-   }
+}

@@ -9,7 +9,8 @@ namespace CalendrierDesArchives.DAO
 {
     interface NotificationIDAO
     {
-        void ajouterNotification(Model.Notification notification);
+        int ajouterNotification(Model.Notification notification);
+        void ajouterNotifAvecUser(Utilisateur u,Notification n);
         void modifierNotification(Model.Notification notification);
         void supprimerNotification(Model.Notification notification);
         void supprimerNotDuFichier(Fichier f);

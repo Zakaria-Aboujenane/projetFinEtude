@@ -58,7 +58,7 @@
                 <label  >email:</label>
                 <label  id="emailPH" runat="server" ></label>
             </div>
-            <Button ID="Button1" class="deconnecter"  Text="deconnecter"></Button>
+            <asp:Button ID="Button1" class="deconnecter" runat="server" Text="deconnecter" OnClick="Button1_Click1" />
                 </div>
         
     </div>

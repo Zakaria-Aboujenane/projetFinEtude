@@ -212,6 +212,8 @@ namespace CalendrierDesArchives.Presentation
         //generateur des archives pour user:
         public static String GenerateArchive(Fichier f,Utilisateur u)
         {
+            String text = f.chemain;
+            String url = text.Replace("\\", @"/");
             Model.Type t = new ActionsType().getTypeById(f.idType);
             String s=  "  <div class=\"archive\">\r\n" +
                 "                    \r\n" +
@@ -230,7 +232,7 @@ namespace CalendrierDesArchives.Presentation
                 "                            </tr>\r\n" +
                 "                            <tr>\r\n" +
                 "                                <td>\r\n" +
-                "                                    <a href=\"#\"><i class=\"far fa-eye\"></i> voir le fichier</a><br />\r\n" +
+                "                                    <a onclick='openArchiveModal(" + f.idFichier + ",\"" + url + "\")' href=\"#\"><i class=\"far fa-eye\"></i> voir le fichier</a><br />\r\n" +
                 "                                </td>\r\n" +
                 "                                <td><a href=\"DownloadFile.aspx?idFile="+f.idFichier+"#\"><i class=\"fa fa-file-download\"><span class=\"separator\"> </span></i>telecharger</a> </td>\r\n" +
                 "                            </tr>\r\n" +

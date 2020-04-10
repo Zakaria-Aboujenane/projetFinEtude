@@ -6,7 +6,7 @@
 }
 
 .sideBar {
-    width: 250px;
+    width: 291px;
     margin: 0;
     float: left;
     z-index: 10000000;
@@ -86,10 +86,10 @@
 .sidebar {
     position: relative;
     left: -250px;
-    width: 250px;
+    width: 100%;
     height: auto;
     z-index: 12;
-    background: #262626;
+    background: black;
     transition: all .5px ease;
 }
 

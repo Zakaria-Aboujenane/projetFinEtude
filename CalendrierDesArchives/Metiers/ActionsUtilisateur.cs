@@ -15,22 +15,22 @@ namespace CalendrierDesArchives.Metiers
             utilisateurDAOSQLServer = UtilisateurDAOSQLServer.getInstance();
         }
 
-        public void ajouterUtilisateur(String Nom, String Prenom, String Email, String MotDePasse, String Privillege)
+        public void ajouterUtilisateur(Utilisateur u)
         {
             //utilisateurDAOSQLServer = UtilisateurDAOSQLServer.getInstance();
-            utilisateurDAOSQLServer.ajouterUtilisateur(Nom, Prenom, Email, MotDePasse, Privillege);
+            utilisateurDAOSQLServer.ajouterUtilisateur(u.nom, u.prenom, u.email, u.motDePasse, u.privillege);
         }
 
-        public void supprimerUtilisateur(int idUtilisateur)
+        public void supprimerUtilisateur(Utilisateur u)
         {
             //utilisateurDAOSQLServer = UtilisateurDAOSQLServer.getInstance();
-            utilisateurDAOSQLServer.supprimerUtilisateur(idUtilisateur);
+            utilisateurDAOSQLServer.supprimerUtilisateur(u.idUtilisateur);
         }
 
-        public void modifierUtilisateur(int idUtilisateur, String nomUtilisateur, String prenomUtilisateur, String email, String motDePasse, String privillege)
+        public void modifierUtilisateur(Utilisateur u)
         {
             //utilisateurDAOSQLServer = UtilisateurDAOSQLServer.getInstance();
-            utilisateurDAOSQLServer.modifierUtilisateur(idUtilisateur, nomUtilisateur, prenomUtilisateur, email, motDePasse, privillege);
+            utilisateurDAOSQLServer.modifierUtilisateur(u.idUtilisateur, u.nom, u.prenom, u.email, u.motDePasse, u.privillege);
         }
 
 

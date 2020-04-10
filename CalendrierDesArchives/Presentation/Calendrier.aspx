@@ -26,8 +26,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="content" runat="server">
-
-    <%-- Code de l'affichage de l'archive: --%>
+          <%-- Code de l'affichage de l'archive: --%>
     <div id="simpleModalAjouterA" class="modalAjout">
         <div id="ArchiveContent" class="modal-contenu">
         </div>

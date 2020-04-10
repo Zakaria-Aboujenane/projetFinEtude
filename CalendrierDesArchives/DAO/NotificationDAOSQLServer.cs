@@ -24,12 +24,14 @@ namespace CalendrierDesArchives.DAO
         {
             notifications = new List<Notification>();
         }
-        public void ajouterNotification(Model.Notification notification)
+        public int ajouterNotification(Model.Notification notification)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                String query = $"INSERT INTO Notification(textNotification,DateNotification,IdFichier) values('{notification.textNotification}','{notification.dateNotification}','{notification.idFichier}')";
-                connection.Execute(query);
+                String query = $"INSERT INTO Notification(textNotification,DateNotification,IdFichier) values('{notification.textNotification}','{notification.dateNotification}','{notification.idFichier}');" +
+                    $"SELECT CAST(SCOPE_IDENTITY() as int)";
+                int id = connection.Query<int>(query).Single();
+                return id;
             }
         }
 
@@ -90,6 +92,15 @@ namespace CalendrierDesArchives.DAO
                     throw;
                 }
                
+            }
+        }
+
+        public void ajouterNotifAvecUser(Utilisateur u, Notification n)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
+            {
+                String query = $"INSERT INTO GestionNotification(IdNotification,IdUtilisateur) values('{n.idNotification}','{u.idUtilisateur}')";
+                connection.Execute(query);
             }
         }
     }
