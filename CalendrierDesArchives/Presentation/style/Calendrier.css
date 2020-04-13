@@ -1,37 +1,38 @@
 
-.listArchives{
-
+.listArchives {
 }
+
 .active {
     right: 0px;
 }
-.comble{
+
+.comble {
     position: absolute;
-    top:0px;
+    top: 0px;
     left: 0px;
     height: 100%;
     right: 370px;
 }
 
-.comble1{
+.comble1 {
     position: absolute;
-    top:550px;
+    top: 550px;
     height: 100%;
     right: 0px;
     width: 370px;
 }
 
-.comble2{
+.comble2 {
     position: absolute;
-    top:50px;
+    top: 50px;
     height: 100%;
     right: 0px;
     width: 20px;
 }
 
-.comble3{
+.comble3 {
     position: absolute;
-    top:0px;
+    top: 0px;
     height: 50px;
     right: 0px;
     width: 370px;
@@ -39,13 +40,15 @@
 
 
 .calendrier {
-    width: 77%;
-    
+    width: 72%;
     float: right;
-    height: 400px;
-    background-color: #fff;
-   margin:10px;
+    height: 425px;
+    overflow: hidden;
+    border: 2px solid #66FCF1;
+    background-color: #0B0C10;
+    margin: 10px;
     box-shadow: 0px 0px 15px 3px rgb(17, 33, 63);
+    border-radius: 30px;
 }
 
 .annee {
@@ -56,14 +59,17 @@
     height: 20px;
     float: left;
     text-align: center;
-    background-color: #27ae60;
-    color: #fff;
+    background-color: #0B0C10;
+    /* color: white; */
     padding: 40px 30px;
     box-sizing: border-box;
+    border-radius: 30px 0px 0px 0px;
 }
-.date_str{
-    margin:0;
+
+.date_str {
+    margin: 0;
 }
+
 .mois {
     display: flex;
     justify-content: space-between;
@@ -72,25 +78,26 @@
     float: left;
     height: 20px;
     text-align: center;
-    background-color: #2ecc71;
-    color: #fff;
+    background-color: #0B0C10;
+    color: #66FCF1;
     padding: 40px 30px;
     box-sizing: border-box;
+    border-radius: 0px 30px 0px 0px;
 }
 
 .semaine {
     display: flex;
-    background-color: #27ae60;
-    color: #fff;
+    background-color: #0B0C10;
+    color: #66FCF1;
     padding: 7px 0;
     float: left;
     width: 100%;
 }
 
-.semaine div{
-    width: 100%;
-    text-align: center;
-}
+    .semaine div {
+        width: 100%;
+        text-align: center;
+    }
 
 .jour {
     display: flex;
@@ -98,31 +105,36 @@
     font-weight: 300;
     padding: 10px 0;
     float: left;
+    color: #66FCF1;
     width: 100%;
 }
-.jour div{
-    text-align: center;
-    width: 14.28%;
-    margin-bottom: 10px;
-    padding:10px 0 ;
-    transition: all 0.4s ease;
+
+    .jour div {
+        text-align: center;
+        width: 14.28%;
+        margin-bottom: 10px;
+        padding: 10px 0;
+        transition: all 0.4s ease;
+        /* color: #66FCF1; */
+    }
+
+        .jour div:hover {
+            cursor: pointer;
+            background: #66FCF1;
+            color: #0B0C10;
+        }
+
+.today {
+    background-color: #fff;
+    color: #0B0C10;
 }
 
-.jour div:hover{
-    background-color: #dfe6e9;
-    cursor: pointer;
-}
-
-.today{
-    background-color: #27ae60;
-    color: #fff;
-}
-
-.prev_date{
+.prev_date {
     color: rgb(184, 180, 180);
+    color: #1F2833;
 }
 
-#mois{
+#mois {
     font-size: 30px;
     font-weight: 500;
 }
@@ -130,7 +142,7 @@
 .prev,
 .next,
 .prevAnnee,
-.nextAnnee{
+.nextAnnee {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -142,22 +154,22 @@
     transition: all 0.4s;
 }
 
-.prev:hover,
-.next:hover,
-.prevAnnee:hover,
-.nextAnnee:hover{
-background-color: rgb(0, 0, 0, 0.2);
-cursor: pointer;
-}
+    .prev:hover,
+    .next:hover,
+    .prevAnnee:hover,
+    .nextAnnee:hover {
+        background-color: rgb(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
 
 /* style du model :(popup)  */
 
 .modal {
     display: none;
-    position: fixed;
+    position: absolute;
     z-index: 1;
     left: 0;
-    top: 0px;
+    top: 63px;
     height: 100%;
     width: 100%;
     overflow: auto;
@@ -165,18 +177,22 @@ cursor: pointer;
 }
 
 .modal-content {
-    background-color: hsl(286, 28%, 12%);
+    background-color: #0B0C10;
     margin: 1% 25%;
+    border-radius: 30px;
     padding: 20px;
+    border-top: 2px solid #66FCF1;
+    border-bottom: 2px solid #66FCF1;
+    border-left: 2px solid #66FCF1;
     width: 50%;
     float: left;
     height: 75%;
     /* min-height: 80%; */
     box-shadow: 0 5px 8px rgba(0, 0, 0,0.2), 0 7px 20px 0 rgba(0, 0, 0,0.17);
     animation-name: modalopen;
-    animation-duration: 2s;
-    overflow-x:hidden;
-    overflow-y:scroll;
+    animation-duration: 10s;
+    overflow-x: hidden;
+    overflow-y: scroll;
     display: block;
 }
 
@@ -187,13 +203,15 @@ cursor: pointer;
         width: 33%;
         margin: 0;
     }
-.headModal{
-    width:100%;
-    min-height:30px;
-    float:left;
+
+.headModal {
+    width: 100%;
+    min-height: 30px;
+    float: left;
 }
+
 .closeBtn {
-    color: #ccc;
+    color: #66FCF1;
     float: right;
     font-size: 30px;
     margin-left: 12px;
@@ -204,70 +222,83 @@ cursor: pointer;
         text-decoration: none;
         cursor: pointer;
     }
-.listArchives{
-    height:auto;
-    width:100%;
+
+.listArchives {
+    height: auto;
+    width: 100%;
 }
 
 .addedToday {
     color: cyan;
 }
-.archive{
-    width:100%;
-    display:block;
-    height:160px;
-    float:left;
-}
-.photoAr{
-    width:20%;
-    height:100%;
-    border:2px solid black;
-    float:left;
 
+.archive {
+    width: 100%;
+    display: block;
+    height: 160px;
+    float: left;
+    border-bottom: 3px solid #5CDB95;
 }
+
+.photoAr {
+    width: 20%;
+    height: 70%;
+    margin-top: 30px;
+    border: 2px solid #66FCF1;
+    border-radius: 50%;
+    float: left;
+    padding: 3px;
+    overflow: hidden;
+}
+
 .photoArImg {
-    height: 90%;
-    padding: 5px;
-    width: 90%;
+    height: 100%;
+    border-radius: 50%;
+    width: 100%;
 }
+
 .descripAr {
     width: 70%;
     height: 100%;
-    float:left;
+    float: left;
 }
+
 .btnsAr {
     width: 9%;
-    height: 50%;
+    height: 100%;
     float: left;
     position: relative;
     display: block;
 }
-.btnsAr a{
-    width:100%;
-    height:50%;
-    float:left;
-    padding:20px;
-}
-.fas{
+
+    .btnsAr a {
+        width: 100%;
+        height: 50%;
+        float: left;
+        padding: 20px;
+    }
+
+.fas {
     transform: scale(3,3);
-    margin-right:20px;
+    margin-right: 20px;
 }
+
 h1 {
-    color: #111;
+    color: #66FCF1;
     font-family: 'Helvetica Neue', sans-serif;
-    font-size:20px;
+    font-size: 20px;
 }
 
 
 h2 {
-    color: #111;
+    color: #66FCF1;
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 20px;
 }
 
 
 span {
-    color: #685206;
+    color: #5CDB95;
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 20px;
 }
@@ -278,35 +309,37 @@ table {
     margin-top: 10px;
     border-collapse: collapse;
     height: 90%;
+    background: #0B0C10;
 }
 /* Zebra striping */
 tr:nth-of-type(odd) {
-   
 }
 
 th {
     background: #333;
     color: white;
     font-weight: bold;
-
 }
 
 td, th {
-    margin:2px;
+    margin: 2px;
     padding: 12px;
-    height:33%;
+    height: 33%;
     text-align: left;
-    color:white;
+    color: #66FCF1;
+    font-family: 'Lobster', cursive;
+}
 
+a {
+    text-decoration: none;
+    color: #66FCF1;
+    padding: 2px;
 }
-a{
-    text-decoration:none;
-    color:white;
-    padding:2px;
+
+.separator {
+    width: 4px;
 }
-.separator{
-    width:4px;
-}
+
 @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
     /* Force table to not be like tables anymore */
     table, thead, tbody, th, td, tr {
@@ -386,6 +419,14 @@ a{
             content: "Arbitrary Data";
         }
 }
+
+#fasRecherche {
+    transform: scale(0.9,0.9);
+    float: right;
+    padding: 4px;
+    color: #66FCF1;
+}
+
 @keyframes modalopen {
     fromn {
         opacity: 0

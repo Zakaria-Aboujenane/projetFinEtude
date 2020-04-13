@@ -21,7 +21,7 @@ namespace CalendrierDesArchives.Model
         public string emplacementPC { get; set; }
         public int sortFinalComm { get; set; }
         public int commArch { get; set; }
-        public int idParent { get; set; }
+       
         public Type type { get; set; }
         public int idType { get; set; }
         public string Description { get; set; }
@@ -33,7 +33,11 @@ namespace CalendrierDesArchives.Model
         {
             type = new Type();
         }
-        public Fichier(int IdFichier, string Nom, DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces, DateTime DateSuppression, string Chemain, string extention,string index,string emplacementPC,int sortFinalComm,int commArch, int idP,int idType,string Description,string HangFireID,string HangFireNotificationID,string HangFireRecJobNotID)
+        public Fichier(int IdFichier, string Nom,
+            DateTime DateAjout, DateTime DateModification, DateTime DateDernierAcces,
+           DateTime DateSuppression, string Chemain, string extention,string index,string emplacementPC,
+            int sortFinalComm,int commArch,int idType,string Description,string HangFireID,
+            string HangFireNotificationID,string HangFireRecJobNotID)
         {
             type = new Type();
             this.idFichier = IdFichier;
@@ -46,7 +50,7 @@ namespace CalendrierDesArchives.Model
             this.extention = extention;
             this.index = index;
             this.emplacementPC = emplacementPC;
-            this.idParent = idP;
+          
             this.idType = idType;
             this.Description = Description;
             this.commArch = commArch;

@@ -168,17 +168,48 @@
                 getNots();
                 window.setInterval(function () {
                     getNots();
-                }, 30000);
+                }, 1000);
                 $('.wrapper-loading').fadeOut("slow");
                 $('#selectDateC').chosen();
                 $('#selectVu').chosen();
             });
+            function getNots() {
+                $.ajax({
+                    type: "POST",
+                    url: "Calendrier.aspx/getNotifications",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        $("#NotifsPlace").html(msg.d);
+                    },
+                    error: function (e) {
+                        alert("Error : " + e.error);
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "Calendrier.aspx/getNumNots",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        if (msg.d == 0) {
+                            $('#numNots').hide();
+                        } else {
+                            $('#numNots').show();
+                            $('#numNots').html(msg.d);
+                        }
+                    },
+                    error: function (e) {
+                        alert("Error : " + e.error);
+                    }
+                });
+            }
             function ouvrirFichier(idfichier) {
                 $('.wrapper-loading').fadeIn("slow");
                 $.ajax({
                     type: "POST",
                     url: "Calendrier.aspx/afficherArchive",
-                    data: "{idArch: '" + id + "'}",
+                    data: "{idArch: '" + idfichier + "'}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (msg) {

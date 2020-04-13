@@ -20,8 +20,9 @@
 /*scroll bar ^    */
 footer {
     position: relative;
-    width:100%;
+    width: 100%;
     float: left;
+    margin-top: 100px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -31,9 +32,8 @@ footer {
     width: 100%;
     height: auto;
     margin: auto;
-    background: #272727;
+    background: #0B0C10;
     padding: 30px 0px;
-    
 }
 
 .footer-menu-one ul li a {
@@ -59,11 +59,11 @@ footer {
             height: 50px;
             margin: 0px 10px;
             border-radius: 100%;
-            background: #ff6666;
+            background: #66FCF1;
         }
 
             .footer-social-icons ul li a {
-                color: #272727;
+                color: #0B0C10;
                 font-size: 25px;
             }
 
@@ -76,7 +76,7 @@ footer {
             }
 
                 .footer-social-icons ul li:hover a {
-                    color: #fff;
+                    color: #66FCF1;
                 }
 
 .footer-menu-one {
@@ -101,19 +101,20 @@ footer {
                 font-family: 'Playfair Display', serif;
                 font-size: 15px;
                 font-weight: 600;
-                color: #fff;
+                color: #66FCF1;
                 text-transform: uppercase;
             }
 
                 .footer-menu-one ul li a:hover {
-                    color: #ff6666;
+                    color: #0B0C10;
+                    background: #66FCF1;
                 }
 
 .footer-bottom {
     width: 100%;
     height: auto;
     margin: auto;
-    background: #ff6666;
+    background: #0B0C10;
     padding: 5px;
 }
 
@@ -121,7 +122,7 @@ footer {
     font-family: 'Playfair Display', serif;
     font-size: 14px;
     text-align: center;
-    color: #fff;
+    color: #66FCF1;
     font-weight: 600;
     letter-spacing: 1px;
 }

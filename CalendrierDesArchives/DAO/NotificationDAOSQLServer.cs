@@ -39,7 +39,7 @@ namespace CalendrierDesArchives.DAO
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                connection.Execute($"UPDATE Notification SET textNotification='{notification.textNotification}',  DateNotification='{notification.dateNotification}', IdFichier='{notification.idFichier}' WHERE IdNotification='{notification.idNotification}'");
+                connection.Execute($"UPDATE Notification SET textNotification='{notification.textNotification}',  DateNotification='{notification.dateNotification}',Vu = '{notification.Vu}', IdFichier='{notification.idFichier}' WHERE IdNotification='{notification.idNotification}'");
             }
         }
 
@@ -101,6 +101,15 @@ namespace CalendrierDesArchives.DAO
             {
                 String query = $"INSERT INTO GestionNotification(IdNotification,IdUtilisateur) values('{n.idNotification}','{u.idUtilisateur}')";
                 connection.Execute(query);
+            }
+        }
+
+        public Notification getNotificationByID(int idNotif)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
+            {
+
+                return connection.QuerySingle<Model.Notification>($"Select * From  Notification WHERE IdNotification = '{idNotif}'");
             }
         }
     }

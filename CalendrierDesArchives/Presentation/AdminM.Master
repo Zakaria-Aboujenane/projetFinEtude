@@ -36,8 +36,7 @@
     <nav>
         <ul class="menu">
             <li class="logo"><a href="#">Calendrier Archives</a></li>
-            <li class="item"><a href="#">Accueil</a></li>
-            <li class="item"><a href="#">Services</a></li>
+            
             <li class="item button secondary" id="modaleBtn"><a href="#">User</a></li>
             <li class="toggle"><span class="bars"></span></li>
             <li class="item">
@@ -49,8 +48,8 @@
     <div id="simpleModal" class="modal">
         <div class="profilEtudiant">
             <span class="closeBtnDeconnecte">&times;</span>
-            <img class="imageE" src="profile.png">
-            <label runat="server" class="admi">Admin</label>
+            <img class="imageE" src="./images/profil.png">
+            <label runat="server" id="Privil" class="admi">Admin</label>
             <div class="nomE">
                 <label>nom: </label>
                 <label  id="nomPrenomPH" runat="server" >Meriem Ahjouji</label>
@@ -70,23 +69,18 @@
       
         
     <div class="ContentAll">
-        <div class="seection sideBar">
-            <input type="checkbox" id="check">
-            <label for="check">
-                <i class="fa fa-bars" id="btnBars"></i>
-                <i class="fa fa-times" id="cancelTimes"></i>
-            </label>
-            <div class="sidebar">
+          <div class="sidebar">
                 <header>My App</header>
                 <ul>
-                    <li><a href="./CalendrierAdmin.aspx"><i class="fa fa-user-circle"></i>Calendrier</a></li>
-                    <li><a href="./Types.aspx"><i class="fa fa-user-circle"></i>Type</a></li>
-                    <li><a href="./RetentionArchives.aspx"><i class="fa fa-user-circle"></i>Archives sous retention</a></li>
+                    <li><a href="./CalendrierAdmin.aspx"><i class="far fa-calendar-alt"></i>Calendrier</a></li>
+                    <li><a href="./Types.aspx"><i class="fa fa-sliders-h"></i>Type</a></li>
+                    <li><a href="./RetentionArchives.aspx"><i class="fa fa-save"></i>Archives sous retention</a></li>
+                    <li><a href="./ajouterUtilisateur.aspx"><i class="fa fa-users"></i>Gestion Utilisateurs</a></li>
                     <%--                    <li><a href="#"><i class="fas fa-file-invoice"></i>Tp</a></li>
                     <li><a href="#"><i class="fas fa-book"></i>Filier</a></li>--%>
                 </ul>
             </div>
-        </div>
+        
     
         <asp:ContentPlaceHolder ID="content" runat="server">
         </asp:ContentPlaceHolder>

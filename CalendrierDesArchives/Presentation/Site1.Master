@@ -35,8 +35,6 @@
     <nav>
         <ul class="menu">
             <li class="logo"><a href="#">Calendrier Archives</a></li>
-            <li class="item"><a href="#">Accueil</a></li>
-            <li class="item"><a href="#">Services</a></li>
             <li class="item button secondary" id="modaleBtn"><a href="#">User</a></li>
             <li class="toggle"><span class="bars"></span></li>
             <li class="item">
@@ -68,12 +66,7 @@
       
         
     <div class="ContentAll">
-        <div class="seection sideBar">
-            <input type="checkbox" id="check">
-            <label for="check">
-                <i class="fa fa-bars" id="btnBars"></i>
-                <i class="fa fa-times" id="cancelTimes"></i>
-            </label>
+       
             <div class="sidebar">
                 <header>My App</header>
                 <ul>
@@ -83,7 +76,7 @@
                     <li><a href="#"><i class="fas fa-book"></i>Filier</a></li>--%>
                 </ul>
             </div>
-        </div>
+       
     
         <asp:ContentPlaceHolder ID="content" runat="server">
         </asp:ContentPlaceHolder>
@@ -128,36 +121,7 @@
         $(document).ready(function () {
           
         });
-        function getNots() {
-            $.ajax({
-                type: "POST",
-                url: "Calendrier.aspx/getNotifications",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (msg) {
-                    $("#NotifsPlace").html(msg.d);
-                },
-                error: function (e) {
-                    alert("Error : " + e.error);
-                }
-            });
-            $.ajax({
-                type: "POST",
-                url: "Calendrier.aspx/getNumNots",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (msg) {
-                    if (msg.d == 0) {
-                        $('#numNots').hide();
-                    } else {
-                        $('#numNots').html(msg.d);
-                    }
-                },
-                error: function (e) {
-                    alert("Error : " + e.error);
-                }
-            });
-        }
+       
        
         $(function () {
            

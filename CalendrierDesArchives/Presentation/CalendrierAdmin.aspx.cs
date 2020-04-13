@@ -18,13 +18,7 @@ namespace CalendrierDesArchives.Presentation
         int idUser;
         protected void Page_Load(object sender, EventArgs e)
         {
-            using (var connection = JobStorage.Current.GetConnection())
-            {
-                foreach (var recurringJob in connection.GetRecurringJobs())
-                {
-                    RecurringJob.RemoveIfExists(recurringJob.Id);
-                }
-            }
+          
             if (Session["idUser"] == null && Session["privillege"] != "Admin")
             {
                 Response.Redirect("./Authentification.aspx");
@@ -188,13 +182,37 @@ namespace CalendrierDesArchives.Presentation
         //generateur de notifications:
         public static String generateNotif(Notification n)
         {
-            String s = "<li>\r\n" +
-            "                                <span class=\"iconeu\"><i style=\"transform:scale(1,1);\" class=\"fas fa-file-archive\"></i></span>\r\n" +
-            "                                <span class=\"textNot\">" + n.textNotification + "<a onclick=\"ouvrirFichier(" + n.idFichier + ")\"> Cliquez ici</a> pour ouvrir le fichier</span>\r\n" +
-            "                            </li>";
-            return s;
+            if(n.Vu== 1)
+            {
+                String s = "<li>\r\n" +
+           "                                <span class=\"iconeu\"><i style=\"transform:scale(1,1);\" class=\"fas fa-file-archive\"></i></span>\r\n" +
+           "                                <span class=\"textNot\">" + n.textNotification + "<a onclick=\"ouvrirFichier(" + n.idFichier + ")\"> Cliquez ici</a> pour ouvrir le fichier</span>\r\n" +
+           "                            </li>";
+                return s;
+            }
+            else
+            {
+                String s = "<li>\r\n" +
+           "                                <span class=\"iconenonVu\"><i style=\"transform:scale(1,1);\" class=\"fas fa-file-archive\"></i></span>\r\n" +
+           "                                <span class=\"textNot\">" + n.textNotification + "<a onclick=\"ouvrirFichier(" + n.idFichier + ");marquerVu("+n.idNotification+")\"> Cliquez ici</a> pour ouvrir le fichier</span>\r\n" +
+           "                            </li>";
+                return s;
+            }
+           
         }
-
+        [WebMethod]
+        public static String marquerVuNotif(String idNotif)
+        {
+            int idNot = Int32.Parse(idNotif);
+            Notification n = new ActionsNotification().getNotificationByID(idNot);
+            if(n.Vu == 0)
+            {
+                n.Vu = 1;
+                new ActionsNotification().modifierNotification(n);
+            }
+           
+            return getNumNots();
+        }
         //calcul de nombre de toutes les notifications Non vues:
         [WebMethod]
         public static String getNumNots()

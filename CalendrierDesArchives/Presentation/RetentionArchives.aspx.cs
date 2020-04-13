@@ -65,7 +65,7 @@ namespace CalendrierDesArchives.Presentation
             "            </div>\r\n" +
             "           \r\n" +
             "            <div class=\"mindescriptionTypes\">\r\n" +
-            "                <p>"+t.Description+"</p>\r\n" +
+            "                <div></div>\r\n" +
             "                <p>cliquez pour voir les Archives conservé après qu'ils ont passé leurs DUA de ce type</p>\r\n" +
             "            </div>  \r\n" +
             "        </div>   ";
@@ -124,6 +124,7 @@ namespace CalendrierDesArchives.Presentation
         }
         public static String ArchiveInfoGenerateur(Fichier f)
         {
+            String desc = HttpUtility.HtmlDecode(f.Description);
             int joursRestants = f.dateSuppression.Subtract(f.dateAjout).Days;
             String s = " <span onclick=\"closeArchiveModal()\" class=\"closeBtnAjout\">&times;</span>\r\n" +
         "                <div class=\"titreArchive\">\r\n" +
@@ -139,12 +140,14 @@ namespace CalendrierDesArchives.Presentation
         "                    <label class=\"infos\">Date de dernier acces a ce fichier:</label><br>\r\n" +
         "                    <label class=\"infos\">"+ f.dateDernierAcces.ToString("dd/MM/yyyy") + "</label><br>\r\n" +
         "                    <label class=\"infos\">Il reste"+joursRestants+" jours pour la "+f.type.action+" ce fichier définitivement</label><br>\r\n" +
-         "                    <label class=\"infos\"><a href=" + f.chemain + ">cliquez ici pour voir l archive</a></label><br>\r\n" +
+                 "                    <label class=\"infos\"><h1 style='Color:green'>Description de l'archive :</h1></label><br>\r\n" +
+        "                    <label class=\"infos\">" + desc + "</label><br>\r\n" +
         "                </div>";
             return s;
         }
         public static String ArchiveRetentioneGenerateur(Fichier f)
         {
+            String desc = HttpUtility.HtmlDecode(f.Description);
             String s = " <span class=\"closeBtnAjout\">&times;</span>\r\n" +
         "                <div class=\"titreArchive\">\r\n" +
         "                    <h1><label>Archive:</label ><label class=\"arch\">" + f.Nom + "</label></h1>\r\n" +
@@ -162,7 +165,8 @@ namespace CalendrierDesArchives.Presentation
         "                    <label class=\"infos\">Date de dernier acces a ce fichier:</label><br>\r\n" +
         "                    <label class=\"infos\">" + f.dateDernierAcces.ToString("dd/MM/yyyy") + "</label><br>\r\n" +
                   "                    <label class=\"infos\">cet Archive est conserve depuis le" + f.dateSuppression.ToString("dd / MM / yyyy") + " </label><br>\r\n" +
-                  "                    <label class=\"infos\"><a href="+f.chemain+">cliquez ici pour voir l archive</a></label><br>\r\n" +
+                  "                    <label class=\"infos\"><h1 style='Color:green'><br/>Description de l'archive :</h1></label><br>\r\n" +
+                  "                    <label class=\"infos\">" + desc + "</label><br>\r\n" +
                   "                    \r\n" +
                   "                </div>";
             return s;

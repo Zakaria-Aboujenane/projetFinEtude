@@ -21,7 +21,25 @@
             float:right;
             
         }
-        
+ .chosen-container-single .chosen-single {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: 0 0 0 8px;
+    height: 25px;
+    /* border: 1px solid #aaa; */
+    /* border-radius: 5px; */
+    /* background-color: #fff; */
+    /* background: -webkit-gradient(linear, left top, left bottom, color-stop(20%, #fff), color-stop(50%, #f6f6f6), color-stop(52%, #eee), to(#f4f4f4)); */
+    /* background: linear-gradient(#fff 20%, #f6f6f6 50%, #eee 52%, #f4f4f4 100%); */
+    /* background-clip: padding-box; */
+    /* -webkit-box-shadow: 0 0 3px #fff inset, 0 1px 1px rgba(0, 0, 0, 0.1); */
+    /* box-shadow: 0 0 3px #fff inset, 0 1px 1px rgba(0, 0, 0, 0.1); */
+    /* color: #444; */
+    /* text-decoration: none; */
+    white-space: nowrap;
+    line-height: 24px;
+}
     </style>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="content" runat="server">
@@ -53,7 +71,7 @@
         <div class="moteurRech">
         <div  id="searchBarForm">
             <input type="text" name="q" id="search">
-            <i onclick="searchAdmin()"  style="transform:scale(1.4,1.4); float:right" class="fas fa-search"></i>
+            <i onclick="searchAdmin()" id="fasRecherche" class="fas fa-search"></i>
         </div>
             </div>
         <div class="Date_cont">
@@ -70,13 +88,6 @@
                     <i class="fas fa-plus-circle"></i>Ajouter un Archive</a>
             </div>
         </div>
-         <div class="Date_cont">
-            <select style="text-align: left; width: 100%;" class="input" id="selectTypeRet" data-placeholder="veuillez choisir un type">
-                <option value="1">les archives sous retentions</option>
-                <option value="2">les archives sous DUA</option>
-            </select>
-        </div>
-
     </div>
     <div class="wrapper-loading">
         <span class="loader"> <span class="loader-inner">Veuillez patientez</span></span>
@@ -164,7 +175,7 @@
                 getNots();
                 window.setInterval(function () {
                     getNots();
-                }, 30000);
+                }, 1000);
                 $('.wrapper-loading').fadeOut("slow");
             });
             $(document).ready(function () {
@@ -173,6 +184,21 @@
                 $('#selectVu').chosen();
                 $('#selectTypeRet').chosen();
             });
+            function marquerVu(idNotif) {
+                $.ajax({
+                    type: "POST",
+                    url: "CalendrierAdmin.aspx/marquerVuNotif",
+                    data: "{idNotif: '" + idNotif + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        
+                    },
+                    error: function (e) {
+                        alert("Error : " + e.error);
+                    }
+                });
+            }
             function ouvrirFichier(idfichier) {
                 $('.wrapper-loading').fadeIn("slow");
                 $.ajax({

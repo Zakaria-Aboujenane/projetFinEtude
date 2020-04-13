@@ -8,11 +8,14 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="content" runat="server">
     <div class="container">
             <div class="img">
-                <img src="./images/phone.png">
+                <img src="./images/archives.svg">
             </div>
             <div class="login-content">
                 <form id="login" runat="server">
-                    <img class="profil" src="./images/profil.png">
+                    <div style="float:left; width:60%">
+                        <img class="profil" src="./images/profil.svg">
+                     </div>
+                    
                     <h2>Login</h2>
                     <div class="input-div one " >
                         <div class="i">

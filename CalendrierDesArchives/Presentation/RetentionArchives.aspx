@@ -4,16 +4,17 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
      <link rel="stylesheet" href="style/TousTypes.css">
     <link href="./style/Loader.css" rel="stylesheet" />
+     <link href="./style/Calendrier.css" rel="stylesheet" />
     <link href="./style/AfficherArchive.css" rel="stylesheet" />
+        <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
     <style>
        .archive{
            float:left;
            width:50%;
            position:relative;
+           border:2px solid #5CDB95;
+           margin-top:20px;
        }
-       div#contentTypes > *:nth-child(3n+1) {
-   clear: both;
-}
     </style>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="content" runat="server">
@@ -28,7 +29,7 @@
         <div class="moteurRech">
             <div id="searchBarForm">
                 <input type="text" name="q" id="search">
-                <i onclick=" searchNonRet()" style="transform: scale(1.4,1.4); float: right" class="fas fa-search"></i>
+                <i onclick=" searchNonRet()" id="fasRecherche" class="fas fa-search"></i>
             </div>
         </div>
     </div>

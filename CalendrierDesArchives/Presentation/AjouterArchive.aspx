@@ -14,7 +14,7 @@
 
     .h5TitleInput{
         font-size:20px;
-        color:green;
+        color:#66FCF1;
     }
 
         .chosen-container .chosen-results li.highlighted {

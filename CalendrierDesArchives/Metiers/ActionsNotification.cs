@@ -65,28 +65,29 @@ namespace CalendrierDesArchives.Metiers
             f.type = new ActionsType().getTypeById(f.idType);
             notif.dateNotification = f.dateAjout;
             notif.idFichier = f.idFichier;
-            notif.textNotification = "La " + f.type.action + " de ce fichier est après " + joursRest;
+            notif.textNotification = "La " + f.type.action + " du fichier "+f.Nom+" est après " + joursRest+" jours";
             notif.Vu = 0;
             int idNotif = ajouterNotification(notif);
             notif.idNotification = idNotif;
-            List<Utilisateur> users = new ActionsUtilisateur().listerTousUtilisateur();
+            List<Utilisateur> users = new ActionsUtilisateur().listerTousUtilisateur();//on teste si ce fichier appartient a un utilisateur
+            //on teste pour envoyer la notification a cet utilisateur.
             foreach (var u in users)
             {
                 if (new ActionsFichier().appartenanceUF(u, f))
                 {
-                    new ActionsNotification().ajouterNotifAvecUser(u, notif);
+                    new ActionsNotification().ajouterNotifAvecUser(u, notif);//cette methode ajoute une notification 
+                    //pour q'elle soit visible pour l'utilisateur 
                 }
             }
         }
 
-        public void RefaireChaquemin(Fichier f)
+        public void RefaireNotifChaqueJour(Fichier f)
         {
             String rec = "id"+f.idFichier;
             f = new ActionsFichier().getFichierById(f.idFichier);
             f.HangFireRecJobNotID = rec;
             new ActionsFichier().modifier(f);
-            RecurringJob.AddOrUpdate(rec,() => ajouterNotificationPour(f), Cron.Minutely);
-          
+            RecurringJob.AddOrUpdate(rec,() => ajouterNotificationPour(f), Cron.Daily);
         }
         public void supprimerNotDuFichier(Fichier f)
         {
@@ -95,6 +96,10 @@ namespace CalendrierDesArchives.Metiers
         public void ajouterNotifAvecUser(Utilisateur u, Notification n)
         {
             notificationDAOSQLServer.ajouterNotifAvecUser(u, n);
+        }
+        public Notification getNotificationByID(int idNotif)
+        {
+            return notificationDAOSQLServer.getNotificationByID(idNotif);
         }
     }
 }

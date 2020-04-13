@@ -20,34 +20,29 @@ namespace CalendrierDesArchives.Utils
         }
         // cas ou le sort final est la suppression , selon la date d'ajout
         public void DestructionSelonAjout(Fichier f)
-        {
+        {//calcul de temps restant pour notification et pour la suppression:
             int joursRest = f.dateSuppression.Subtract(f.dateAjout).Days;
             int jousRestPourNorification = joursRest - NotifComm;
-
-           BackgroundJob.Schedule(
-                      () => actionsNotification.RefaireChaquemin(f),
-                      TimeSpan.FromMinutes(jousRestPourNorification));
+           BackgroundJob.Schedule(//programmer l'affichage de notifications
+                      () => actionsNotification.RefaireNotifChaqueJour(f),
+                      TimeSpan.FromDays(jousRestPourNorification));
            var JobId =  BackgroundJob.Schedule(
                        () => actionsFichier.supprimerF(f.idFichier),
-                       TimeSpan.FromMinutes(joursRest));
+                       TimeSpan.FromDays(joursRest));
             f.HangFireID = JobId;
-           // f.HangFireNotificationID = JobNotId;
             actionsFichier.modifier(f);
-
         }
         // cas ou lesort final est la conservation , selon la date d'ajout 
         public void ConservationSelonAjout(Fichier f)
         {
             int joursRest = f.dateSuppression.Subtract(f.dateAjout).Days;
             int jousRestPourNorification = joursRest - NotifComm;
-
             BackgroundJob.Schedule(
-                      () => actionsNotification.RefaireChaquemin(f),
-                      TimeSpan.FromMinutes(jousRestPourNorification));
-
+                      () => actionsNotification.RefaireNotifChaqueJour(f),
+                      TimeSpan.FromDays(jousRestPourNorification));
             var JobId = BackgroundJob.Schedule(
                        () => actionsFichier.commencerLesortFinal(f),
-                       TimeSpan.FromMinutes(joursRest));
+                       TimeSpan.FromDays(joursRest));
             f.HangFireID = JobId;
             actionsFichier.modifier(f);
         }
@@ -59,20 +54,20 @@ namespace CalendrierDesArchives.Utils
         {
             f.dateSuppression = DateTime.Now.AddDays(f.type.duree);
             f.dateModification = DateTime.Now;
-
             int joursRest = f.type.duree;
             int jousRestPourNorification = joursRest - NotifComm;
-
             //on doit d'abord supprimer l'action de la modification avant celle ci si elle existe:
             if (f.HangFireID != "" && f.HangFireNotificationID != "" &&
-                f.HangFireRecJobNotID != "" && f.HangFireRecJobNotID != null && f.HangFireID != null && f.HangFireNotificationID != null)
+                f.HangFireRecJobNotID != "" && f.HangFireRecJobNotID != null &&
+                f.HangFireID != null && f.HangFireNotificationID != null)
             {
                 BackgroundJob.Delete(f.HangFireNotificationID);
                 BackgroundJob.Delete(f.HangFireID);
                 RecurringJob.RemoveIfExists(f.HangFireRecJobNotID);
             }
             //suppression des actions si l'action des notifications n'est pas encore commence:
-            if (f.HangFireID != "" && f.HangFireNotificationID != "" && f.HangFireID != null && f.HangFireNotificationID != null)
+            if (f.HangFireID != "" && f.HangFireNotificationID != "" &&
+                f.HangFireID != null && f.HangFireNotificationID != null)
             {
                 BackgroundJob.Delete(f.HangFireNotificationID);
                 BackgroundJob.Delete(f.HangFireID);
@@ -81,12 +76,12 @@ namespace CalendrierDesArchives.Utils
 
             //schedulement:
             var JobNotId = BackgroundJob.Schedule(
-                      () => actionsNotification.RefaireChaquemin(f),
-                      TimeSpan.FromMinutes(jousRestPourNorification));
+                      () => actionsNotification.RefaireNotifChaqueJour(f),
+                      TimeSpan.FromDays(jousRestPourNorification));
 
             var jobID = BackgroundJob.Schedule(
                            () => actionsFichier.supprimerF(f.idFichier),
-                           TimeSpan.FromMinutes(joursRest));
+                           TimeSpan.FromDays(joursRest));
 
             //sauvegarde des actions:
             f.HangFireID = jobID;
@@ -95,13 +90,11 @@ namespace CalendrierDesArchives.Utils
         }
         // cas ou le sort final est la destruction selon la date de derniere modification
         public void ConservationSelonModification(Fichier f)
-        {
+        { 
             f.dateSuppression = DateTime.Now.AddDays(f.type.duree);
             f.dateModification = DateTime.Now;
-
             int joursRest = f.type.duree;
             int jousRestPourNorification = joursRest - NotifComm;
-
             //on doit d'abord supprimer l'action de la modification avant celle ci si elle existe:
             if (f.HangFireID != "" && f.HangFireNotificationID != "" &&
                 f.HangFireRecJobNotID != "" && f.HangFireRecJobNotID != null && f.HangFireID != null && f.HangFireNotificationID != null)
@@ -117,12 +110,12 @@ namespace CalendrierDesArchives.Utils
             }
             f.HangFireRecJobNotID = "";
             var JobNotId = BackgroundJob.Schedule(
-                      () => actionsNotification.RefaireChaquemin(f),
-                      TimeSpan.FromMinutes(jousRestPourNorification));
+                      () => actionsNotification.RefaireNotifChaqueJour(f),
+                      TimeSpan.FromDays(jousRestPourNorification));
 
             var jobID = BackgroundJob.Schedule(
                            () => actionsFichier.commencerLesortFinal(f),
-                           TimeSpan.FromMinutes(joursRest));
+                           TimeSpan.FromDays(joursRest));
             f.HangFireID = jobID;
             f.HangFireNotificationID = JobNotId;
             actionsFichier.modifier(f);
@@ -133,20 +126,19 @@ namespace CalendrierDesArchives.Utils
         {
             f.dateSuppression = DateTime.Now.AddDays(f.type.duree);
             f.dateDernierAcces = DateTime.Now;
-
             int joursRest = f.type.duree;
             int jousRestPourNorification = joursRest - NotifComm;
-
             //on doit d'abord supprimer l'action de la modification avant celle ci si elle existe:
-            if (f.HangFireID != "" && f.HangFireNotificationID != "" &&
-                f.HangFireRecJobNotID != "" && f.HangFireRecJobNotID != null && f.HangFireID != null && f.HangFireNotificationID != null)
+            if (f.HangFireRecJobNotID != null && f.HangFireID != null 
+                && f.HangFireNotificationID != null && !f.HangFireRecJobNotID.Equals("") && !f.HangFireID.Equals("")
+                && !f.HangFireNotificationID.Equals(""))
             {
                 BackgroundJob.Delete(f.HangFireNotificationID);
                 BackgroundJob.Delete(f.HangFireID);
                 RecurringJob.RemoveIfExists(f.HangFireRecJobNotID);
                 new ActionsNotification().supprimerNotDuFichier(f);
             }
-            if (f.HangFireID != "" && f.HangFireNotificationID != "" && f.HangFireID != null && f.HangFireNotificationID != null)
+            if (f.HangFireID != null && f.HangFireNotificationID != null && f.HangFireID != "" && f.HangFireNotificationID != "")
             {
                 BackgroundJob.Delete(f.HangFireNotificationID);
                 BackgroundJob.Delete(f.HangFireID);
@@ -154,12 +146,12 @@ namespace CalendrierDesArchives.Utils
             }
             f.HangFireRecJobNotID = "";
             var JobNotId = BackgroundJob.Schedule(
-                      () => actionsNotification.RefaireChaquemin(f),
-                      TimeSpan.FromMinutes(jousRestPourNorification));
+                      () => actionsNotification.RefaireNotifChaqueJour(f),
+                      TimeSpan.FromDays(jousRestPourNorification));
 
             var jobID = BackgroundJob.Schedule(
                            () => actionsFichier.supprimerF(f.idFichier),
-                           TimeSpan.FromMinutes(joursRest));
+                           TimeSpan.FromDays(joursRest));
             f.HangFireID = jobID;
             f.HangFireNotificationID = JobNotId;
             actionsFichier.modifier(f);
@@ -189,12 +181,12 @@ namespace CalendrierDesArchives.Utils
             }
             f.HangFireRecJobNotID = "";
             var JobNotId = BackgroundJob.Schedule(
-                      () => actionsNotification.RefaireChaquemin(f),
-                      TimeSpan.FromMinutes(jousRestPourNorification));
+                      () => actionsNotification.RefaireNotifChaqueJour(f),
+                      TimeSpan.FromDays(jousRestPourNorification));
 
             var jobID = BackgroundJob.Schedule(
                            () => actionsFichier.commencerLesortFinal(f),
-                           TimeSpan.FromMinutes(joursRest));
+                           TimeSpan.FromDays(joursRest));
             f.HangFireID = jobID;
             f.HangFireNotificationID = JobNotId;
             actionsFichier.modifier(f);

@@ -55,7 +55,6 @@ namespace CalendrierDesArchives.Metiers
         {
             fichierDAOSQLServer = FichierDAOSQLServer.getInstance();
             Fichier f = getFichierById(idF);
-
             if (f.HangFireRecJobNotID != "" && f.HangFireRecJobNotID != null)
                 RecurringJob.RemoveIfExists(f.HangFireRecJobNotID);
             if(f.HangFireNotificationID != "" && f.HangFireNotificationID != null)

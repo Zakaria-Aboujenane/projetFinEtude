@@ -8,7 +8,7 @@
    <style>
     .h5TitleInput{
         font-size:20px;
-        color:green;
+        color:#66FCF1;
     }
        </style>
   

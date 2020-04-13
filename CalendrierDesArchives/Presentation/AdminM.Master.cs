@@ -15,6 +15,13 @@ namespace CalendrierDesArchives.Presentation
             {
                 Response.Redirect("./Authentification.aspx");
             }
+            String email = Session["email"].ToString();
+            String nom = Session["nom"].ToString();
+            String prenom = Session["prenom"].ToString();
+            String Priv = Session["privillege"].ToString();
+            emailPH.InnerHtml = email;
+            nomPrenomPH.InnerHtml = nom + " " + prenom;
+            Privil.InnerHtml = Priv;
         }
 
         protected void Button1_Click(object sender, EventArgs e)

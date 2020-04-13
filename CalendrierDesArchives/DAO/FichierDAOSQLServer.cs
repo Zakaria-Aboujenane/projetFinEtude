@@ -32,9 +32,9 @@ namespace CalendrierDesArchives.DAO
             
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                f.idParent = 1;
-                String query = $"INSERT INTO Fichier(Nom,DateAjout, DateModification, DateDernierAcces,  DateSuppression,  Chemain,  extention,[index],emplacementPC,sortFinalComm,commArch,idP,idType,Description,HangFireID,HangFireNotificationID,HangFireRecJobNotID) " +
-                   $"values ('{f.Nom}','{f.dateAjout}', '{f.dateModification}', '{f.dateDernierAcces}', '{f.dateSuppression}','{f.chemain}', '{f.extention}','{f.index}','{f.emplacementPC}','{f.sortFinalComm}',{f.commArch},'{f.idParent}','{f.type.idType}','{f.Description}','{f.HangFireID}','{f.HangFireNotificationID}','{f.HangFireRecJobNotID}' );"+
+               
+                String query = $"INSERT INTO Fichier(Nom,DateAjout, DateModification, DateDernierAcces,  DateSuppression,  Chemain,  extention,[index],emplacementPC,sortFinalComm,commArch,idType,Description,HangFireID,HangFireNotificationID,HangFireRecJobNotID) " +
+                   $"values ('{f.Nom}','{f.dateAjout}', '{f.dateModification}', '{f.dateDernierAcces}', '{f.dateSuppression}','{f.chemain}', '{f.extention}','{f.index}','{f.emplacementPC}','{f.sortFinalComm}',{f.commArch},'{f.type.idType}','{f.Description}','{f.HangFireID}','{f.HangFireNotificationID}','{f.HangFireRecJobNotID}' );"+
                    "SELECT CAST(SCOPE_IDENTITY() as int)";
                //recuperation de l'archive ajoute:
                  int id = connection.Query<int>(query).Single();
@@ -132,9 +132,9 @@ namespace CalendrierDesArchives.DAO
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                int idP = 1;
-                String query = $"INSERT INTO Fichier(Nom,DateAjout, DateModification, DateDernierAcces,  DateSuppression,  Chemain,  extention,idP,idType,Description) " +
-                   $"values ('{f.Nom}','{f.dateAjout.ToString()}', '{f.dateModification.ToString()}', '{f.dateDernierAcces.ToString()}', '{f.dateSuppression.ToString()}','{f.chemain}', '{f.extention}','{idP}','{f.type.idType}','{f.Description}' );" +
+                
+                String query = $"INSERT INTO Fichier(Nom,DateAjout, DateModification, DateDernierAcces,  DateSuppression,  Chemain,  extention,idType,Description) " +
+                   $"values ('{f.Nom}','{f.dateAjout.ToString()}', '{f.dateModification.ToString()}', '{f.dateDernierAcces.ToString()}', '{f.dateSuppression.ToString()}','{f.chemain}', '{f.extention}','{f.type.idType}','{f.Description}' );" +
                    "SELECT CAST(SCOPE_IDENTITY() as int)";
                 //recuperation de l'archive ajoute:
                 int id = connection.Query<int>(query).Single();
