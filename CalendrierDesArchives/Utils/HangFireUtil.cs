@@ -23,12 +23,15 @@ namespace CalendrierDesArchives.Utils
         {//calcul de temps restant pour notification et pour la suppression:
             int joursRest = f.dateSuppression.Subtract(f.dateAjout).Days;
             int jousRestPourNorification = joursRest - NotifComm;
-           BackgroundJob.Schedule(//programmer l'affichage de notifications
-                      () => actionsNotification.RefaireNotifChaqueJour(f),
-                      TimeSpan.FromDays(jousRestPourNorification));
-           var JobId =  BackgroundJob.Schedule(
-                       () => actionsFichier.supprimerF(f.idFichier),
-                       TimeSpan.FromDays(joursRest));
+
+            BackgroundJob.Schedule(//programmer l'affichage de notifications
+                       () => actionsNotification.RefaireNotifChaqueJour(f),
+                       TimeSpan.FromDays(jousRestPourNorification));
+
+            var JobId = BackgroundJob.Schedule(
+                        () => actionsFichier.supprimerF(f.idFichier),
+                        TimeSpan.FromDays(joursRest));
+
             f.HangFireID = JobId;
             actionsFichier.modifier(f);
         }
@@ -57,6 +60,7 @@ namespace CalendrierDesArchives.Utils
             int joursRest = f.type.duree;
             int jousRestPourNorification = joursRest - NotifComm;
             //on doit d'abord supprimer l'action de la modification avant celle ci si elle existe:
+
             if (f.HangFireID != "" && f.HangFireNotificationID != "" &&
                 f.HangFireRecJobNotID != "" && f.HangFireRecJobNotID != null &&
                 f.HangFireID != null && f.HangFireNotificationID != null)
@@ -72,7 +76,7 @@ namespace CalendrierDesArchives.Utils
                 BackgroundJob.Delete(f.HangFireNotificationID);
                 BackgroundJob.Delete(f.HangFireID);
             }
-                f.HangFireRecJobNotID = "";
+            f.HangFireRecJobNotID = "";
 
             //schedulement:
             var JobNotId = BackgroundJob.Schedule(
@@ -90,7 +94,7 @@ namespace CalendrierDesArchives.Utils
         }
         // cas ou le sort final est la destruction selon la date de derniere modification
         public void ConservationSelonModification(Fichier f)
-        { 
+        {
             f.dateSuppression = DateTime.Now.AddDays(f.type.duree);
             f.dateModification = DateTime.Now;
             int joursRest = f.type.duree;
@@ -129,7 +133,7 @@ namespace CalendrierDesArchives.Utils
             int joursRest = f.type.duree;
             int jousRestPourNorification = joursRest - NotifComm;
             //on doit d'abord supprimer l'action de la modification avant celle ci si elle existe:
-            if (f.HangFireRecJobNotID != null && f.HangFireID != null 
+            if (f.HangFireRecJobNotID != null && f.HangFireID != null
                 && f.HangFireNotificationID != null && !f.HangFireRecJobNotID.Equals("") && !f.HangFireID.Equals("")
                 && !f.HangFireNotificationID.Equals(""))
             {
@@ -192,6 +196,6 @@ namespace CalendrierDesArchives.Utils
             actionsFichier.modifier(f);
         }
 
-       
+
     }
 }

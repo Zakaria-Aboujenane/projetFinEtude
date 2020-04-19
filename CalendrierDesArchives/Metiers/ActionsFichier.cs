@@ -23,13 +23,9 @@ namespace CalendrierDesArchives.Metiers
         public int ajouterF(Fichier f)
         {
             typeDAOSQLServer = TypeDAOSQLServer.getInstance();
-            //
-            if (f.type.action == "Destruction")
-            {
-                f.dateSuppression = f.dateAjout.AddDays(f.type.duree);
-            }
             fichierDAOSQLServer = FichierDAOSQLServer.getInstance();
             int id = fichierDAOSQLServer.ajouterFichier(f);
+
             f.idFichier = id;
             if(f.type.DUAselon == "DateAjout")
             {
@@ -45,22 +41,20 @@ namespace CalendrierDesArchives.Metiers
                     hangFireUtil.ConservationSelonAjout(f);
                 }
             }
-          
-            //hangfire:
-           
-
             return id;
         }
         public void supprimerF(int idF)
         {
             fichierDAOSQLServer = FichierDAOSQLServer.getInstance();
             Fichier f = getFichierById(idF);
+
             if (f.HangFireRecJobNotID != "" && f.HangFireRecJobNotID != null)
                 RecurringJob.RemoveIfExists(f.HangFireRecJobNotID);
             if(f.HangFireNotificationID != "" && f.HangFireNotificationID != null)
                 BackgroundJob.Delete(f.HangFireNotificationID);
 
             fichierDAOSQLServer.supprimerFichier(idF);
+            Notification n = new Notification();
         }
         public void modifier(Fichier f)
         {
@@ -83,6 +77,7 @@ namespace CalendrierDesArchives.Metiers
                 }
             }
         }
+
         public void NorificationAff(int idF, String nomF, String typeF)
         {
 
@@ -124,10 +119,13 @@ namespace CalendrierDesArchives.Metiers
         {
             Fichier f2 = getFichierById(f.idFichier);
             f = f2;
-            String h = f.HangFireNotificationID;
+
             if (f.HangFireNotificationID != null)
             {
                 RecurringJob.RemoveIfExists(f.HangFireRecJobNotID);
+                BackgroundJob.Delete(f.HangFireNotificationID);
+                BackgroundJob.Delete(f.HangFireID);
+
                 f.HangFireNotificationID = 0+"";
                 f.HangFireRecJobNotID = 0 + "";
             }

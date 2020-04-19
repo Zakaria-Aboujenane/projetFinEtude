@@ -27,7 +27,7 @@ namespace CalendrierDesArchives.Presentation
                     Session["prenom"] = user.prenom;
                     Session["privillege"] = user.privillege;
                     Session["idUser"] = user.idUtilisateur;
-                    Session.Timeout = 120;
+                    Session.Timeout = 12000;
                     if(user.privillege == "Admin")
                     {
                         Response.Redirect("./CalendrierAdmin.aspx");

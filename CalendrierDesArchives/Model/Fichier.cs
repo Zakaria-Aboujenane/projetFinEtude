@@ -6,8 +6,7 @@ using System.Web;
 namespace CalendrierDesArchives.Model
 {
     public class Fichier
-    {
-        
+    {  
         public int idFichier { get; set; }
         public string Nom { get; set; }
         //structure des dates : 2020-12-12 00:00:00 (en base de donnees SQL SERVER  )
@@ -21,7 +20,6 @@ namespace CalendrierDesArchives.Model
         public string emplacementPC { get; set; }
         public int sortFinalComm { get; set; }
         public int commArch { get; set; }
-       
         public Type type { get; set; }
         public int idType { get; set; }
         public string Description { get; set; }

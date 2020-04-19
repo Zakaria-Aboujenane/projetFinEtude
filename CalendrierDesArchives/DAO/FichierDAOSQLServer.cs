@@ -11,9 +11,7 @@ namespace CalendrierDesArchives.DAO
 {
     public class FichierDAOSQLServer : FichierIDAO
     {
-        //singletion:
-
-        private static List<Fichier> fichiers;
+        //singleton:
         private static FichierDAOSQLServer instance = null;
         public static FichierDAOSQLServer getInstance()
         {
@@ -21,10 +19,9 @@ namespace CalendrierDesArchives.DAO
                 instance = new FichierDAOSQLServer();
             return instance;
         }
+
         private FichierDAOSQLServer()
         {
-
-            fichiers = new List<Fichier>();
 
         }
         public int ajouterFichier(Fichier f)
@@ -33,8 +30,12 @@ namespace CalendrierDesArchives.DAO
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
                
-                String query = $"INSERT INTO Fichier(Nom,DateAjout, DateModification, DateDernierAcces,  DateSuppression,  Chemain,  extention,[index],emplacementPC,sortFinalComm,commArch,idType,Description,HangFireID,HangFireNotificationID,HangFireRecJobNotID) " +
-                   $"values ('{f.Nom}','{f.dateAjout}', '{f.dateModification}', '{f.dateDernierAcces}', '{f.dateSuppression}','{f.chemain}', '{f.extention}','{f.index}','{f.emplacementPC}','{f.sortFinalComm}',{f.commArch},'{f.type.idType}','{f.Description}','{f.HangFireID}','{f.HangFireNotificationID}','{f.HangFireRecJobNotID}' );"+
+                String query = $"INSERT INTO Fichier(Nom,DateAjout, DateModification, DateDernierAcces,  DateSuppression,  Chemain," +
+                    $"extention,[index],emplacementPC,sortFinalComm,commArch,idType,Description,HangFireID,HangFireNotificationID," +
+                    $"HangFireRecJobNotID) " +
+                   $"values ('{f.Nom}','{f.dateAjout}', '{f.dateModification}', '{f.dateDernierAcces}', '{f.dateSuppression}','{f.chemain}'," +
+                   $" '{f.extention}','{f.index}','{f.emplacementPC}','{f.sortFinalComm}',{f.commArch},'{f.type.idType}','{f.Description}'," +
+                   $"'{f.HangFireID}','{f.HangFireNotificationID}','{f.HangFireRecJobNotID}' );"+
                    "SELECT CAST(SCOPE_IDENTITY() as int)";
                //recuperation de l'archive ajoute:
                  int id = connection.Query<int>(query).Single();
@@ -58,8 +59,11 @@ namespace CalendrierDesArchives.DAO
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
                 
-                connection.Execute($"UPDATE Fichier SET Nom='{f.Nom}',idType={f.type.idType},DateModification='{f.dateModification}',DateDernierAcces='{f.dateDernierAcces}',DateSuppression='{f.dateSuppression}',[index]='{f.index}'," +
-                    $"emplacementPC='{f.emplacementPC}',sortFinalComm='{f.sortFinalComm}',commArch='{f.commArch}',Description='{f.Description}',HangFireID='{f.HangFireID}',HangFireNotificationID='{f.HangFireNotificationID}',HangFireRecJobNotID='{f.HangFireRecJobNotID}'  WHERE IdFichier = {f.idFichier}");
+                connection.Execute($"UPDATE Fichier SET Nom='{f.Nom}',idType={f.type.idType},DateModification='{f.dateModification}'," +
+                    $"DateDernierAcces='{f.dateDernierAcces}',DateSuppression='{f.dateSuppression}',[index]='{f.index}'," +
+                    $"emplacementPC='{f.emplacementPC}',sortFinalComm='{f.sortFinalComm}',commArch='{f.commArch}',Description='{f.Description}'," +
+                    $"HangFireID='{f.HangFireID}',HangFireNotificationID='{f.HangFireNotificationID}',HangFireRecJobNotID='{f.HangFireRecJobNotID}'" +
+                    $"  WHERE IdFichier = {f.idFichier}");
             }
         }
 
@@ -79,16 +83,6 @@ namespace CalendrierDesArchives.DAO
                 return connection.Query<Fichier>($"Select * From Fichier ORDER BY IdFichier DESC")
                     .ToList();
             }
-        }
-        public void renitialiserTout()
-        {
-            fichiers.Clear();
-            fichiers = this.listerTousLesfichiers();
-        }
-        public void renitialiserDate(String date)
-        {
-            fichiers.Clear();
-            fichiers = this.listerLesfichiersParDate(date);
         }
         public List<Fichier> rechercheFichierParNom(string Nom)
         {
@@ -113,7 +107,14 @@ namespace CalendrierDesArchives.DAO
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
             {
-                return connection.QuerySingle<Fichier>($"Select * From Fichier Where idFichier='{idF}';");
+                try
+                {
+                    return connection.QuerySingle<Fichier>($"Select * From Fichier Where idFichier='{idF}';");
+                }
+                catch (Exception e)
+                {
+                    return null;
+                }     
             }
         }
 

@@ -31,6 +31,6 @@ document.getElementById("login").addEventListener("submit",function(e){
         document.getElementById("erreur").innerHTML=erreur;
         return false;
     } else {
-        alert('formulaire envoyé!!');
+        
     }
 });

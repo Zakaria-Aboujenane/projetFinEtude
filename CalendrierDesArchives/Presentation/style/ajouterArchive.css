@@ -145,7 +145,7 @@ form h2, .h2Title {
     background: none;
     padding: 0.5rem 0.7rem;
     font-size: 1.2rem;
-    font-family: 'Lobster', cursive;
+    font-family: Merriweather,monospace;
     color: #66FCF1;
 }
 
@@ -177,7 +177,7 @@ a {
     cursor: pointer;
     color: #66FCF1;
     text-transform: uppercase;
-    font-family: 'Lobster', cursive;
+    font-family: Merriweather,monospace;
     background-size: 200%;
     transition: .5s;
 }
@@ -309,7 +309,7 @@ input[type="color"] {
 
 #custom-text {
     margin-left: 10px;
-    font-family: sans-serif;
+    font-family: Merriweather,monospace;
     color: #aaa;
 
 

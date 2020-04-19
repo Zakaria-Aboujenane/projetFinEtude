@@ -19,10 +19,14 @@ namespace CalendrierDesArchives.Presentation
             }
             else
             {
-                selectTypeAroo.DataSource = new ActionsType().ListerTypes();
-                selectTypeAroo.DataTextField = "nomType";
-                selectTypeAroo.DataValueField = "idType";
-                selectTypeAroo.DataBind();
+                if (!IsPostBack)
+                {
+                    selectTypeAroo.DataSource = new ActionsType().ListerTypes();
+                    selectTypeAroo.DataTextField = "nomType";
+                    selectTypeAroo.DataValueField = "idType";
+                    selectTypeAroo.DataBind();
+                }
+              
             }
         }
         protected void BTNADDArch_Click(object sender, EventArgs e)

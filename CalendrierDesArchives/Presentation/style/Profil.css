@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Lobster', cursive;
+    font-family: Merriweather,monospace;
     background: #fff;
 }
 
@@ -51,7 +51,7 @@ a:hover {
 .menu li {
     font-size: 20px;
     padding: 15px;
-    font-family: 'Lobster', cursive;
+    font-family: Merriweather,monospace;
 }
 
     .menu li a {
@@ -170,7 +170,7 @@ a:hover {
     margin-bottom: 10px;
     cursor: pointer;
     color: #0B0C10;
-    font-family: 'Lobster', cursive;
+    font-family: Merriweather,monospace;
     border-radius: 20px;
     background: #66FCF1;
     border: none;

@@ -98,7 +98,7 @@ footer {
         }
 
             .footer-menu-one ul li a {
-                font-family: 'Playfair Display', serif;
+                font-family: Merriweather,monospace;
                 font-size: 15px;
                 font-weight: 600;
                 color: #66FCF1;
@@ -119,7 +119,7 @@ footer {
 }
 
 .footer-bottom {
-    font-family: 'Playfair Display', serif;
+    font-family: Merriweather,monospace;
     font-size: 14px;
     text-align: center;
     color: #66FCF1;

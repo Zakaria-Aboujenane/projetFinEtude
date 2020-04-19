@@ -53,7 +53,7 @@
         <div class="moteurRech">
             <div id="searchBarForm">
                 <input type="text" name="q" id="search">
-                <i onclick="searchUser()" style="transform: scale(1.4,1.4); float: right" class="fas fa-search"></i>
+                <i onclick="searchUser()" id="fasRecherche" class="fas fa-search"></i>
             </div>
         </div>
         <div class="Date_cont">
@@ -258,6 +258,21 @@
                     error: function (e) {
                         alert("Error : " + e.error);
                         $('.wrapper-loading').fadeOut("slow");
+                    }
+                });
+            }
+            function marquerVu(idNotif) {
+                $.ajax({
+                    type: "POST",
+                    url: "CalendrierAdmin.aspx/marquerVuNotif",
+                    data: "{idNotif: '" + idNotif + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+
+                    },
+                    error: function (e) {
+                        alert("Error : " + e.error);
                     }
                 });
             }

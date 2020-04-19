@@ -113,7 +113,8 @@ namespace CalendrierDesArchives.Presentation
 
                     if (dato == date)
                     {
-                        s += Calendrier.GenerateArchive(f, u);
+                        if (f.sortFinalComm == 0)
+                            s += Calendrier.GenerateArchive(f, u);
                     }
                 }
             }
@@ -124,7 +125,8 @@ namespace CalendrierDesArchives.Presentation
                     String dato = f.dateDernierAcces.ToString("yyyy/MM/dd");
                     if (dato == date)
                     {
-                        s += Calendrier.GenerateArchive(f, u);
+                        if (f.sortFinalComm == 0)
+                            s += Calendrier.GenerateArchive(f, u);
                     }
                 }
 
@@ -136,7 +138,8 @@ namespace CalendrierDesArchives.Presentation
                     String dato = f.dateModification.ToString("yyyy/MM/dd");
                     if (dato == date)
                     {
-                        s += Calendrier.GenerateArchive(f, u);
+                        if (f.sortFinalComm == 0)
+                            s += Calendrier.GenerateArchive(f, u);
                     }
                 }
             }
@@ -146,7 +149,8 @@ namespace CalendrierDesArchives.Presentation
                 {
                     if (f.dateSuppression.ToString() == date)
                     {
-                        s += Calendrier.GenerateArchive(f, u);
+                        if (f.sortFinalComm == 0)
+                            s += Calendrier.GenerateArchive(f, u);
                     }
                 }
             }
@@ -168,7 +172,8 @@ namespace CalendrierDesArchives.Presentation
 
                     if (dato == date)
                     {
-                        s += Calendrier.GenerateArchive(f, u);
+                        if (f.sortFinalComm == 0)
+                            s += Calendrier.GenerateArchive(f, u);
                     }
                 }
             }
@@ -179,7 +184,8 @@ namespace CalendrierDesArchives.Presentation
                     String dato = f.dateDernierAcces.ToString("yyyy/MM/dd");
                     if (dato == date)
                     {
-                        s += Calendrier.GenerateArchive(f, u);
+                        if (f.sortFinalComm == 0)
+                            s += Calendrier.GenerateArchive(f, u);
                     }
                 }
 
@@ -191,7 +197,8 @@ namespace CalendrierDesArchives.Presentation
                     String dato = f.dateModification.ToString("yyyy/MM/dd");
                     if (dato == date)
                     {
-                        s += Calendrier.GenerateArchive(f, u);
+                        if (f.sortFinalComm == 0)
+                            s += Calendrier.GenerateArchive(f, u);
                     }
                 }
             }
@@ -201,7 +208,8 @@ namespace CalendrierDesArchives.Presentation
                 {
                     if (f.dateSuppression.ToString() == date)
                     {
-                        s += Calendrier.GenerateArchive(f, u);
+                        if (f.sortFinalComm == 0)
+                            s += Calendrier.GenerateArchive(f, u);
                     }
                 }
             }
@@ -212,6 +220,7 @@ namespace CalendrierDesArchives.Presentation
         //generateur des archives pour user:
         public static String GenerateArchive(Fichier f,Utilisateur u)
         {
+        
             String text = f.chemain;
             String url = text.Replace("\\", @"/");
             Model.Type t = new ActionsType().getTypeById(f.idType);
@@ -276,13 +285,37 @@ namespace CalendrierDesArchives.Presentation
         //generateur de notifications:
         public static String generateNotif(Notification n)
         {
-            String s = "<li>\r\n" +
-            "                                <span class=\"iconeu\"><i style=\"transform:scale(1,1);\" class=\"fas fa-file-archive\"></i></span>\r\n" +
-            "                                <span class=\"textNot\">"+n.textNotification+"<a onclick=\"ouvrirFichier("+n.idFichier+")\"> Cliquez ici</a> pour ouvrir le fichier</span>\r\n" +
-            "                            </li>";
-            return s;
-        }
+            if (n.Vu == 1)
+            {
+                String s = "<li>\r\n" +
+           "                                <span class=\"iconeu\"><i style=\"transform:scale(1,1);\" class=\"fas fa-file-archive\"></i></span>\r\n" +
+           "                                <span class=\"textNot\">" + n.textNotification + "<a onclick=\"ouvrirFichier(" + n.idFichier + ")\"> Cliquez ici</a> pour ouvrir le fichier</span>\r\n" +
+           "                            </li>";
+                return s;
+            }
+            else
+            {
+                String s = "<li>\r\n" +
+           "                                <span class=\"iconenonVu\"><i style=\"transform:scale(1,1);\" class=\"fas fa-file-archive\"></i></span>\r\n" +
+           "                                <span class=\"textNot\">" + n.textNotification + "<a onclick=\"ouvrirFichier(" + n.idFichier + ");marquerVu(" + n.idNotification + ")\"> Cliquez ici</a> pour ouvrir le fichier</span>\r\n" +
+           "                            </li>";
+                return s;
+            }
 
+        }
+        [WebMethod]
+        public static String marquerVuNotif(String idNotif)
+        {
+            int idNot = Int32.Parse(idNotif);
+            Notification n = new ActionsNotification().getNotificationByID(idNot);
+            if (n.Vu == 0)
+            {
+                n.Vu = 1;
+                new ActionsNotification().modifierNotification(n);
+            }
+
+            return getNumNots();
+        }
         //calcul de nombre des notifications pour utilisateur u
         [WebMethod]
         public static String getNumNots()

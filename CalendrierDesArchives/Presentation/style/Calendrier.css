@@ -285,21 +285,21 @@
 
 h1 {
     color: #66FCF1;
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: Merriweather,monospace;
     font-size: 20px;
 }
 
 
 h2 {
     color: #66FCF1;
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: Merriweather,monospace;
     font-size: 20px;
 }
 
 
 span {
     color: #5CDB95;
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: Merriweather,monospace;
     font-size: 20px;
 }
 
@@ -327,7 +327,7 @@ td, th {
     height: 33%;
     text-align: left;
     color: #66FCF1;
-    font-family: 'Lobster', cursive;
+    font-family: Merriweather,monospace;
 }
 
 a {

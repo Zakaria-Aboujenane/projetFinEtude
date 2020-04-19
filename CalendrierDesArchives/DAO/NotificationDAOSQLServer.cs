@@ -26,13 +26,17 @@ namespace CalendrierDesArchives.DAO
         }
         public int ajouterNotification(Model.Notification notification)
         {
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
+            if (FichierDAOSQLServer.getInstance().getFichierById(notification.idFichier) != null)
             {
-                String query = $"INSERT INTO Notification(textNotification,DateNotification,IdFichier) values('{notification.textNotification}','{notification.dateNotification}','{notification.idFichier}');" +
-                    $"SELECT CAST(SCOPE_IDENTITY() as int)";
-                int id = connection.Query<int>(query).Single();
-                return id;
+                using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(ConnectionHelper.conVal("CalendrierDatabase")))
+                {
+                    String query = $"INSERT INTO Notification(textNotification,DateNotification,IdFichier) values('{notification.textNotification}','{notification.dateNotification}','{notification.idFichier}');" +
+                        $"SELECT CAST(SCOPE_IDENTITY() as int)";
+                    int id = connection.Query<int>(query).Single();
+                    return id;
+                }
             }
+            else return -1;
         }
 
         public void modifierNotification(Model.Notification notification)

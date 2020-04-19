@@ -33,11 +33,13 @@ namespace CalendrierDesArchives.Presentation
                 selectTypeAroo.DataValueField = "idType";
                 selectTypeAroo.DataBind();
                 selectTypeAroo.SelectedValue = f.idType + "";
+                selectTypeAroo.Enabled = false;
             }
 
         }
         protected void BTNADDArch_Click(object sender, EventArgs e)
         {
+            // code de modification:
 
             if (TitreArch.Value != "" || textArea.Value != "" || EmpPc.Value != "" || index.Value != "" || selectTypeAroo.SelectedValue != "")
             {

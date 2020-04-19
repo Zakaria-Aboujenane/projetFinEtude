@@ -114,8 +114,8 @@ form h2 {
 
     .input-div > div h5 {
         position: absolute;
-        left: 10px;
-        /* top: 50%; */
+        left: 15px;
+        top: 50%;
         transform: translateY(-50%);
         color: #999;
         font-size: 18px;
@@ -133,8 +133,8 @@ form h2 {
     background: none;
     padding: 0.5rem 0.7rem;
     font-size: 1.2rem;
-    font-family: 'Lobster', cursive;
-    /* color: #555; */
+    font-family: Merriweather,monospace;
+    color: #66FCF1;
 }
 
 a {
@@ -166,7 +166,7 @@ a {
     cursor: pointer;
     /* color: #fff; */
     text-transform: uppercase;
-    font-family: 'Lobster', cursive;
+    font-family: Merriweather,monospace;
     background-size: 200%;
     transition: .5s;
 }

@@ -76,7 +76,7 @@
         </div>
                  
              
-                <asp:Button class="btn" ID="BTNADDArch" runat="server" Text="Ajouter Archive" OnClick="BTNADDArch_Click" />
+                <asp:Button class="btn" ID="BTNADDArch" runat="server" Text="Ajouter Type" OnClick="BTNADDArch_Click" />
     </div>
       
             <script type="text/javascript" src="javascript/ajouterAchive.js"></script>

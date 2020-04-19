@@ -103,17 +103,20 @@ namespace CalendrierDesArchives.Presentation
             Int32.TryParse(idArch, out idArchive);
             Fichier f = actsF.getFichierById(idArchive);
             f.dateDernierAcces = DateTime.Now;
-            f.type = new ActionsType().getTypeById(f.idType);
-            actsF.modifier(f);
-            if(f.type.DUAselon == "DateDernierAcces")
+            if(f.sortFinalComm == 0)
             {
-                if (f.type.action == "Destruction")
-                    new HangFireUtil(actsF).DestructionSelonDernerAcces(f);
-                else if (f.type.action == "Conservation")
-                    new HangFireUtil(actsF).ConservationSelonDernerAcces(f);
+                f.type = new ActionsType().getTypeById(f.idType);
+                if (f.type.DUAselon == "DateDernierAcces")
+                {
+                    if (f.type.action == "Destruction")
+                        new HangFireUtil(actsF).DestructionSelonDernerAcces(f);
+                    else if (f.type.action == "Conservation")
+                        new HangFireUtil(actsF).ConservationSelonDernerAcces(f);
+                }
             }
+         
+            actsF.modifier(f);
            
-
             if (f.sortFinalComm == 0)
                 return ArchiveInfoGenerateur(f);
             else if (f.sortFinalComm == 1)

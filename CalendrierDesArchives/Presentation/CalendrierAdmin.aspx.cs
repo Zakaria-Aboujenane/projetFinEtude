@@ -16,9 +16,10 @@ namespace CalendrierDesArchives.Presentation
     public partial class CalendrierAdmin : System.Web.UI.Page
     {
         int idUser;
+        private static int nmbreNotifications = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-          
+            nmbreNotifications = 0;
             if (Session["idUser"] == null && Session["privillege"] != "Admin")
             {
                 Response.Redirect("./Authentification.aspx");
@@ -172,10 +173,13 @@ namespace CalendrierDesArchives.Presentation
             ActionsNotification actionsNotification = new ActionsNotification();
             List<Notification> nS = actionsNotification.listerTousNotification();
             String s = "";
+           
             foreach (var n in nS)
             {
+               
                 s += generateNotif(n);
             }
+            
             return s;
         }
 
@@ -220,7 +224,6 @@ namespace CalendrierDesArchives.Presentation
             int nv = 0;
             if (new Calendrier().Session["idUser"] != null)
             {
-                
                 ActionsNotification actionsNotification = new ActionsNotification();
                 List<Notification> nS = actionsNotification.listerTousNotification();
                 nv = 0;
@@ -236,7 +239,6 @@ namespace CalendrierDesArchives.Presentation
             {
                 return "veuillez verifiez votre connection !";
             }
-
             return nv + "";
         }
 
@@ -245,6 +247,7 @@ namespace CalendrierDesArchives.Presentation
         {
             List<Fichier> fichiers = new ActionsFichier().rechercheGenerale(search);
             String s = "";
+           
             foreach (var f in fichiers)
             {
                 if(f.sortFinalComm == 0)

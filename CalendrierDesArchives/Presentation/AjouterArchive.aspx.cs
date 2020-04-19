@@ -20,10 +20,14 @@ namespace CalendrierDesArchives.Presentation.FormulairesArchive
             }
             else
             {
-                selectTypeAroo.DataSource = new ActionsType().ListerTypes();
-                selectTypeAroo.DataTextField = "nomType";
-                selectTypeAroo.DataValueField = "idType";
-                selectTypeAroo.DataBind();
+                if (!IsPostBack)
+                {
+                    selectTypeAroo.DataSource = new ActionsType().ListerTypes();
+                    selectTypeAroo.DataTextField = "nomType";
+                    selectTypeAroo.DataValueField = "idType";
+                    selectTypeAroo.DataBind();
+                }
+                
             }
         }
 
@@ -58,6 +62,7 @@ namespace CalendrierDesArchives.Presentation.FormulairesArchive
                     f.emplacementPC = EmpPc.Value;
                     f.dateSuppression = day;
                     ActionsType actionsType = new ActionsType();
+                    f.idType = idType;
                     f.type = actionsType.getTypeById(idType);
                     int id = new ActionsFichier().ajouterParUser(u, f);
                     f.idFichier = id;

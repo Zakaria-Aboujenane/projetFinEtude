@@ -99,16 +99,11 @@
             </div>
 
             <div class="footer-menu-one">
-                <ul>
-                    <li><a href="#">Acceuil</a></li>
-                    <li><a href="#">About us</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+               
             </div>
         </div>
         <div class="footer-bottom">
-            <p>Design by:<a href="#">Learning Tutorial Point</a></p>
+            <p>Copyright@<a href="#">2020</a></p>
         </div>
     </footer>
 

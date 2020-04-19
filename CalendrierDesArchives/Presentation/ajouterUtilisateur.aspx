@@ -106,8 +106,8 @@
                                 <div class="select" >
                                     <asp:DropDownList ID="selectRole" style="width: 100%; height: -webkit-fill-available;background: #0B0C10;color: #66FCF1;" runat="server">
 
-                                        <asp:ListItem Value="admin">Admin</asp:ListItem>
-                                        <asp:ListItem Value="utilisateur">Utilisateur</asp:ListItem>
+                                        <asp:ListItem Value="Admin">Admin</asp:ListItem>
+                                        <asp:ListItem Value="User">Utilisateur</asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                             </div>
@@ -116,7 +116,7 @@
                     </div>
                     <p style="color: red;" runat="server" id="erreur"></p>
 
-                    <asp:Button class="btn" ID="btnAjouterUtilisateur" runat="server" Text="Ajouter Archive" />
+                    <asp:Button class="btn" ID="btnAjouterUtilisateur" runat="server" Text="Ajouter Utilisateur" OnClick="btnAjouterUtilisateur_Click1" />
                 </div>
             </div>
         </div>
