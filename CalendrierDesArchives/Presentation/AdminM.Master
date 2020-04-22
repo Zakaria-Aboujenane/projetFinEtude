@@ -75,6 +75,7 @@
                     <li><a href="./CalendrierAdmin.aspx"><i class="far fa-calendar-alt"></i>Calendrier</a></li>
                     <li><a href="./Types.aspx"><i class="fa fa-sliders-h"></i>Type</a></li>
                     <li><a href="./RetentionArchives.aspx"><i class="fa fa-save"></i>Archives sous retention</a></li>
+                    <li><a href="./AjouterHistorique.aspx"><i class="fa fa-users"></i>Historique Des Archives</a></li>
                     <li><a href="./ajouterUtilisateur.aspx"><i class="fa fa-users"></i>Gestion Utilisateurs</a></li>
                     <%--                    <li><a href="#"><i class="fas fa-file-invoice"></i>Tp</a></li>
                     <li><a href="#"><i class="fas fa-book"></i>Filier</a></li>--%>

@@ -80,14 +80,14 @@ for(i=1;i<=endDate;i++){
 document.getElementsByClassName("jour")[0].innerHTML =cells; 
 }
 function getCurrentDay(x) {
-    var dateString = "";
-    var day = x;
-    var month = dt.getMonth() + 1;
+    var dateString = "";// ici on va mettre la date complete 
+    var day = x;// le jour qui est x 
+    var month = dt.getMonth() + 1;// dt.getMonth  -- mois
     var imonth = dt.getMonth()+1;
     if (x <= 9) {
-        day = "0" + x;
+        day = "0" + x;// 02
         if (imonth <= 9)
-            month = "0" + imonth;
+            month = "0" + imonth;// la meme chose si mois par ex 2 : 02==>
     }
     else if (imonth <= 9) {
         month = "0" + imonth;
@@ -98,7 +98,7 @@ function getCurrentDay(x) {
         month = imonth;
     }
     dateString = dt.getFullYear() + "-" + month + "-" + day;
-    callCS(dateString);
+    callCS(dateString);// ex : 02/02/2000
 
 }
 

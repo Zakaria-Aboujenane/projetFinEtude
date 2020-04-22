@@ -26,22 +26,27 @@ namespace CalendrierDesArchives.Metiers
             fichierDAOSQLServer = FichierDAOSQLServer.getInstance();
             int id = fichierDAOSQLServer.ajouterFichier(f);
 
-            f.idFichier = id;
-            if(f.type.DUAselon == "DateAjout")
+            if (f.commArch == 1)
             {
-               
-                f.dateSuppression = f.dateAjout.AddDays(f.type.duree);
+                f.idFichier = id;
+                if (f.type.DUAselon == "DateAjout")
+                {
+
+                    f.dateSuppression = f.dateAjout.AddDays(f.type.duree);
                     modifier(f);
-                if (f.type.action == "Destruction")
-                {
-                    hangFireUtil.DestructionSelonAjout(f);
+                    if (f.type.action == "Destruction")
+                    {
+                        hangFireUtil.DestructionSelonAjout(f);
+                    }
+                    else if (f.type.action == "Conservation")
+                    {
+                        hangFireUtil.ConservationSelonAjout(f);
+                    }
                 }
-                else if (f.type.action == "Conservation")
-                {
-                    hangFireUtil.ConservationSelonAjout(f);
-                }
+
             }
             return id;
+
         }
         public void supprimerF(int idF)
         {
@@ -50,8 +55,14 @@ namespace CalendrierDesArchives.Metiers
 
             if (f.HangFireRecJobNotID != "" && f.HangFireRecJobNotID != null)
                 RecurringJob.RemoveIfExists(f.HangFireRecJobNotID);
-            if(f.HangFireNotificationID != "" && f.HangFireNotificationID != null)
+            if (f.HangFireNotificationID != "" && f.HangFireNotificationID != null)
                 BackgroundJob.Delete(f.HangFireNotificationID);
+
+            Historique h = new Historique();
+            h.textHistorique = "L archive " + f.Nom + "a étè supprime";
+            h.IdFichier = idF;
+            h.date = DateTime.Now;
+            new ActionsHistorique().ajouterHistorique(h);
 
             fichierDAOSQLServer.supprimerFichier(idF);
             Notification n = new Notification();
@@ -60,20 +71,30 @@ namespace CalendrierDesArchives.Metiers
         {
             fichierDAOSQLServer = FichierDAOSQLServer.getInstance();
             fichierDAOSQLServer.modifierFichier(f);
-            
+        
+
         }
         //hangfire:
         public void modifierSelonHangFire(Fichier f)
         {
-            if (f.type.DUAselon == "DateDerniereMod")
+            Historique h = new Historique();
+            h.textHistorique = "L archive " + f.Nom + " a étè modifie";
+            h.IdFichier = f.idFichier;
+            h.date = DateTime.Now;
+            new ActionsHistorique().ajouterHistorique(h);
+
+            if (f.commArch == 1)
             {
-                if (f.type.action == "Destruction")
+                if (f.type.DUAselon == "DateDerniereMod")
                 {
-                    hangFireUtil.DestructionSelonModification(f);
-                }
-                else if (f.type.action == "Conservation")
-                {
-                    hangFireUtil.ConservationSelonModification(f);
+                    if (f.type.action == "Destruction")
+                    {
+                        hangFireUtil.DestructionSelonModification(f);
+                    }
+                    else if (f.type.action == "Conservation")
+                    {
+                        hangFireUtil.ConservationSelonModification(f);
+                    }
                 }
             }
         }
@@ -117,6 +138,7 @@ namespace CalendrierDesArchives.Metiers
 
         public void commencerLesortFinal(Fichier f)
         {
+           
             Fichier f2 = getFichierById(f.idFichier);
             f = f2;
 
@@ -126,12 +148,17 @@ namespace CalendrierDesArchives.Metiers
                 BackgroundJob.Delete(f.HangFireNotificationID);
                 BackgroundJob.Delete(f.HangFireID);
 
-                f.HangFireNotificationID = 0+"";
+                f.HangFireNotificationID = 0 + "";
                 f.HangFireRecJobNotID = 0 + "";
             }
             f.sortFinalComm = 1;
             fichierDAOSQLServer.modifierFichier(f);
             new ActionsNotification().supprimerNotDuFichier(f);
+            Historique h = new Historique();
+            h.textHistorique = "L archive " + f.Nom + " a étè conserve definitivement";
+            h.IdFichier = f.idFichier;
+            h.date = DateTime.Now;
+            new ActionsHistorique().ajouterHistorique(h);
         }
         public void AccesAuFichier(Fichier f)
         {

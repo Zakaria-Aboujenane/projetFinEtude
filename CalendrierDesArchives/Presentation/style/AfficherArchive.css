@@ -95,6 +95,7 @@
 .infos {
     color: #66FCF1;
     font-size: x-large;
+    border-bottom: 4px solid white;
 }
 
 @keyframes modalopen {

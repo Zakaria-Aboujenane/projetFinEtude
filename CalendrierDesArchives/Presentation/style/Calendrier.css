@@ -40,7 +40,7 @@
 
 
 .calendrier {
-    width: 72%;
+    width: 70%;
     float: right;
     height: 425px;
     overflow: hidden;
@@ -235,7 +235,7 @@
 .archive {
     width: 100%;
     display: block;
-    height: 160px;
+    height: auto;
     float: left;
     border-bottom: 3px solid #5CDB95;
 }

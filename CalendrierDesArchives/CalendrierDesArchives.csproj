@@ -107,6 +107,7 @@
       <DependentUpon>CalendrierApp.mdf</DependentUpon>
     </Content>
     <Content Include="Presentation\AjouterArchiveAdmin.aspx" />
+    <Content Include="Presentation\AjouterHistorique.aspx" />
     <Content Include="Presentation\AjouterType.aspx" />
     <Content Include="Presentation\ajouterUtilisateur.aspx" />
     <Content Include="Presentation\Authentification.aspx" />
@@ -173,17 +174,21 @@
     <Compile Include="DAO\ConnectionHelper.cs" />
     <Compile Include="DAO\FichierDAOSQLServer.cs" />
     <Compile Include="DAO\FichierIDAO.cs" />
+    <Compile Include="DAO\HistoriqueDAOSQLServer.cs" />
+    <Compile Include="DAO\HistoriqueIDAO.cs" />
     <Compile Include="DAO\NotificationDAOSQLServer.cs" />
     <Compile Include="DAO\NotificationIDAO.cs" />
     <Compile Include="DAO\TypeDAOSQLServer.cs" />
     <Compile Include="DAO\TypeIDAO.cs" />
     <Compile Include="DAO\UtilisateurIDAO.cs" />
     <Compile Include="DAO\UtilisateurIDAOSQLServer.cs" />
+    <Compile Include="Metiers\ActionsHistorique.cs" />
     <Compile Include="Metiers\ActionsNotification.cs" />
     <Compile Include="Metiers\ActionsFichier.cs" />
     <Compile Include="Metiers\ActionsType.cs" />
     <Compile Include="Metiers\ActionsUtilisateur.cs" />
     <Compile Include="Model\Fichier.cs" />
+    <Compile Include="Model\Historique.cs" />
     <Compile Include="Model\Notification.cs" />
     <Compile Include="Model\Type.cs" />
     <Compile Include="Model\Utilisateur.cs" />
@@ -200,6 +205,13 @@
     </Compile>
     <Compile Include="Presentation\AjouterArchiveAdmin.aspx.designer.cs">
       <DependentUpon>AjouterArchiveAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\AjouterHistorique.aspx.cs">
+      <DependentUpon>AjouterHistorique.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation\AjouterHistorique.aspx.designer.cs">
+      <DependentUpon>AjouterHistorique.aspx</DependentUpon>
     </Compile>
     <Compile Include="Presentation\AjouterType.aspx.cs">
       <DependentUpon>AjouterType.aspx</DependentUpon>

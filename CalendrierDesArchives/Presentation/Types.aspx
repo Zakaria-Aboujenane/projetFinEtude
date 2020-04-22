@@ -6,11 +6,11 @@
 
         tr,td{
             color:#66FCF1;
-              font-family: 'Lobster', cursive;
+              font-family:Merriweather,monospace;
         }
         a{
             color:#66FCF1;
-              font-family: 'Lobster', cursive;
+              font-family: Merriweather,monospace;
               
         }
         table{
@@ -25,18 +25,17 @@
     <div id="recherche">
         &nbsp;<div class="addDiv">
             <div class="button_cont">
-                <a class="example_d" href="./AjouterType.aspx" target="_blank" rel="nofollow noopener">
+                <a class="example_d" href="./AjouterType.aspx" >
                     <i class="fas fa-plus-circle"></i>Ajouter Un type</a>
             </div>
         </div>
 
     </div>
-    <div style="float: right; margin: 10px; width: 75%;">
+    <div style="float: right; margin: 10px; width: 70%;">
         <div>
             <asp:GridView ID="GridView1" runat="server" AllowPaging="True" DataKeyNames="idType" AutoGenerateColumns="False" DataSourceID="TypeObj">
                 <Columns>
-                    <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" ShowSelectButton="True" />
-                    <asp:BoundField DataField="idType" HeaderText="idType" SortExpression="idType" />
+                    <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
                     <asp:BoundField DataField="nomType" HeaderText="nomType" SortExpression="nomType" />
                     <asp:BoundField DataField="duree" HeaderText="duree" SortExpression="duree" />
                     <asp:BoundField DataField="action" HeaderText="action" SortExpression="action" />

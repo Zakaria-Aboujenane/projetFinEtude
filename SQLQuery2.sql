@@ -1,0 +1,1 @@
+﻿INSERT INTO Historique(textHistorique,date,idFichier) values('hello','2020-04-25',157)

@@ -61,7 +61,7 @@ namespace CalendrierDesArchives.DAO
                 
                 connection.Execute($"UPDATE Fichier SET Nom='{f.Nom}',idType={f.type.idType},DateModification='{f.dateModification}'," +
                     $"DateDernierAcces='{f.dateDernierAcces}',DateSuppression='{f.dateSuppression}',[index]='{f.index}'," +
-                    $"emplacementPC='{f.emplacementPC}',sortFinalComm='{f.sortFinalComm}',commArch='{f.commArch}',Description='{f.Description}'," +
+                    $"emplacementPC='{f.emplacementPC}',sortFinalComm='{f.sortFinalComm}',commArch='{f.commArch}',Chemain='{f.chemain}',Description='{f.Description}'," +
                     $"HangFireID='{f.HangFireID}',HangFireNotificationID='{f.HangFireNotificationID}',HangFireRecJobNotID='{f.HangFireRecJobNotID}'" +
                     $"  WHERE IdFichier = {f.idFichier}");
             }

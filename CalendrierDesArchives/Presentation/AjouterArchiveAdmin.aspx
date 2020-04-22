@@ -68,7 +68,7 @@
                            </asp:DropDownList>
                        </div>
                     </div>
-                     <div class="input-div tree">
+                     <div class="input-div tree" id="divUpload">
                         <div class="i">
                             <i class="fas fa-lock"></i>
                         </div>
@@ -76,6 +76,8 @@
                             <asp:FileUpload class="input" ID="ArchiveUpload"  runat="server" />
                         </div>
                     </div>
+                     <asp:CheckBox ID="CKCE" runat="server" OnCheckedChanged="CKCE_CheckedChanged" /><p style="color:aqua">Pas de copie electronique </p> <br />
+                     <asp:CheckBox ID="CKRC" runat="server" /><p style="color:aqua">Ne pas appliquer les regles de conservation </p>
                 <br>
                 <br>
                
@@ -89,12 +91,20 @@
                     <p style="color: red;" id="erreur" runat="server"></p>
         </div>
                  
-             
+           
+
                 <asp:Button class="btn" ID="BTNADDArch" runat="server" Text="Ajouter Archive" OnClick="BTNADDArch_Click" />
     </div>
       <script type="text/javascript" src="javascript/ajouterAchive.js"></script>
     <script src="./chosen/chosen.jquery.js"></script>
     <script>
+        $(document).ready(function () {
+            $('#<%=CKCE.ClientID%>').prop('checked', true);
+            $('#divUpload').hide();
+            $('#<%=CKCE.ClientID%>').change(function () {
+                $('#divUpload').toggle();
+            });
+        });
         CKEDITOR.replace('<%=textArea.ClientID%>')
         $('#<%=selectTypeAroo.ClientID%>').chosen();
     </script>

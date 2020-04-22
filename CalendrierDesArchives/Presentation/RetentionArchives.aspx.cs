@@ -98,31 +98,40 @@ namespace CalendrierDesArchives.Presentation
         [WebMethod]
         public static string getArchiveInfo(String idArch)
         {
+            
             ActionsFichier actsF = new ActionsFichier();
             int idArchive = 0;
             Int32.TryParse(idArch, out idArchive);
             Fichier f = actsF.getFichierById(idArchive);
             f.dateDernierAcces = DateTime.Now;
-            if(f.sortFinalComm == 0)
+
+            if(f.commArch == 1)
             {
-                f.type = new ActionsType().getTypeById(f.idType);
-                if (f.type.DUAselon == "DateDernierAcces")
+                if (f.sortFinalComm == 0)
                 {
-                    if (f.type.action == "Destruction")
-                        new HangFireUtil(actsF).DestructionSelonDernerAcces(f);
-                    else if (f.type.action == "Conservation")
-                        new HangFireUtil(actsF).ConservationSelonDernerAcces(f);
+                    f.type = new ActionsType().getTypeById(f.idType);
+                    if (f.type.DUAselon == "DateDernierAcces")
+                    {
+                        if (f.type.action == "Destruction")
+                            new HangFireUtil(actsF).DestructionSelonDernerAcces(f);
+                        else if (f.type.action == "Conservation")
+                            new HangFireUtil(actsF).ConservationSelonDernerAcces(f);
+                    }
                 }
             }
-         
+            Historique h = new Historique();
+            h.textHistorique = "L archive " + f.Nom + " de type " + f.type.nomType + " a étè accede";
+            h.IdFichier = f.idFichier;
+            h.date = DateTime.Now;
+            new ActionsHistorique().ajouterHistorique(h);
+
             actsF.modifier(f);
-           
             if (f.sortFinalComm == 0)
                 return ArchiveInfoGenerateur(f);
             else if (f.sortFinalComm == 1)
                 return ArchiveInfoGenerateur(f);
             else
-                return "probleme non gere veuillez verifiez votre connection";
+                return "verifiez votre connection";
 
         }
         public static String ArchiveInfoGenerateur(Fichier f)
@@ -131,23 +140,27 @@ namespace CalendrierDesArchives.Presentation
             int joursRestants = f.dateSuppression.Subtract(f.dateAjout).Days;
             String s = " <span onclick=\"closeArchiveModal()\" class=\"closeBtnAjout\">&times;</span>\r\n" +
         "                <div class=\"titreArchive\">\r\n" +
-        "                    <h1><label>Archive:</label ><label class=\"arch\">"+f.Nom+"</label></h1>\r\n" +
+        "                    <h1><label>Archive:</label ><label class=\"arch\">" + f.Nom + "</label></h1>\r\n" +
         "                </div>\r\n" +
         "                <div class=\"infosArchives\">\r\n" +
         "                    <label class=\"infos\">Ajoute le:</label><br>\r\n" +
-        "                    <label class=\"infos\">"+f.dateAjout.ToString("dd/MM/yyyy")+"</label><br>\r\n" +
+        "                    <label class=\"infos\">" + f.dateAjout.ToString("dd/MM/yyyy") + "</label><br>\r\n" +
         "                    <label class=\"infos\">Date du sort final:</label><br>\r\n" +
-        "                    <label class=\"infos\">"+f.dateSuppression.ToString("dd / MM / yyyy")+"</label><br>\r\n" +
+        "                    <label class=\"infos\">" + f.dateSuppression.ToString("dd / MM / yyyy") + "</label><br>\r\n" +
         "                    <label class=\"infos\">Date de derniere modification</label><br>\r\n" +
-        "                    <label class=\"infos\">"+f.dateModification.ToString("dd/MM/yyyy") + "</label><br>\r\n" +
+        "                    <label class=\"infos\">" + f.dateModification.ToString("dd/MM/yyyy") + "</label><br>\r\n" +
         "                    <label class=\"infos\">Date de dernier acces a ce fichier:</label><br>\r\n" +
-        "                    <label class=\"infos\">"+ f.dateDernierAcces.ToString("dd/MM/yyyy") + "</label><br>\r\n" +
-        "                    <label class=\"infos\">Il reste"+joursRestants+" jours pour la "+f.type.action+" ce fichier définitivement</label><br>\r\n" +
+        "                    <label class=\"infos\">" + f.dateDernierAcces.ToString("dd/MM/yyyy") + "</label><br>\r\n";
+        if (f.commArch == 0) {
+                s += "                     <input type=\"checkbox\" onclick=\"startCons(" + f.idFichier + ")\" name=\"conservCom\"><label class=\"infos\"> Commencer les regles de conservation pour cet archive</label><br>\r\n";
+            }
+        s+="                    <label class=\"infos\">Il reste"+joursRestants+" jours pour la "+f.type.action+" ce fichier définitivement</label><br>\r\n" +
                  "                    <label class=\"infos\"><h1 style='Color:green'>Description de l'archive :</h1></label><br>\r\n" +
         "                    <label class=\"infos\">" + desc + "</label><br>\r\n" +
         "                </div>";
             return s;
         }
+       
         public static String ArchiveRetentioneGenerateur(Fichier f)
         {
             String desc = HttpUtility.HtmlDecode(f.Description);

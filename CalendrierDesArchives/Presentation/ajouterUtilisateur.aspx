@@ -27,11 +27,11 @@
         }
          tr,td{
             color:#66FCF1;
-              font-family: 'Lobster', cursive;
+              font-family: Merriweather,monospace;
         }
         a{
             color:#66FCF1;
-              font-family: 'Lobster', cursive;
+              font-family: Merriweather,monospace;
               
         }
         table{
@@ -104,7 +104,11 @@
                             </div>
                             <div class="utilisateur">
                                 <div class="select" >
-                                    <asp:DropDownList ID="selectRole" style="width: 100%; height: -webkit-fill-available;background: #0B0C10;color: #66FCF1;" runat="server">
+                                    <asp:DropDownList ID="selectRole" style="                                            width: 100%;
+                                            height: -webkit-fill-available;
+                                            background: #0B0C10;
+                                            color: #66FCF1;
+                                    " runat="server">
 
                                         <asp:ListItem Value="Admin">Admin</asp:ListItem>
                                         <asp:ListItem Value="User">Utilisateur</asp:ListItem>

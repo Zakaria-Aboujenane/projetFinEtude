@@ -158,6 +158,7 @@
                 </div>
 
                 <div id="listArchives">
+                    
                 </div>
 
             </div>
@@ -185,6 +186,7 @@
                 $('#selectTypeRet').chosen();
             });
             function marquerVu(idNotif) {
+
                 $.ajax({
                     type: "POST",
                     url: "CalendrierAdmin.aspx/marquerVuNotif",
@@ -192,7 +194,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (msg) {
-                        
+                      
                     },
                     error: function (e) {
                         alert("Error : " + e.error);
@@ -258,19 +260,35 @@
             function callCS(dateString) {
                
                 $('.wrapper-loading').fadeIn("slow");
-                var dateSelection = $('#selectDateC').val();
-             
+                var dateSelection = $('#selectDateC').val();// date ajout wla modifi =acces
                 var type = 1;
-               
                 $.ajax({
                     type: "POST",
-                    url: "CalendrierAdmin.aspx/getArchives",
+                    url: "CalendrierAdmin.aspx/getArchives",//[WebMethod] public static string getArchives(String date , String typeD, String typeS)
                     data: "{date:'" + dateString + "',typeD: '" + dateSelection + "',typeS: '" + type + "'}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (msg) {
                         openModel();
                         $("#listArchives").html(msg.d);
+                        $('.wrapper-loading').fadeOut("slow");
+                    },
+                    error: function (e) {
+                        closeModal();
+                        alert("Error : " + e.error);
+                    }
+                });
+            }
+            function startCons(idF) {
+                $('.wrapper-loading').fadeIn("slow");
+                $.ajax({
+                    type: "POST",
+                    url: "CalendrierAdmin.aspx/commArchivage",//public static String commArchivage(String idF)
+                    data: "{idF:'" + idF + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        $("#contentTypes").html(msg.d);
                         $('.wrapper-loading').fadeOut("slow");
                     },
                     error: function (e) {

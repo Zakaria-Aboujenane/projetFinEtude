@@ -26,7 +26,6 @@ namespace CalendrierDesArchives.Presentation
             }
             idUser = Int32.Parse(Session["idUser"].ToString());
         }
-
         [WebMethod]
         public static String getArchives(String date, String typeD, String typeS)
         {
@@ -36,7 +35,7 @@ namespace CalendrierDesArchives.Presentation
             if (typeS == "1")//tous
             {
                 listF = actionsFichier.listerFichiersParDate(date);
-                if (typeD == "1")
+                if (typeD == "1")// selon date ajout
                 {
                     foreach (var f in listF)
                     {
@@ -87,7 +86,7 @@ namespace CalendrierDesArchives.Presentation
                 }
                 return s;
             }
-          
+
             if (s == "")
             {
                 s = "<h1>rien trouve</h1>";
@@ -102,7 +101,7 @@ namespace CalendrierDesArchives.Presentation
             int idF = 0;
             Int32.TryParse(idArch, out idF);
             new ActionsFichier().supprimerF(idF);
-           
+
             //
             String s = "";
             List<Fichier> listF = new ActionsFichier().listerFichiersParDate(date);
@@ -137,19 +136,22 @@ namespace CalendrierDesArchives.Presentation
                 "                            </tr>\r\n" +
                 "                            <tr>\r\n" +
                 "                                <td>\r\n" +
-                "                                    <a onclick='openArchiveModal("+f.idFichier+ ",\"" + url + "\")' href=\"#\"><i class=\"far fa-eye\"></i> voir le fichier</a><br />\r\n" +
-                "                                </td>\r\n" +
-                "                                <td><a href=\"DownloadFile.aspx?idFile=" + f.idFichier + "#\"><i class=\"fa fa-file-download\"><span class=\"separator\"> </span></i>telecharger</a> </td>\r\n" +
-                "                            </tr>\r\n" +
-                "                             \r\n" +
-                "                        \r\n" +
-                "                            \r\n" +
-                "                        </table>\r\n" +
-                "                       \r\n" +
-                "                    </div>\r\n" +
-                "                    <div class=\"btnsAr\">\r\n" +
-                "                       \r\n";
-            if (1==1)
+                "                                    <a onclick='openArchiveModal(" + f.idFichier + ",\"" + url + "\")' href=\"#\"><i class=\"far fa-eye\"></i> voir le fichier</a><br />\r\n" +
+                "                                </td>\r\n";
+                    if (f.chemain != "")
+                    {
+                        s += "                                <td><a href=\"DownloadFile.aspx?idFile=" + f.idFichier + "#\"><i class=\"fa fa-file-download\"><span class=\"separator\"> </span></i>telecharger</a> </td>\r\n";
+                    }
+            s += "                            </tr>\r\n" +
+             "                             \r\n" +
+             "                        \r\n" +
+             "                            \r\n" +
+             "                        </table>\r\n" +
+             "                       \r\n" +
+             "                    </div>\r\n" +
+             "                    <div class=\"btnsAr\">\r\n" +
+             "                       \r\n";
+            if (1 == 1)
             {
                 s += "                        <a class=\"aform\" href=\"./ModifierArchiveAdmin.aspx?idFichier=" + f.idFichier + "\"><i class=\"fas fa-edit\"></i></a>\r\n" +
               "                        <a class=\"aform\" onclick='deleteArchive(" + f.idFichier + ",\"" + f.dateAjout + "\")' href=\"#\"><i class=\"fas fa-trash-alt\"></i></a>\r\n";
@@ -173,20 +175,20 @@ namespace CalendrierDesArchives.Presentation
             ActionsNotification actionsNotification = new ActionsNotification();
             List<Notification> nS = actionsNotification.listerTousNotification();
             String s = "";
-           
+
             foreach (var n in nS)
             {
-               
+
                 s += generateNotif(n);
             }
-            
+
             return s;
         }
 
         //generateur de notifications:
         public static String generateNotif(Notification n)
         {
-            if(n.Vu== 1)
+            if (n.Vu == 1)
             {
                 String s = "<li>\r\n" +
            "                                <span class=\"iconeu\"><i style=\"transform:scale(1,1);\" class=\"fas fa-file-archive\"></i></span>\r\n" +
@@ -198,23 +200,23 @@ namespace CalendrierDesArchives.Presentation
             {
                 String s = "<li>\r\n" +
            "                                <span class=\"iconenonVu\"><i style=\"transform:scale(1,1);\" class=\"fas fa-file-archive\"></i></span>\r\n" +
-           "                                <span class=\"textNot\">" + n.textNotification + "<a onclick=\"ouvrirFichier(" + n.idFichier + ");marquerVu("+n.idNotification+")\"> Cliquez ici</a> pour ouvrir le fichier</span>\r\n" +
+           "                                <span class=\"textNot\">" + n.textNotification + "<a onclick=\"ouvrirFichier(" + n.idFichier + ");marquerVu(" + n.idNotification + ")\"> Cliquez ici</a> pour ouvrir le fichier</span>\r\n" +
            "                            </li>";
                 return s;
             }
-           
+
         }
         [WebMethod]
         public static String marquerVuNotif(String idNotif)
         {
             int idNot = Int32.Parse(idNotif);
             Notification n = new ActionsNotification().getNotificationByID(idNot);
-            if(n.Vu == 0)
+            if (n.Vu == 0)
             {
                 n.Vu = 1;
                 new ActionsNotification().modifierNotification(n);
             }
-           
+
             return getNumNots();
         }
         //calcul de nombre de toutes les notifications Non vues:
@@ -247,11 +249,11 @@ namespace CalendrierDesArchives.Presentation
         {
             List<Fichier> fichiers = new ActionsFichier().rechercheGenerale(search);
             String s = "";
-           
+
             foreach (var f in fichiers)
             {
-                if(f.sortFinalComm == 0)
-                    s+=GenerateArchive(f);
+                if (f.sortFinalComm == 0)
+                    s += GenerateArchive(f);
             }
             if (s == "")
                 s = "Aucun Fichier trouve";
@@ -265,6 +267,49 @@ namespace CalendrierDesArchives.Presentation
             Fichier f = ActsFich.getFichierById(Int32.Parse(idArch));
             String s = GenerateArchive(f);
             return s;
+        }
+        [WebMethod]
+        public static String commArchivage(String idF)
+        {
+            ActionsFichier act = new ActionsFichier();
+            HangFireUtil hang = new HangFireUtil(act);
+            Fichier f = act.getFichierById(Int32.Parse(idF));
+            f.commArch = 1;
+            act.modifier(f);
+            f.type = new ActionsType().getTypeById(f.idType);
+            if (f.type.DUAselon == "DateAjout")
+            {
+                f.dateSuppression = f.dateAjout.AddDays(f.type.duree);
+                act.modifier(f);
+                if (f.type.action == "Destruction")
+                {
+                    hang.DestructionSelonAjout(f);
+                }
+                else if (f.type.action == "Conservation")
+                {
+                    hang.ConservationSelonAjout(f);
+                }
+            }
+            else if(f.type.DUAselon == "DateDernierAcces")
+            {
+                if (f.type.action == "Destruction")
+                    hang.DestructionSelonDernerAcces(f);
+                else if (f.type.action == "Conservation")
+                    hang.ConservationSelonDernerAcces(f);
+            }
+
+            Historique h = new Historique();
+            h.textHistorique = "les regles de conservation sont applique pour l archive "+f.Nom;
+            h.IdFichier = f.idFichier;
+            h.date = DateTime.Now;
+            new ActionsHistorique().ajouterHistorique(h);
+
+            if (f.sortFinalComm == 0)
+                return RetentionArchives.ArchiveInfoGenerateur(f);
+            else if (f.sortFinalComm == 1)
+                return RetentionArchives.ArchiveInfoGenerateur(f);
+            else
+                return "verifiez votre connection";
         }
     }
 }
